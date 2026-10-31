@@ -1,0 +1,1232 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>SALUX prototipo interactivo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0;text-align:inherit;-webkit-tap-highlight-color:transparent}
+button:active:not(:disabled){transform:scale(.98)}
+button:focus-visible,.inp:focus-visible{outline:3px solid var(--pr);outline-offset:2px}
+.app{--bg:#F4F2FF;--sf:#FFFFFF;--ink:#16134A;--mu:#5E5B86;--pr:#5B45D6;--pk:#FFFFFF;--ln:#E6E2F8;--sd:#EEEAFE;--sh:0 10px 28px rgba(70,50,160,.10);--grad:linear-gradient(135deg,#7360F2,#4B35C9);--ok:#1B7D58;--okb:#DDF4EA;--er:#C7364A;--erb:#FDE3E6;--wn:#B5611A;--wnb:#FFEBD3;--bv:#E8E3FD;--fv:#4A37C4;--bb:#DCEBFC;--fb:#2A66AE;--bm:#D6F3E7;--fm:#17704F;--bp:#FCE0E8;--fp:#B52D58;--bo:#FFEBD3;--fo:#A85A14;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:14px;line-height:1.4;color:var(--ink)}
+.app.dark{--bg:#0C0B18;--sf:#171530;--ink:#F3F1FF;--mu:#ABA8D3;--pr:#9486FF;--ln:#2A2851;--sd:#242148;--sh:0 10px 28px rgba(0,0,0,.42);--ok:#5ED6A5;--okb:#133A2D;--er:#FF8A9A;--erb:#47202A;--wn:#FFC283;--wnb:#46301A;--bv:#2A2457;--fv:#C4BAFF;--bb:#172B47;--fb:#8CC3FF;--bm:#123A2E;--fm:#7FE0B8;--bp:#43182B;--fp:#FF9CB8;--bo:#46301A;--fo:#FFC283}
+.tv{background:var(--bv);color:var(--fv)}.tb{background:var(--bb);color:var(--fb)}.tm{background:var(--bm);color:var(--fm)}.tp{background:var(--bp);color:var(--fp)}.to{background:var(--bo);color:var(--fo)}
+.pg{padding:20px 20px 32px;min-height:100%;animation:fup .32s ease both}
+@keyframes fup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ti{font-weight:800;font-size:17px;letter-spacing:-.2px}
+.ib{width:44px;height:44px;border-radius:50%;background:var(--sf);border:1px solid var(--ln);box-shadow:0 4px 12px rgba(70,50,160,.07);display:flex;align-items:center;justify-content:center;color:var(--ink);flex:none;position:relative}
+.h1{font-size:27px;font-weight:800;line-height:1.15;margin:0 0 6px;letter-spacing:-.5px}
+.sub{color:var(--mu);margin:0 0 18px}
+.btn{width:100%;height:56px;border-radius:28px;background:var(--grad);color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;box-shadow:0 10px 22px rgba(91,69,214,.34)}
+.btn:disabled{opacity:.45;box-shadow:none}
+.btn2{background:var(--sf);color:var(--pr);border:1.5px solid var(--pr);box-shadow:none}
+.lnk{color:var(--pr);font-weight:700}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:22px;padding:14px;box-shadow:var(--sh)}
+.rw{display:flex;align-items:center;gap:12px}
+.sp{flex:1;min-width:0}
+.inp{width:100%;height:54px;border-radius:18px;border:1.5px solid var(--ln);background:var(--sf);color:var(--ink);padding:0 16px;font:inherit;outline:none;transition:box-shadow .15s,border-color .15s}
+.inp:focus{border-color:var(--pr);box-shadow:0 0 0 4px rgba(91,69,214,.14)}
+.lb{font-weight:700;font-size:13px;margin:14px 0 6px;display:block}
+.chip{height:38px;padding:0 15px;border-radius:19px;border:1.5px solid var(--ln);background:var(--sf);font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;flex:none}
+.chip.on{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 6px 14px rgba(91,69,214,.28)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.ico{width:46px;height:46px;border-radius:15px;display:flex;align-items:center;justify-content:center;flex:none;color:#fff;box-shadow:0 6px 14px rgba(40,30,120,.18)}
+.ico.tv{background:linear-gradient(135deg,#A394FF,#5B45D6);color:#fff}.ico.tb{background:linear-gradient(135deg,#7CC2FF,#2F6FD0);color:#fff}.ico.tm{background:linear-gradient(135deg,#59DDAE,#1A9670);color:#fff}.ico.tp{background:linear-gradient(135deg,#FF9BB8,#D8386C);color:#fff}.ico.to{background:linear-gradient(135deg,#FFCB66,#F0832A);color:#fff}
+.mu{color:var(--mu)}.sm{font-size:12px}.b{font-weight:700}
+.sec{display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:18px;margin:24px 0 12px;letter-spacing:-.3px}
+.tabs{display:flex;background:var(--sf);border:1px solid var(--ln);border-radius:28px;padding:8px 6px;flex:none;margin:0 12px 12px;box-shadow:0 14px 34px rgba(50,35,140,.18)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:700;color:var(--mu);padding:2px 0}
+.tab span.t{width:46px;height:30px;border-radius:15px;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.tab.on{color:var(--pr)}.tab.on span.t{background:var(--sd)}
+.opt{width:100%;display:flex;gap:12px;align-items:center;padding:15px;border-radius:18px;border:1.5px solid var(--ln);background:var(--sf);font-weight:600;box-shadow:0 4px 12px rgba(70,50,160,.05)}
+.opt.sel{border-color:var(--pr);background:var(--sd);box-shadow:0 0 0 4px rgba(91,69,214,.14)}
+.opt.ok{border-color:var(--ok);background:var(--okb)}
+.opt.er{border-color:var(--er);background:var(--erb)}
+.lt{width:32px;height:32px;border-radius:50%;background:var(--sd);display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+.opt.ok .lt{background:var(--ok);color:#fff}.opt.er .lt{background:var(--er);color:#fff}
+.tg{width:52px;height:32px;border-radius:16px;background:var(--ln);position:relative;flex:none;transition:background .2s}
+.tg i{position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.25);transition:left .18s}
+.tg.on{background:var(--grad)}.tg.on i{left:23px}
+.bar{height:9px;border-radius:5px;background:var(--sd);overflow:hidden}
+.bar b{display:block;height:100%;background:var(--grad);border-radius:5px}
+.ovl{position:absolute;inset:0;background:rgba(14,10,40,.55);display:flex;align-items:flex-end;z-index:5;animation:fin .2s ease both}
+@keyframes fin{from{opacity:0}to{opacity:1}}
+.sheet{width:100%;background:var(--sf);border-radius:30px 30px 0 0;padding:14px 20px 28px;max-height:84%;overflow-y:auto;animation:sup .28s ease both}
+.sheet:before{content:'';display:block;width:44px;height:5px;border-radius:3px;background:var(--ln);margin:0 auto 14px}
+@keyframes sup{from{transform:translateY(40px)}to{transform:none}}
+.toast{position:absolute;left:20px;right:20px;bottom:110px;background:var(--ink);color:var(--bg);padding:13px 16px;border-radius:16px;font-weight:600;text-align:center;z-index:9;box-shadow:0 12px 28px rgba(0,0,0,.3);animation:fup .25s ease both}
+.mr{display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--ln);width:100%}
+.mr:last-child{border-bottom:0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.dv{display:flex;align-items:center;gap:10px;color:var(--mu);margin:18px 0;font-size:13px}
+.dv:before,.dv:after{content:'';flex:1;height:1px;background:var(--ln)}
+.soc{width:60px;height:60px;border-radius:50%;background:var(--sf);border:1.5px solid var(--ln);box-shadow:var(--sh);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px}
+.logo{position:relative;font-weight:800;font-size:54px;letter-spacing:2px;color:#2A2F6E;line-height:1;display:inline-block}
+.app.dark .logo{color:#F3F1FF}
+.logo .la{color:#6D5BE8}.logo .st{position:absolute;top:-16px;left:38px}
+.tag{letter-spacing:3px;font-weight:700;font-size:11px;color:var(--mu);text-align:center}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:14px;font-weight:700;font-size:12px}
+.c{display:flex;flex-direction:column;align-items:center;text-align:center}
+.full{width:100%;height:100%}
+.ph-bg{background:radial-gradient(120% 55% at 100% 0%,rgba(122,102,242,.24),transparent 60%),radial-gradient(90% 45% at 0% 14%,rgba(110,190,255,.18),transparent 55%),var(--bg)}
+.dot{width:8px;height:8px;border-radius:4px;background:var(--ln)}
+.dot.on{width:26px;background:var(--pr)}
+.hero{background:var(--grad);color:#fff;border-radius:28px;position:relative;overflow:hidden;box-shadow:0 16px 34px rgba(91,69,214,.38)}
+.hero:before{content:'';position:absolute;right:-40px;top:-50px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.12)}
+.hero:after{content:'';position:absolute;left:-30px;bottom:-60px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero > *{position:relative;z-index:1}
+.heroo{background:linear-gradient(135deg,#FFB24F,#F0732A);color:#fff;border-radius:24px;box-shadow:0 14px 28px rgba(240,115,42,.32)}
+.glass{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);border-radius:16px}
+.wd{width:34px;height:44px;border-radius:14px;background:var(--sd);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;font-weight:700;color:var(--mu)}
+.wd.on{background:linear-gradient(180deg,#FFB24F,#F0732A);color:#fff}.wd.today{box-shadow:0 0 0 2px var(--pr)}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;text-align:center}
+.cal span{height:38px;display:flex;align-items:center;justify-content:center;border-radius:12px;font-weight:600;font-size:13px}
+.cal .d{background:linear-gradient(180deg,#FFB24F,#F0732A);color:#fff}.cal .t{box-shadow:inset 0 0 0 2px var(--pr)}.cal .h{height:20px;color:var(--mu);font-size:11px}
+.num{width:100%;aspect-ratio:1;border-radius:14px;border:1.5px solid var(--ln);background:var(--sf);font-weight:700;display:flex;align-items:center;justify-content:center}
+.num.done{background:var(--sd);border-color:var(--pr)}.num.flag{background:var(--wnb);border-color:var(--wn)}.num.cur{background:var(--grad);color:#fff;border-color:transparent}
+.tile{border-radius:24px;padding:16px 12px;border:1px solid transparent;position:relative;overflow:hidden;box-shadow:var(--sh)}
+.badge{position:absolute;top:10px;right:10px}
+.seg{display:flex;background:var(--sd);border-radius:18px;padding:4px;gap:4px}
+.seg button{flex:1;height:40px;border-radius:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--mu)}
+.seg button.on{background:var(--sf);color:var(--pr);box-shadow:0 4px 12px rgba(70,50,160,.16)}
+.cf{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.cf i{position:absolute;top:-24px;width:8px;height:14px;border-radius:2px;animation:fall 3.2s linear infinite}
+.cf i:nth-child(1){left:8%;background:#FFB24F;animation-delay:0s}.cf i:nth-child(2){left:20%;background:#7360F2;animation-delay:.6s}.cf i:nth-child(3){left:33%;background:#FF7AA2;animation-delay:1.2s}.cf i:nth-child(4){left:46%;background:#59DDAE;animation-delay:.3s}.cf i:nth-child(5){left:58%;background:#7CC2FF;animation-delay:.9s}.cf i:nth-child(6){left:70%;background:#FFB24F;animation-delay:1.5s}.cf i:nth-child(7){left:82%;background:#FF7AA2;animation-delay:.45s}.cf i:nth-child(8){left:92%;background:#7360F2;animation-delay:1.1s}
+@keyframes fall{to{transform:translateY(560px) rotate(300deg);opacity:.2}}
+.spin{animation:spn 1s linear infinite}
+@keyframes spn{to{transform:rotate(360deg)}}
+.float{animation:flt 3.4s ease-in-out infinite}
+@keyframes flt{50%{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){.spin,.float,.cf i,.pg,.sheet,.toast,.ovl{animation:none}}
+.idx button{display:block;width:100%;padding:7px 10px;border-radius:10px;font-weight:600;font-size:13px}
+.idx button.on{background:var(--grad);color:#fff}
+.idx .gh{font-weight:800;font-size:11px;letter-spacing:1.5px;color:var(--mu);margin:12px 10px 2px;text-transform:uppercase}
+.line{height:1px;background:var(--ln);margin:6px 0}
+.sk{height:10px;border-radius:5px;background:var(--sd);margin:10px 0}
+</style>
+</helmet>
+<div class="app {{T.cls}}" style="display:flex;gap:40px;width:840px;height:872px;padding:14px 0 0 14px;background:#E4E0F6;align-items:flex-start">
+<div style="position:relative;width:390px;height:844px;border-radius:46px;overflow:hidden;background:var(--bg);box-shadow:0 0 0 9px #15122E,0 30px 60px rgba(30,20,90,.38);display:flex;flex-direction:column;flex:none">
+<div class="scr" style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none">
+<sc-if value="{{ S.splash }}" hint-placeholder-val="{{ false }}">
+<button class="full ph-bg c" style="justify-content:center;gap:10px;animation:fin .5s ease both" onClick="{{ H.toOb }}" aria-label="Continuar">
+<div class="logo"><svg class="st" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.2 8.8L23 12l-8.8 2.2L12 23l-2.2-8.8L1 12l8.8-2.2z" fill="#6D5BE8"></path></svg>S<span class="la">A</span>LUX</div>
+<img class="float" src="/_blob/02ced16a175a65a00a4cf1822e536e60" alt="Mascota de SALUX con su teléfono" style="height:290px;width:auto;margin:10px 0;filter:drop-shadow(0 20px 24px rgba(70,50,160,.32))">
+<div class="tag">TU FUTURO EN SALUD<br>COMIENZA AQUÍ</div>
+<div class="bar" style="width:150px;margin-top:14px"><b style="width:72%"></b></div>
+</button>
+</sc-if>
+<sc-if value="{{ S.onboarding }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg" style="display:flex;flex-direction:column;min-height:100%">
+<div class="hd"><span class="dot-row rw"><sc-for list="{{ obDots }}" as="d" hint-placeholder-count="3"><span class="dot {{ d.cls }}"></span></sc-for></span><button class="lnk" onClick="{{ H.obSkip }}">Saltar</button></div>
+<div class="c" style="flex:1;justify-content:center;gap:16px">
+<div class="card c" style="width:100%;padding:28px;gap:14px;border-radius:32px">
+<div class="ico {{ T.obTone }}" style="width:84px;height:84px;border-radius:26px"><dc-import name="I" n="{{ T.obIc }}" s="42"></dc-import></div>
+<dc-import name="Mascot" mood="{{ T.obMood }}" w="120"></dc-import>
+</div>
+<h1 class="h1" style="margin-top:10px">{{ T.obT }}</h1>
+<p class="sub" style="margin:0">{{ T.obD }}</p>
+</div>
+<button class="btn" onClick="{{ H.obNext }}">{{ T.obBtn }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.welcome }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg c" style="min-height:100%;padding-top:34px;position:relative;overflow:hidden">
+<div style="position:absolute;left:-60px;top:260px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(122,102,242,.28),transparent 70%)"></div>
+<div style="position:absolute;right:-60px;top:330px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(110,200,255,.3),transparent 70%)"></div>
+<div class="logo" style="position:relative;margin-top:12px"><svg class="st" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.2 8.8L23 12l-8.8 2.2L12 23l-2.2-8.8L1 12l8.8-2.2z" fill="#6D5BE8"></path></svg>S<span class="la">A</span>LUX</div>
+<div class="tag" style="margin-top:12px;position:relative">TU FUTURO EN SALUD<br>COMIENZA AQUÍ</div>
+<img class="float" src="/_blob/02ced16a175a65a00a4cf1822e536e60" alt="Mascota de SALUX sentada con su teléfono" style="height:290px;width:auto;margin:14px 0 4px;position:relative;filter:drop-shadow(0 20px 24px rgba(70,50,160,.3))">
+<span class="pill tm" style="position:relative"><dc-import name="I" n="star" s="14"></dc-import>3 días gratis para probar todo</span>
+<div style="width:100%;margin-top:16px;display:flex;flex-direction:column;gap:12px;position:relative">
+<button class="btn" onClick="{{ H.toLogin }}">Iniciar sesión</button>
+<button class="btn btn2" onClick="{{ H.toRegister }}">Regístrate aquí</button>
+</div>
+<div class="dv" style="width:100%;position:relative">o continúa con</div>
+<div class="rw" style="gap:18px;position:relative">
+<button class="soc" aria-label="Continuar con Google" onClick="{{ H.google }}"><span style="color:#4285F4">G</span></button>
+<button class="soc" aria-label="Continuar con Apple" onClick="{{ H.apple }}"><dc-import name="I" n="apple" s="26"></dc-import></button>
+<button class="soc" aria-label="Continuar con correo" onClick="{{ H.toLogin }}"><dc-import name="I" n="mail" s="24"></dc-import></button>
+</div>
+<p class="mu sm" style="margin:16px 0 0;position:relative">Al continuar aceptas los <button class="lnk" onClick="{{ H.toLegal }}">Términos y la Política de privacidad</button>.</p>
+</div>
+</sc-if>
+<sc-if value="{{ S.login }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Iniciar sesión</span><span style="width:44px"></span></div>
+<div class="c" style="margin:-6px 0 8px"><img src="/_blob/02ced16a175a65a00a4cf1822e536e60" alt="Mascota de SALUX con su teléfono" style="height:150px;width:auto;filter:drop-shadow(0 12px 16px rgba(70,50,160,.28))"></div>
+<h1 class="h1">Bienvenido de nuevo</h1>
+<p class="sub">Retoma tu preparación donde la dejaste.</p>
+<label class="lb" for="lg-mail">Correo electrónico</label>
+<input id="lg-mail" class="inp" type="email" placeholder="tucorreo@ejemplo.com">
+<label class="lb" for="lg-pw">Contraseña</label>
+<div style="position:relative"><input id="lg-pw" class="inp" type="{{ T.pwType }}" placeholder="••••••••" style="padding-right:56px"><button class="ib" aria-label="Mostrar u ocultar contraseña" style="position:absolute;right:4px;top:4px;width:44px;height:44px;border:0;background:transparent" onClick="{{ H.togglePw }}"><dc-import name="I" n="{{ T.eyeIc }}" s="20"></dc-import></button></div>
+<div style="text-align:right;margin:10px 0 18px"><button class="lnk" onClick="{{ H.toForgot }}">¿Olvidaste tu contraseña?</button></div>
+<button class="btn" onClick="{{ H.doLogin }}">Iniciar sesión</button>
+<div class="dv">o continúa con</div>
+<div class="rw" style="gap:12px"><button class="btn btn2 sp" onClick="{{ H.google }}"><span style="font-weight:800;color:#4285F4">G</span> Google</button><button class="btn btn2 sp" onClick="{{ H.apple }}"><dc-import name="I" n="apple" s="20"></dc-import> Apple</button></div>
+<p class="c mu" style="margin-top:22px">¿No tienes cuenta? <button class="lnk" onClick="{{ H.toRegister }}">Regístrate</button></p>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.register }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Crear cuenta</span><span style="width:44px"></span></div>
+<h1 class="h1">Empieza tu prueba gratis</h1>
+<p class="sub">3 días con todo desbloqueado. No se cobra nada ahora.</p>
+<label class="lb" for="rg-n">Nombre</label><input id="rg-n" class="inp" type="text" placeholder="Tu nombre">
+<label class="lb" for="rg-m">Correo electrónico</label><input id="rg-m" class="inp" type="email" placeholder="tucorreo@ejemplo.com">
+<label class="lb" for="rg-p">Contraseña</label>
+<input id="rg-p" class="inp" type="password" placeholder="Mínimo 8 caracteres" value="{{ T.pw }}" onInput="{{ H.setPw }}">
+<div class="rw" style="margin-top:8px"><div class="bar sp"><b style="width:{{ T.pwW }}"></b></div><span class="sm b">{{ T.pwL }}</span></div>
+<div class="rw" style="margin:16px 0"><button class="tg {{ F.agreeCls }}" role="switch" aria-label="Acepto los términos" aria-checked="{{ F.agree }}" onClick="{{ H.toggleAgree }}"><i></i></button><span class="sm sp">Acepto los Términos y la Política de privacidad (Ley 29733).</span></div>
+<button class="btn" disabled="{{ F.noAgree }}" onClick="{{ H.doRegister }}">Crear cuenta</button>
+<div class="dv">o regístrate con</div>
+<div class="rw" style="gap:12px"><button class="btn btn2 sp" onClick="{{ H.google }}"><span style="font-weight:800;color:#4285F4">G</span> Google</button><button class="btn btn2 sp" onClick="{{ H.apple }}"><dc-import name="I" n="apple" s="20"></dc-import> Apple</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.verify }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Verifica tu correo</span><span style="width:44px"></span></div>
+<div class="c" style="gap:10px;margin:8px 0 18px"><div class="ico tv" style="width:72px;height:72px;border-radius:24px"><dc-import name="I" n="mail" s="34"></dc-import></div>
+<h1 class="h1" style="margin:0">Revisa tu bandeja</h1><p class="sub" style="margin:0">Enviamos un código de 6 dígitos a tu correo.</p></div>
+<label class="lb" for="vf">Código de verificación</label>
+<input id="vf" class="inp" inputmode="numeric" maxlength="6" placeholder="000000" style="text-align:center;font-size:26px;letter-spacing:10px;font-weight:800;height:64px">
+<button class="btn" style="margin-top:20px" onClick="{{ H.toArea }}">Verificar</button>
+<p class="c mu" style="margin-top:18px">¿No llegó? <button class="lnk" onClick="{{ H.resend }}">Reenviar código</button></p>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.forgot }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Recuperar contraseña</span><span style="width:44px"></span></div>
+<sc-if value="{{ F.notSent }}" hint-placeholder-val="{{ true }}">
+<h1 class="h1">¿Olvidaste tu contraseña?</h1><p class="sub">Ingresa tu correo y te enviaremos un enlace para crear una nueva.</p>
+<label class="lb" for="fg">Correo electrónico</label><input id="fg" class="inp" type="email" placeholder="tucorreo@ejemplo.com">
+<button class="btn" style="margin-top:20px" onClick="{{ H.sendReset }}">Enviar enlace</button>
+</sc-if>
+<sc-if value="{{ F.sent }}" hint-placeholder-val="{{ false }}">
+<div class="c" style="gap:12px;margin-top:20px"><dc-import name="Mascot" mood="cheer" w="130"></dc-import><h1 class="h1">¡Enlace enviado!</h1><p class="sub">Revisa tu correo. Si tienes verificación en dos pasos activa, también te pediremos tu código.</p>
+<button class="btn" onClick="{{ H.toLogin }}">Volver a iniciar sesión</button></div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.mfa }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Verificación en dos pasos</span><span style="width:44px"></span></div>
+<div class="c" style="gap:10px;margin:8px 0 18px"><div class="ico tm" style="width:72px;height:72px;border-radius:24px"><dc-import name="I" n="shield" s="34"></dc-import></div>
+<h1 class="h1" style="margin:0">Ingresa tu código</h1><p class="sub" style="margin:0">Abre tu app autenticadora y escribe el código de 6 dígitos.</p></div>
+<label class="lb" for="mf">Código de 6 dígitos</label>
+<input id="mf" class="inp" inputmode="numeric" maxlength="6" placeholder="000000" style="text-align:center;font-size:26px;letter-spacing:10px;font-weight:800;height:64px">
+<div class="rw" style="margin:16px 0"><button class="tg {{ F.trustCls }}" role="switch" aria-label="Confiar en este dispositivo" aria-checked="{{ F.trust }}" onClick="{{ H.toggleTrust }}"><i></i></button><span class="sp">Confiar en este dispositivo por 30 días</span></div>
+<button class="btn" onClick="{{ H.mfaOk }}">Verificar</button>
+<p class="c" style="margin-top:18px"><button class="lnk" onClick="{{ H.useBackup }}">Usar un código de respaldo</button></p>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.mfaSetup }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Activar MFA</span><span style="width:44px"></span></div>
+<div class="card rw" style="margin-bottom:12px"><span class="lt">1</span><span class="sp">Instala una app autenticadora (Google Authenticator, Microsoft Authenticator o similar).</span></div>
+<div class="card c" style="gap:10px;margin-bottom:12px"><span class="b">2. Escanea este código QR</span>
+<div style="background:#fff;border-radius:16px;padding:14px;color:#1E1B4B"><dc-import name="I" n="qr" s="130"></dc-import></div>
+<span class="mu sm">¿No puedes escanear? Clave manual</span><span class="b" style="letter-spacing:2px">SLUX-4F2K-9QX7</span></div>
+<div class="card" style="margin-bottom:16px"><label class="lb" for="ms" style="margin-top:0">3. Escribe el código de 6 dígitos</label><input id="ms" class="inp" inputmode="numeric" maxlength="6" placeholder="000000"></div>
+<button class="btn" onClick="{{ H.mfaActivate }}">Activar verificación en dos pasos</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.backup }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><span style="width:44px"></span><span class="ti">Códigos de respaldo</span><button class="ib" aria-label="Cerrar" onClick="{{ H.backupDone }}"><dc-import name="I" n="close" s="20"></dc-import></button></div>
+<p class="sub">Guárdalos en un lugar seguro. Cada código sirve una sola vez si pierdes acceso a tu app autenticadora.</p>
+<div class="grid2"><sc-for list="{{ codes }}" as="c" hint-placeholder-count="8"><div class="card c b" style="letter-spacing:1px;padding:12px">{{ c }}</div></sc-for></div>
+<div class="rw" style="gap:12px;margin:18px 0"><button class="btn btn2 sp" onClick="{{ H.copyCodes }}"><dc-import name="I" n="copy" s="18"></dc-import> Copiar</button><button class="btn btn2 sp" onClick="{{ H.copyCodes }}"><dc-import name="I" n="download" s="18"></dc-import> Guardar</button></div>
+<button class="btn" onClick="{{ H.backupDone }}">Ya los guardé</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.area }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="mu b">Paso 1 de 2</span><span style="width:44px"></span></div>
+<h1 class="h1">¿Cuál es tu carrera?</h1><p class="sub">Te mostraremos preguntas y simulacros de tu área.</p>
+<div class="grid2"><sc-for list="{{ areas }}" as="a" hint-placeholder-count="8"><button class="card c {{ a.cls }}" style="gap:8px;padding:18px 8px;border-width:2px;border-color:{{ a.bd }}" onClick="{{ a.pick }}"><span class="ico {{ a.tone }}"><dc-import name="I" n="{{ a.ic }}" s="24"></dc-import></span><span class="b">{{ a.l }}</span></button></sc-for></div>
+<button class="btn" style="margin-top:20px" onClick="{{ H.toGoal }}">Continuar</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.goal }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="mu b">Paso 2 de 2</span><span style="width:44px"></span></div>
+<h1 class="h1">Tu examen objetivo</h1><p class="sub">Puedes cambiarlo cuando quieras.</p>
+<div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{ goals }}" as="g" hint-placeholder-count="4"><button class="opt {{ g.cls }}" onClick="{{ g.pick }}"><span class="ico {{ g.tone }}" style="width:38px;height:38px"><dc-import name="I" n="{{ g.ic }}" s="20"></dc-import></span><span class="sp">{{ g.l }}</span><sc-if value="{{ g.on }}" hint-placeholder-val="{{ false }}"><dc-import name="I" n="check" s="20"></dc-import></sc-if></button></sc-for></div>
+<label class="lb" for="gd">Fecha del examen</label><input id="gd" class="inp" type="date" value="2026-12-12">
+<span class="lb">Meta diaria</span>
+<div class="chips"><sc-for list="{{ goalOpts }}" as="o" hint-placeholder-count="3"><button class="chip {{ o.cls }}" onClick="{{ o.pick }}">{{ o.l }}</button></sc-for></div>
+<label class="lb" for="gr">Recordatorio diario</label><input id="gr" class="inp" type="time" value="20:00">
+<button class="btn" style="margin-top:22px" onClick="{{ H.toTrial }}">Continuar</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.trialStart }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg c" style="min-height:100%;justify-content:center;gap:12px">
+<dc-import name="Mascot" mood="cheer" w="170"></dc-import>
+<h1 class="h1">¡Tienes 3 días gratis!</h1>
+<p class="sub" style="margin:0">Todo SALUX desbloqueado, sin ingresar medios de pago.</p>
+<div class="card" style="width:100%;text-align:left;display:flex;flex-direction:column;gap:10px;margin:8px 0">
+<div class="rw"><span class="tm ico" style="width:32px;height:32px;border-radius:10px"><dc-import name="I" n="check" s="18"></dc-import></span><span class="sp">Simulacros y preguntas de tu examen</span></div>
+<div class="rw"><span class="tm ico" style="width:32px;height:32px;border-radius:10px"><dc-import name="I" n="check" s="18"></dc-import></span><span class="sp">Respuestas correctas con explicación</span></div>
+<div class="rw"><span class="tm ico" style="width:32px;height:32px;border-radius:10px"><dc-import name="I" n="check" s="18"></dc-import></span><span class="sp">Racha, progreso y estadísticas</span></div>
+</div>
+<p class="mu sm" style="margin:0 0 6px">Al terminar elegirás un plan y pagas con Yape, Plin o tarjeta. Al pagar, todo se desbloquea al instante.</p>
+<button class="btn" onClick="{{ H.startTrial }}">Comenzar a estudiar</button>
+</div>
+</sc-if>
+<sc-if value="{{ S.home }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg" style="padding-top:18px">
+<div class="rw" style="margin-bottom:14px">
+<button onClick="{{ H.toProfile }}" aria-label="Mi perfil"><img src="/_blob/fefe525c65b35bb3cc7cedce7a2fcf26" alt="" style="width:52px;height:52px;border-radius:26px;display:block;box-shadow:0 0 0 3px var(--sf),0 8px 16px rgba(70,50,160,.28)"></button>
+<div class="sp"><div class="sm mu b">{{ T.greet }}</div><div style="font-weight:800;font-size:22px;letter-spacing:-.4px">¡Hola, {{ T.name }}!</div></div>
+<button class="pill to" onClick="{{ H.toStreak }}" aria-label="Ver racha"><dc-import name="I" n="flame" s="16"></dc-import>{{ T.streak }}</button>
+<button class="ib" aria-label="Notificaciones" onClick="{{ H.toNotifs }}"><dc-import name="I" n="bell" s="22"></dc-import><span style="position:absolute;top:9px;right:10px;width:10px;height:10px;border-radius:5px;background:#F0455A;box-shadow:0 0 0 2px var(--sf)"></span></button></div>
+<button class="rw card" style="width:100%;gap:10px;margin:0 0 14px;color:var(--mu);padding:14px 16px" onClick="{{ H.toSearch }}"><dc-import name="I" n="search" s="20"></dc-import><span class="sp">Buscar temas, cursos, casos...</span><dc-import name="I" n="sliders" s="20"></dc-import></button>
+<sc-if value="{{ F.trialBanner }}" hint-placeholder-val="{{ true }}">
+<button class="rw card tm" style="width:100%;margin-bottom:14px;border-color:transparent" onClick="{{ H.toPlans }}"><dc-import name="I" n="clock" s="22"></dc-import><span class="sp"><b>Prueba gratis: {{ T.trialLeft }} días restantes</b><br><span class="sm">Elige tu plan antes de que termine</span></span><dc-import name="I" n="chev" s="18"></dc-import></button>
+</sc-if>
+<sc-if value="{{ F.noAccess }}" hint-placeholder-val="{{ false }}">
+<button class="rw card tp" style="width:100%;margin-bottom:14px;border-color:transparent" onClick="{{ H.toPaywall }}"><dc-import name="I" n="lock" s="22"></dc-import><span class="sp"><b>Tu prueba gratis terminó</b><br><span class="sm">Activa Premium para seguir practicando</span></span><dc-import name="I" n="chev" s="18"></dc-import></button>
+</sc-if>
+<div class="hero rw" style="padding:20px 6px 0 20px;gap:0;align-items:flex-end;min-height:184px">
+<div class="sp" style="padding-bottom:20px"><div style="font-weight:800;font-size:23px;line-height:1.15;letter-spacing:-.4px">Aprende, practica<br>y avanza</div><div class="sm" style="opacity:.92;margin:6px 0 12px">Recursos para todos los profesionales de la salud.</div><button class="chip" style="background:#fff;color:#4B35C9;border:0;height:36px" onClick="{{ H.toModules }}">Explorar <dc-import name="I" n="chev" s="14"></dc-import></button></div>
+<img src="/_blob/02ced16a175a65a00a4cf1822e536e60" alt="" style="height:176px;width:auto;flex:none;filter:drop-shadow(0 10px 14px rgba(20,10,80,.3))"></div>
+<div class="card" style="margin-top:14px">
+<div class="rw" style="gap:14px">
+<svg width="72" height="72" viewBox="0 0 64 64" role="img" aria-label="Meta diaria"><circle cx="32" cy="32" r="26" fill="none" stroke="var(--sd)" stroke-width="7"></circle><circle cx="32" cy="32" r="26" fill="none" stroke="var(--pr)" stroke-width="7" stroke-linecap="round" stroke-dasharray="{{ T.ring }}" transform="rotate(-90 32 32)"></circle></svg>
+<div class="sp"><div class="b" style="font-size:16px">Meta de hoy</div><div class="mu sm">{{ T.today }} de {{ T.goal }} preguntas · racha de {{ T.streak }} días</div><button class="lnk sm" style="margin-top:4px" onClick="{{ H.quickPractice }}">Seguir practicando ›</button></div></div>
+<div class="rw" style="justify-content:space-between;margin-top:14px;gap:4px"><sc-for list="{{ weekDots }}" as="w" hint-placeholder-count="7"><div class="wd {{ w.cls }}"><span>{{ w.d }}</span><sc-if value="{{ w.on }}" hint-placeholder-val="{{ true }}"><dc-import name="I" n="flame" s="16"></dc-import></sc-if><sc-if value="{{ w.off }}" hint-placeholder-val="{{ false }}"><span style="width:6px;height:6px;border-radius:3px;background:currentColor;opacity:.35"></span></sc-if></div></sc-for></div></div>
+<div class="sec">Accesos rápidos</div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px"><sc-for list="{{ quick }}" as="q" hint-placeholder-count="4"><button class="c" style="gap:7px" onClick="{{ q.go }}"><span class="ico {{ q.tone }}" style="width:58px;height:58px;border-radius:20px"><dc-import name="I" n="{{ q.ic }}" s="26"></dc-import></span><span class="sm b">{{ q.l }}</span></button></sc-for></div>
+<button class="card rw" style="width:100%;margin-top:18px" onClick="{{ H.resumeExam }}"><span class="ico tv"><dc-import name="I" n="file" s="22"></dc-import></span><span class="sp"><div class="sm mu b">CONTINÚA DONDE LO DEJASTE</div><b>ENAM · Medicina Interna</b><div class="bar" style="margin-top:8px"><b style="width:65%"></b></div></span><span class="b" style="color:var(--pr)">65%</span></button>
+<div class="card rw" style="margin-top:12px"><span class="ico tb"><dc-import name="I" n="calendar" s="22"></dc-import></span><span class="sp"><b>ENAM · faltan 43 días</b><div class="mu sm">Examen: 12 dic 2026 · vas bien encaminado</div></span><button class="ib" aria-label="Plan de estudio" onClick="{{ H.toPlan }}" style="width:40px;height:40px"><dc-import name="I" n="chev" s="18"></dc-import></button></div>
+<div class="sec">Cursos principales<button class="lnk sm" onClick="{{ H.toModules }}">Ver todos ›</button></div>
+<div class="grid2"><sc-for list="{{ home4 }}" as="m" hint-placeholder-count="4"><button class="tile c {{ m.tone }}" style="gap:6px;min-height:150px;justify-content:center" onClick="{{ m.go }}"><dc-import name="I" n="{{ m.ic }}" s="42" duo="1"></dc-import><b style="font-size:16px;margin-top:4px">{{ m.t }}</b><span class="sm" style="opacity:.92">{{ m.d }}</span></button></sc-for></div>
+<button class="heroo rw" style="width:100%;margin-top:18px;padding:16px;gap:12px" onClick="{{ H.dailyQ }}"><span class="ico glass" style="background:rgba(255,255,255,.22);box-shadow:none"><dc-import name="I" n="bolt" s="24"></dc-import></span><span class="sp"><div class="sm b" style="opacity:.9">PREGUNTA DEL DÍA</div><b style="font-size:15px">¿Cuál es el fármaco de primera línea en anafilaxia?</b></span><dc-import name="I" n="chev" s="20"></dc-import></button>
+<div class="card rw" style="margin-top:14px"><dc-import name="Mascot" mood="think" w="64"></dc-import><span class="sp"><b>Tip de estudio</b><div class="mu sm">Repasa tus errores el mismo día: lo que corriges hoy se recuerda más tiempo.</div></span></div>
+</div>
+</sc-if>
+<sc-if value="{{ S.search }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><input class="inp" aria-label="Buscar" placeholder="Buscar temas, cursos, casos..." value="{{ T.q }}" onInput="{{ H.setQ }}" style="margin-left:10px"></div>
+<sc-if value="{{ F.noQ }}" hint-placeholder-val="{{ true }}">
+<div class="sec" style="margin-top:6px">Búsquedas recientes</div>
+<div class="chips" style="flex-wrap:wrap"><sc-for list="{{ recents }}" as="r" hint-placeholder-count="4"><button class="chip" onClick="{{ r.pick }}"><dc-import name="I" n="history" s="14"></dc-import>{{ r.l }}</button></sc-for></div>
+</sc-if>
+<div class="sec">{{ T.qTitle }}</div>
+<sc-for list="{{ qres }}" as="m" hint-placeholder-count="4"><button class="mr" onClick="{{ m.go }}"><span class="ico {{ m.tone }}"><dc-import name="I" n="{{ m.ic }}" s="22"></dc-import></span><span class="sp"><b>{{ m.t }}</b><div class="mu sm">{{ m.d }}</div></span><dc-import name="I" n="chev" s="18"></dc-import></button></sc-for>
+<sc-if value="{{ F.noRes }}" hint-placeholder-val="{{ false }}"><div class="c mu" style="margin-top:30px;gap:8px"><dc-import name="Mascot" mood="sad" w="90"></dc-import>No encontramos resultados. Prueba con otra palabra.</div></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.modules }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg">
+<div class="hd" style="margin-bottom:10px"><div><h1 class="h1" style="font-size:30px;margin:0">Módulos</h1><div class="mu">Elige tu examen o área de estudio</div></div><button class="ib" aria-label="Notificaciones" onClick="{{ H.toNotifs }}"><dc-import name="I" n="bell" s="22"></dc-import></button></div>
+<div class="rw" style="gap:8px;margin-bottom:12px"><button class="rw card sp" style="gap:10px;color:var(--mu);padding:14px 16px" onClick="{{ H.toSearch }}"><dc-import name="I" n="search" s="20"></dc-import>Buscar un módulo...</button><button class="ib" style="width:52px;height:52px;border-radius:18px" aria-label="Filtros" onClick="{{ H.openFilter }}"><dc-import name="I" n="sliders" s="20"></dc-import></button></div>
+<div class="chips" style="margin-bottom:8px"><sc-for list="{{ filters }}" as="f" hint-placeholder-count="6"><button class="chip {{ f.cls }}" onClick="{{ f.pick }}">{{ f.l }}</button></sc-for></div>
+<button class="hero rw" style="width:100%;padding:18px;gap:12px;margin:8px 0 16px" onClick="{{ H.resumeExam }}"><span class="sp"><span class="pill glass" style="color:#fff"><dc-import name="I" n="star" s="14"></dc-import>Destacado</span><div style="font-weight:800;font-size:22px;margin:8px 0 2px;letter-spacing:-.3px">ENAM 2026</div><div class="sm" style="opacity:.92">Teoría, preguntas y simulacros actualizados</div><div class="rw" style="margin-top:12px;gap:10px"><div class="bar sp" style="background:rgba(255,255,255,.28)"><b style="width:65%;background:#fff"></b></div><b>65%</b></div></span><dc-import name="I" n="steth" s="56" c="#fff" duo="1"></dc-import></button>
+<sc-for list="{{ mods }}" as="m" hint-placeholder-count="6"><button class="card rw" style="width:100%;margin-bottom:12px;padding:12px" onClick="{{ m.go }}"><span class="ico {{ m.tone }}" style="width:56px;height:56px;border-radius:19px"><dc-import name="I" n="{{ m.ic }}" s="28" duo="1"></dc-import></span><span class="sp"><b style="font-size:15px">{{ m.t }}</b><div class="mu sm">{{ m.d }}</div><span class="pill {{ m.tone }}" style="padding:3px 9px;font-size:11px;margin-top:6px">{{ m.meta }}</span></span><sc-if value="{{ m.lock }}" hint-placeholder-val="{{ false }}"><dc-import name="I" n="lock" s="18"></dc-import></sc-if><dc-import name="I" n="chev" s="18"></dc-import></button></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ S.examDetail }}" hint-placeholder-val="{{ false }}">
+<div class="pg" style="padding-bottom:100px">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">{{ T.exam }}</span><button class="ib" aria-label="Descargas" onClick="{{ H.toDownloads }}"><dc-import name="I" n="download" s="20"></dc-import></button></div>
+<img src="/_blob/2d9b13b5c60528b3703d043b5eb40a6f" alt="Mascota estudiando con su laptop" style="width:100%;display:block;border-radius:26px;box-shadow:var(--sh)">
+<h1 class="h1" style="margin-top:14px">{{ T.exam }}</h1>
+<p class="sub" style="margin-bottom:12px">{{ T.examDesc }}</p>
+<div class="rw" style="gap:8px;margin-bottom:12px"><div class="card c sp" style="padding:10px 6px"><b style="font-size:18px;color:var(--pr)">65%</b><span class="sm mu">Progreso</span></div><div class="card c sp" style="padding:10px 6px"><b style="font-size:18px;color:var(--pr)">43</b><span class="sm mu">Días al examen</span></div><div class="card c sp" style="padding:10px 6px"><b style="font-size:18px;color:var(--pr)">10</b><span class="sm mu">Preguntas demo</span></div></div>
+<div class="bar" style="margin-bottom:14px"><b style="width:65%"></b></div>
+<div class="seg" style="margin-bottom:10px"><sc-for list="{{ exTabs }}" as="t" hint-placeholder-count="4"><button class="{{ t.cls }}" style="font-size:12px" onClick="{{ t.pick }}">{{ t.l }}</button></sc-for></div>
+<sc-if value="{{ F.t0 }}" hint-placeholder-val="{{ true }}"><sc-for list="{{ topics }}" as="t" hint-placeholder-count="8"><button class="mr" onClick="{{ t.go }}"><span class="ico {{ t.tone }}" style="width:44px;height:44px"><dc-import name="I" n="{{ t.ic }}" s="22" duo="1"></dc-import></span><span class="sp"><b>{{ t.t }}</b><div class="mu sm">{{ t.n }} temas</div></span><dc-import name="I" n="chev" s="18"></dc-import></button></sc-for></sc-if>
+<sc-if value="{{ F.t1 }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ sims3 }}" as="t" hint-placeholder-count="3"><button class="mr" onClick="{{ t.go }}"><span class="ico tv"><dc-import name="I" n="file" s="22"></dc-import></span><span class="sp"><b>{{ t.t }}</b><div class="mu sm">{{ t.d }}</div></span><span class="chip on" style="height:32px">Iniciar</span></button></sc-for></sc-if>
+<sc-if value="{{ F.t2 }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ cases3 }}" as="t" hint-placeholder-count="3"><button class="mr" onClick="{{ t.go }}"><span class="ico tp"><dc-import name="I" n="pulse" s="22"></dc-import></span><span class="sp"><b>{{ t.t }}</b><div class="mu sm">{{ t.d }}</div></span><dc-import name="I" n="chev" s="18"></dc-import></button></sc-for></sc-if>
+<sc-if value="{{ F.t3 }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ res3 }}" as="t" hint-placeholder-count="3"><div class="mr"><span class="ico tb"><dc-import name="I" n="book" s="22"></dc-import></span><span class="sp"><b>{{ t.t }}</b><div class="mu sm">{{ t.d }}</div></span><button class="ib" aria-label="Descargar {{ t.t }}" onClick="{{ t.dl }}"><dc-import name="I" n="download" s="18"></dc-import></button></div></sc-for><button class="btn btn2" style="margin-top:12px" onClick="{{ H.toDocs }}">Ver biblioteca de documentos</button></sc-if>
+<div style="position:absolute;left:20px;right:20px;bottom:14px;z-index:2"><button class="btn" onClick="{{ H.toSetup }}"><dc-import name="I" n="target" s="20"></dc-import> Iniciar simulacro</button></div>
+</div>
+</sc-if>
+<sc-if value="{{ S.topic }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">{{ T.topic }}</span><button class="ib" aria-label="Guardar en favoritos" onClick="{{ H.favTopic }}"><dc-import name="I" n="heart" s="20"></dc-import></button></div>
+<div class="card tv" style="border-color:transparent"><b>{{ T.exam }} · {{ T.topic }}</b><div class="sm" style="margin:4px 0 10px">Tu avance en este tema</div><div class="rw"><div class="bar sp" style="background:var(--sf)"><b style="width:48%"></b></div><b>48%</b></div></div>
+<div class="sec">Contenido del tema</div>
+<div class="mr"><span class="ico tb"><dc-import name="I" n="file" s="22"></dc-import></span><span class="sp"><b>Teoría y resumen</b><div class="mu sm">12 lecturas · 35 min</div></span><dc-import name="I" n="chev" s="18"></dc-import></div>
+<div class="mr"><span class="ico tp"><dc-import name="I" n="pulse" s="22"></dc-import></span><span class="sp"><b>Casos clínicos</b><div class="mu sm">8 casos</div></span><dc-import name="I" n="chev" s="18"></dc-import></div>
+<div class="mr"><span class="ico to"><dc-import name="I" n="bulb" s="22"></dc-import></span><span class="sp"><b>Tarjetas de repaso</b><div class="mu sm">40 tarjetas</div></span><dc-import name="I" n="chev" s="18"></dc-import></div>
+<div class="rw" style="gap:12px;margin-top:20px"><button class="btn btn2 sp" onClick="{{ H.dlTopic }}"><dc-import name="I" n="download" s="18"></dc-import> Descargar</button><button class="btn sp" onClick="{{ H.practiceTopic }}">Practicar</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.sims }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><span style="width:44px"></span><span class="ti">Simulacros</span><button class="ib" aria-label="Historial" onClick="{{ H.toHistory }}"><dc-import name="I" n="history" s="20"></dc-import></button></div>
+<div class="card rw tv" style="border-color:transparent"><div class="sp"><b style="font-size:18px">Crea tu simulacro</b><div class="sm" style="margin:4px 0 10px">Elige examen, modo, cantidad y tiempo.</div><button class="chip on" onClick="{{ H.toSetup }}"><dc-import name="I" n="plus" s="14"></dc-import> Nuevo simulacro</button></div><dc-import name="Mascot" mood="happy" w="92"></dc-import></div>
+<div class="sec">Modos</div>
+<button class="mr" onClick="{{ H.modePractice }}"><span class="ico tm"><dc-import name="I" n="bulb" s="22"></dc-import></span><span class="sp"><b>Práctica</b><div class="mu sm">Respuesta correcta al instante</div></span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<button class="mr" onClick="{{ H.modeSim }}"><span class="ico tv"><dc-import name="I" n="clock" s="22"></dc-import></span><span class="sp"><b>Simulacro con tiempo</b><div class="mu sm">Como el examen real</div></span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<button class="mr" onClick="{{ H.modeErrors }}"><span class="ico tp"><dc-import name="I" n="refresh" s="22"></dc-import></span><span class="sp"><b>Repaso de errores</b><div class="mu sm">4 preguntas por repasar</div></span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<div class="sec">Recientes<button class="lnk sm" onClick="{{ H.toHistory }}">Ver todo ›</button></div>
+<sc-for list="{{ recentSims }}" as="r" hint-placeholder-count="3"><button class="mr" onClick="{{ H.toResultDemo }}"><span class="ico {{ r.tone }}"><b>{{ r.p }}</b></span><span class="sp"><b>{{ r.t }}</b><div class="mu sm">{{ r.d }}</div></span><dc-import name="I" n="chev" s="18"></dc-import></button></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.quizSetup }}" hint-placeholder-val="{{ false }}">
+<div class="pg" style="padding-bottom:110px">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Configurar simulacro</span><span style="width:44px"></span></div>
+<span class="lb" style="margin-top:0">Modo</span>
+<div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{ modeOpts }}" as="o" hint-placeholder-count="3"><button class="opt {{ o.cls }}" onClick="{{ o.pick }}"><span class="ico {{ o.tone }}" style="width:38px;height:38px"><dc-import name="I" n="{{ o.ic }}" s="20"></dc-import></span><span class="sp"><b>{{ o.l }}</b><div class="mu sm" style="font-weight:500">{{ o.d }}</div></span></button></sc-for></div>
+<span class="lb">Cantidad de preguntas</span>
+<div class="chips"><sc-for list="{{ nOpts }}" as="o" hint-placeholder-count="2"><button class="chip {{ o.cls }}" onClick="{{ o.pick }}">{{ o.l }}</button></sc-for></div>
+<sc-if value="{{ F.isSim }}" hint-placeholder-val="{{ false }}"><span class="lb">Tiempo</span>
+<div class="chips"><sc-for list="{{ tOpts }}" as="o" hint-placeholder-count="2"><button class="chip {{ o.cls }}" onClick="{{ o.pick }}">{{ o.l }}</button></sc-for></div></sc-if>
+<div class="card rw" style="margin-top:16px"><dc-import name="I" n="info" s="20"></dc-import><span class="sp sm">Banco de ejemplo: {{ T.exam }} · 10 preguntas de muestra para el prototipo.</span></div>
+<div style="position:absolute;left:20px;right:20px;bottom:20px;z-index:2"><button class="btn" onClick="{{ H.startFromSetup }}">Comenzar</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.quiz }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg" style="padding-bottom:20px">
+<div class="hd"><button class="ib" aria-label="Salir" onClick="{{ H.openExit }}"><dc-import name="I" n="close" s="20"></dc-import></button>
+<div class="sp" style="margin:0 12px"><div class="sm b" style="text-align:center">Pregunta {{ T.qi }} de {{ T.qn }}</div><div class="bar" style="margin-top:6px"><b style="width:{{ T.qPct }}"></b></div></div>
+<button class="pill tv" onClick="{{ H.openPause }}" aria-label="Pausar" style="height:40px;padding:0 12px"><dc-import name="I" n="clock" s="14"></dc-import>{{ T.timer }}</button></div>
+<div class="card" style="padding:18px;margin-bottom:14px"><div class="rw" style="margin-bottom:10px"><span class="pill tb">{{ T.qTema }}</span><span class="sp"></span><span class="pill to"><dc-import name="I" n="flame" s="14"></dc-import>{{ T.streak }}</span></div>
+<h2 style="font-size:18px;line-height:1.45;margin:0;font-weight:700;letter-spacing:-.2px">{{ T.qText }}</h2></div>
+<div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{ opts }}" as="o" hint-placeholder-count="4"><button class="opt {{ o.cls }}" onClick="{{ o.pick }}"><span class="lt">{{ o.l }}</span><span class="sp">{{ o.t }}</span><sc-if value="{{ o.okI }}" hint-placeholder-val="{{ false }}"><dc-import name="I" n="check" s="22"></dc-import></sc-if><sc-if value="{{ o.erI }}" hint-placeholder-val="{{ false }}"><dc-import name="I" n="close" s="22"></dc-import></sc-if></button></sc-for></div>
+<sc-if value="{{ F.showExp }}" hint-placeholder-val="{{ false }}"><div class="card" style="margin-top:14px;background:var(--sd);box-shadow:none"><div class="rw" style="align-items:flex-start"><dc-import name="Mascot" mood="{{ T.qMood }}" w="58"></dc-import><div class="sp"><b>{{ T.verdictQ }}</b><div style="margin-top:4px">{{ T.qExp }}</div></div></div></div></sc-if>
+<div class="rw" style="margin:16px 0 12px;justify-content:space-between">
+<button class="ib" aria-label="Favorito" onClick="{{ H.favQ }}" style="color:{{ T.favColor }}"><dc-import name="I" n="heart" s="20"></dc-import></button>
+<button class="ib" aria-label="Marcar para revisar" onClick="{{ H.flagQ }}" style="color:{{ T.flagColor }}"><dc-import name="I" n="flag" s="20"></dc-import></button>
+<button class="ib" aria-label="Agregar nota" onClick="{{ H.noteQ }}"><dc-import name="I" n="note" s="20"></dc-import></button>
+<button class="ib" aria-label="Navegador de preguntas" onClick="{{ H.openQnav }}"><dc-import name="I" n="grid" s="20"></dc-import></button>
+<button class="ib" aria-label="Reportar pregunta" onClick="{{ H.openReport }}"><dc-import name="I" n="help" s="20"></dc-import></button></div>
+<button class="btn" disabled="{{ F.noAns }}" onClick="{{ H.nextQ }}">{{ T.nextLbl }} <dc-import name="I" n="chev" s="18"></dc-import></button>
+</div>
+</sc-if>
+<sc-if value="{{ S.result }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg c" style="position:relative;overflow:hidden">
+<sc-if value="{{ F.celebrate }}" hint-placeholder-val="{{ false }}"><div class="cf"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></sc-if>
+<div class="hd" style="width:100%"><button class="ib" aria-label="Cerrar" onClick="{{ H.toHomeReset }}"><dc-import name="I" n="close" s="20"></dc-import></button><span class="ti">Resultado</span><button class="ib" aria-label="Compartir" onClick="{{ H.share }}"><dc-import name="I" n="share" s="20"></dc-import></button></div>
+<dc-import name="Mascot" mood="{{ T.rMood }}" w="128"></dc-import>
+<h1 class="h1" style="margin-top:6px">{{ T.rTitle }}</h1>
+<div style="position:relative;margin:6px 0 10px"><svg width="150" height="150" viewBox="0 0 120 120" role="img" aria-label="Puntaje"><circle cx="60" cy="60" r="50" fill="none" stroke="var(--sd)" stroke-width="12"></circle><circle cx="60" cy="60" r="50" fill="none" stroke="var(--pr)" stroke-width="12" stroke-linecap="round" stroke-dasharray="{{ T.rRing }}" transform="rotate(-90 60 60)"></circle></svg><div class="c" style="position:absolute;inset:0;justify-content:center"><b style="font-size:32px;letter-spacing:-1px">{{ T.rPct }}</b><span class="sm mu">{{ T.rScore }}</span></div></div>
+<div class="rw" style="width:100%;gap:10px;margin-bottom:12px"><div class="card tm c sp" style="border-color:transparent;box-shadow:none"><b style="font-size:20px">{{ T.rOk }}</b><span class="sm">Correctas</span></div><div class="card tp c sp" style="border-color:transparent;box-shadow:none"><b style="font-size:20px">{{ T.rBad }}</b><span class="sm">Incorrectas</span></div><div class="card tb c sp" style="border-color:transparent;box-shadow:none"><b style="font-size:20px">{{ T.rTime }}</b><span class="sm">Tiempo</span></div></div>
+<div class="card" style="width:100%;text-align:left;margin-bottom:12px"><b>Por tema</b><sc-for list="{{ byTema }}" as="t" hint-placeholder-count="3"><div style="margin-top:10px"><div class="rw" style="justify-content:space-between;margin-bottom:5px"><span class="sm b">{{ t.t }}</span><span class="sm mu">{{ t.s }}</span></div><div class="bar" style="height:7px"><b style="width:{{ t.w }}"></b></div></div></sc-for></div>
+<div class="card rw" style="width:100%;margin-bottom:16px;text-align:left"><span class="ico to"><dc-import name="I" n="flame" s="22"></dc-import></span><span class="sp"><b>Meta diaria: {{ T.today }}/{{ T.goal }}</b><div class="sm mu">{{ T.rStreakMsg }}</div></span></div>
+<div style="width:100%;display:flex;flex-direction:column;gap:10px"><button class="btn" onClick="{{ H.toReview }}">Revisar respuestas</button><button class="btn btn2" onClick="{{ H.toSetup }}">Repetir simulacro</button></div>
+</div>
+</sc-if>
+<sc-if value="{{ S.review }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Revisión de respuestas</span><span style="width:44px"></span></div>
+<sc-for list="{{ rev }}" as="r" hint-placeholder-count="4"><div class="card" style="margin-bottom:12px"><div class="rw" style="margin-bottom:8px"><span class="pill {{ r.tone }}">{{ r.n }} · {{ r.tag }}</span><span class="sp"></span><button class="ib" aria-label="Favorito" style="width:36px;height:36px" onClick="{{ r.fav }}"><dc-import name="I" n="heart" s="16"></dc-import></button></div>
+<b>{{ r.q }}</b>
+<div class="rw" style="margin-top:10px;gap:8px;align-items:flex-start"><dc-import name="I" n="close" s="16"></dc-import><span class="sp sm">Tu respuesta: {{ r.mine }}</span></div>
+<div class="rw" style="margin-top:4px;gap:8px;align-items:flex-start;color:var(--ok)"><dc-import name="I" n="check" s="16"></dc-import><span class="sp sm b">Correcta: {{ r.right }}</span></div>
+<div class="sm mu" style="margin-top:8px">{{ r.e }}</div></div></sc-for>
+<button class="btn" onClick="{{ H.toHomeReset }}">Volver al inicio</button>
+</div>
+</sc-if>
+<sc-if value="{{ S.progress }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><span style="width:44px"></span><span class="ti">Mi progreso</span><button class="ib" aria-label="Logros" onClick="{{ H.toAch }}"><dc-import name="I" n="trophy" s="20"></dc-import></button></div>
+<div class="grid2"><div class="card tv c" style="border-color:transparent"><b style="font-size:24px">120</b><span class="sm">Temas completados</span></div><div class="card tb c" style="border-color:transparent"><b style="font-size:24px">25</b><span class="sm">Simulacros realizados</span></div><div class="card tm c" style="border-color:transparent"><b style="font-size:24px">85%</b><span class="sm">Progreso general</span></div><button class="card to c" style="border-color:transparent" onClick="{{ H.toStreak }}"><b style="font-size:24px">{{ T.streak }} días</b><span class="sm">Racha actual</span></button></div>
+<div class="sec">Esta semana</div>
+<div class="card"><div class="rw" style="align-items:flex-end;height:110px;justify-content:space-between;gap:8px"><sc-for list="{{ week }}" as="w" hint-placeholder-count="7"><div class="c sp" style="justify-content:flex-end;height:100%;gap:6px"><div style="width:100%;max-width:26px;border-radius:8px;background:var(--pr);height:{{ w.h }}"></div><span class="sm mu">{{ w.d }}</span></div></sc-for></div></div>
+<div class="sec">Precisión por tema</div>
+<sc-for list="{{ acc }}" as="a" hint-placeholder-count="5"><div style="margin-bottom:12px"><div class="rw" style="justify-content:space-between;margin-bottom:6px"><b>{{ a.t }}</b><span class="b {{ a.cls }}">{{ a.p }}%</span></div><div class="bar"><b style="width:{{ a.w }}"></b></div></div></sc-for>
+<div class="card rw tp" style="border-color:transparent"><dc-import name="I" n="target" s="22"></dc-import><span class="sp"><b>Tema por reforzar: Cirugía General</b><div class="sm">Practica 10 preguntas para mejorar</div></span><button class="chip on" onClick="{{ H.modeErrors }}">Repasar</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.streak }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Mi racha</span><button class="ib" aria-label="Logros" onClick="{{ H.toAch }}"><dc-import name="I" n="trophy" s="20"></dc-import></button></div>
+<div class="heroo c" style="padding:22px 16px 18px;gap:2px;position:relative;overflow:hidden">
+<div style="position:absolute;inset:auto -40px -70px -40px;height:160px;border-radius:50%;background:rgba(255,255,255,.14)"></div>
+<div class="float" style="filter:drop-shadow(0 10px 16px rgba(120,40,0,.35));position:relative"><dc-import name="I" n="flame" s="84" c="#fff" duo="1"></dc-import></div>
+<div style="font-weight:800;font-size:54px;letter-spacing:-2px;line-height:1;position:relative">{{ T.streak }}</div>
+<div style="font-weight:700;position:relative">días seguidos</div>
+<div class="sm" style="opacity:.92;position:relative;margin-top:2px">Tu récord: 12 días · ¡Sigue así!</div></div>
+<div class="card" style="margin-top:14px"><div class="rw" style="justify-content:space-between;margin-bottom:10px"><b>Octubre 2026</b><span class="pill to">{{ T.streak }} días</span></div><div class="cal"><span class="h">L</span><span class="h">M</span><span class="h">X</span><span class="h">J</span><span class="h">V</span><span class="h">S</span><span class="h">D</span><sc-for list="{{ cal }}" as="d" hint-placeholder-count="31"><span class="{{ d.cls }}">{{ d.n }}</span></sc-for></div></div>
+<div class="card rw" style="margin-top:12px"><span class="ico tb"><dc-import name="I" n="shield" s="22"></dc-import></span><span class="sp"><b>Congelador de racha</b><div class="sm mu">1 disponible: protege un día que no estudies</div></span><button class="chip" style="height:34px" onClick="{{ H.useFreeze }}">Usar</button></div>
+<div class="sec">Hitos</div>
+<div class="chips"><sc-for list="{{ miles }}" as="m" hint-placeholder-count="4"><span class="pill {{ m.tone }}" style="height:36px;padding:0 14px">{{ m.l }}</span></sc-for></div>
+<div class="rw" style="gap:10px;margin-top:16px"><button class="btn btn2 sp" onClick="{{ H.toRank }}"><dc-import name="I" n="trophy" s="18"></dc-import> Ranking</button><button class="btn sp" onClick="{{ H.quickPractice }}"><dc-import name="I" n="bolt" s="18"></dc-import> Practicar</button></div>
+</div>
+</sc-if>
+<sc-if value="{{ S.achievements }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Logros</span><span style="width:44px"></span></div>
+<div class="grid2"><sc-for list="{{ badges }}" as="b" hint-placeholder-count="6"><div class="card c" style="gap:6px;opacity:{{ b.op }}"><span class="ico {{ b.tone }}" style="width:56px;height:56px;border-radius:18px"><dc-import name="I" n="{{ b.ic }}" s="28"></dc-import></span><b>{{ b.t }}</b><span class="sm mu">{{ b.d }}</span></div></sc-for></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.profile }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg">
+<div class="hd"><span style="width:44px"></span><span class="ti">Mi perfil</span><button class="ib" aria-label="Configuración" onClick="{{ H.toSettings }}"><dc-import name="I" n="gear" s="20"></dc-import></button></div>
+<div class="c" style="gap:4px"><div style="position:relative"><img src="/_blob/fefe525c65b35bb3cc7cedce7a2fcf26" alt="Foto de perfil con la mascota de SALUX" style="width:116px;height:116px;border-radius:58px;display:block;box-shadow:0 0 0 5px var(--sf),0 14px 26px rgba(70,50,160,.3)"><button class="ib" aria-label="Editar perfil" style="position:absolute;right:-4px;bottom:0;width:38px;height:38px;background:var(--grad);color:#fff;border:0" onClick="{{ H.toEdit }}"><dc-import name="I" n="camera" s="18"></dc-import></button></div>
+<h1 class="h1" style="margin:12px 0 0">{{ T.name }}</h1><span class="mu">Estudiante de Ciencias de la Salud</span>
+<button class="pill {{ T.planTone }}" style="margin-top:6px" onClick="{{ H.toSub }}"><dc-import name="I" n="crown" s="14"></dc-import>{{ T.planLbl }}</button></div>
+<div class="card" style="margin:16px 0 12px"><div class="rw" style="justify-content:space-between;margin-bottom:8px"><b>Nivel 7 · Residente</b><span class="sm mu">1 240 / 1 500 XP</span></div><div class="bar"><b style="width:82%"></b></div></div>
+<div class="rw" style="gap:10px"><div class="card c sp" style="padding:12px 4px"><b style="font-size:20px">120</b><div class="sm mu">Temas completados</div></div><div class="card c sp" style="padding:12px 4px"><b style="font-size:20px">25</b><div class="sm mu">Simulacros realizados</div></div><div class="card c sp" style="padding:12px 4px"><b style="font-size:20px">85%</b><div class="sm mu">Progreso general</div></div></div>
+<div class="card" style="padding:4px 14px;margin-top:14px"><sc-for list="{{ menu }}" as="m" hint-placeholder-count="12"><button class="mr" onClick="{{ m.go }}"><span class="ico {{ m.tone }}" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="{{ m.ic }}" s="20"></dc-import></span><span class="sp b">{{ m.l }}</span><dc-import name="I" n="chev" s="18"></dc-import></button></sc-for></div>
+<div class="hero rw" style="margin-top:16px;padding:18px 8px 0 20px;gap:0;align-items:flex-end;min-height:120px"><b style="font-size:20px;line-height:1.2;padding-bottom:22px" class="sp">Pequeños avances,<br>grandes logros</b><dc-import name="Mascot" mood="cheer" w="100"></dc-import></div>
+</div>
+</sc-if>
+<sc-if value="{{ S.notes }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Mis notas</span><button class="ib" aria-label="Nueva nota" onClick="{{ H.addNote }}" style="background:var(--pr);color:var(--pk);border:0"><dc-import name="I" n="plus" s="20"></dc-import></button></div>
+<sc-for list="{{ notesL }}" as="n" hint-placeholder-count="3"><div class="card" style="margin-bottom:10px"><div class="rw" style="margin-bottom:4px"><b class="sp">{{ n.t }}</b><button class="ib" aria-label="Eliminar nota" style="width:36px;height:36px" onClick="{{ n.del }}"><dc-import name="I" n="trash" s="16"></dc-import></button></div><div class="mu">{{ n.d }}</div><span class="pill tb" style="margin-top:8px">{{ n.tag }}</span></div></sc-for>
+<sc-if value="{{ F.noNotes }}" hint-placeholder-val="{{ false }}"><div class="c mu" style="margin-top:40px;gap:8px"><dc-import name="Mascot" mood="sleep" w="100"></dc-import>Aún no tienes notas. Crea la primera.</div></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.favorites }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Temas favoritos</span><span style="width:44px"></span></div>
+<sc-for list="{{ favL }}" as="f" hint-placeholder-count="2"><div class="card" style="margin-bottom:10px"><span class="pill tp" style="margin-bottom:8px">{{ f.tag }}</span><div class="b">{{ f.q }}</div><div class="rw" style="margin-top:10px"><span class="sp sm mu">Correcta: {{ f.a }}</span><button class="ib" aria-label="Quitar de favoritos" style="width:36px;height:36px;color:#E5486B" onClick="{{ f.del }}"><dc-import name="I" n="heart" s="16"></dc-import></button></div></div></sc-for>
+<sc-if value="{{ F.noFav }}" hint-placeholder-val="{{ false }}"><div class="c mu" style="margin-top:40px;gap:8px"><dc-import name="Mascot" mood="sleep" w="100"></dc-import>Todavía no guardaste favoritos. Toca el corazón en una pregunta.</div></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.history }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Historial de estudio</span><span style="width:44px"></span></div>
+<sc-for list="{{ hist }}" as="h" hint-placeholder-count="6"><sc-if value="{{ h.head }}" hint-placeholder-val="{{ false }}"><div class="sec" style="margin:16px 0 4px;font-size:14px;color:var(--mu)">{{ h.l }}</div></sc-if><sc-if value="{{ h.item }}" hint-placeholder-val="{{ true }}"><button class="mr" onClick="{{ H.toResultDemo }}"><span class="ico {{ h.tone }}"><dc-import name="I" n="{{ h.ic }}" s="20"></dc-import></span><span class="sp"><b>{{ h.t }}</b><div class="mu sm">{{ h.d }}</div></span><b>{{ h.p }}</b></button></sc-if></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.downloads }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Descargas</span><span style="width:44px"></span></div>
+<div class="card rw" style="margin-bottom:12px"><dc-import name="I" n="wifioff" s="20"></dc-import><span class="sp sm">Lo descargado funciona sin conexión y se sincroniza al volver internet.</span></div>
+<sc-for list="{{ dlL }}" as="d" hint-placeholder-count="4"><div class="mr"><span class="ico {{ d.tone }}"><dc-import name="I" n="{{ d.ic }}" s="22"></dc-import></span><span class="sp"><b>{{ d.t }}</b><div class="mu sm">{{ d.d }}</div></span><button class="chip {{ d.cls }}" onClick="{{ d.go }}">{{ d.lbl }}</button></div></sc-for>
+<div class="rw" style="margin-top:16px"><span class="sp">Descargar solo con Wi‑Fi</span><button class="tg {{ F.wifiCls }}" role="switch" aria-label="Solo Wi-Fi" aria-checked="{{ F.wifi }}" onClick="{{ H.togWifi }}"><i></i></button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.settings }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Configuración</span><span style="width:44px"></span></div>
+<button class="card rw" style="width:100%;gap:12px" onClick="{{ H.toEdit }}"><img src="/_blob/fefe525c65b35bb3cc7cedce7a2fcf26" alt="" style="width:52px;height:52px;border-radius:26px"><span class="sp"><b style="font-size:16px">{{ T.name }}</b><div class="mu sm">vane@correo.com</div></span><span class="pill {{ T.planTone }}">{{ T.planShort }}</span></button>
+<button class="heroo rw" style="width:100%;margin-top:12px;padding:14px;gap:12px" onClick="{{ H.toPlans }}"><dc-import name="I" n="crown" s="28" c="#fff" duo="1"></dc-import><span class="sp"><b>SALUX Premium</b><div class="sm" style="opacity:.92">Simulacros ilimitados y descargas</div></span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<span class="lb">Apariencia</span>
+<div class="seg"><sc-for list="{{ themeOpts }}" as="o" hint-placeholder-count="3"><button class="{{ o.cls }}" onClick="{{ o.pick }}"><dc-import name="I" n="{{ o.ic }}" s="16"></dc-import>{{ o.l }}</button></sc-for></div>
+<span class="lb">Estudio</span>
+<div class="card" style="padding:4px 14px">
+<div class="mr"><span class="ico tv" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="target" s="20"></dc-import></span><span class="sp b">Meta diaria</span><div class="rw" style="gap:6px"><sc-for list="{{ goalOpts }}" as="o" hint-placeholder-count="3"><button class="chip {{ o.cls }}" style="height:34px;padding:0 11px" onClick="{{ o.pick }}">{{ o.l }}</button></sc-for></div></div>
+<button class="mr" onClick="{{ H.toPlan }}"><span class="ico tb" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="calendar" s="20"></dc-import></span><span class="sp b">Plan de estudio</span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<button class="mr" onClick="{{ H.toNotifSet }}"><span class="ico to" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="bell" s="20"></dc-import></span><span class="sp b">Recordatorios</span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<div class="mr"><span class="ico tm" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="pulse" s="20"></dc-import></span><span class="sp b">Sonidos</span><button class="tg {{ F.soundCls }}" role="switch" aria-label="Sonidos" aria-checked="{{ F.sound }}" onClick="{{ H.togSound }}"><i></i></button></div>
+<div class="mr"><span class="ico tp" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="phone" s="20"></dc-import></span><span class="sp b">Vibración</span><button class="tg {{ F.hapticCls }}" role="switch" aria-label="Vibración" aria-checked="{{ F.haptic }}" onClick="{{ H.togHaptic }}"><i></i></button></div>
+<button class="mr" onClick="{{ H.toLang }}"><span class="ico tb" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="globe" s="20"></dc-import></span><span class="sp b">Idioma</span><span class="mu">{{ T.lang }}</span><dc-import name="I" n="chev" s="18"></dc-import></button></div>
+<span class="lb">Cuenta y seguridad</span>
+<div class="card" style="padding:4px 14px">
+<button class="mr" onClick="{{ H.toSecurity }}"><span class="ico tm" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="shield" s="20"></dc-import></span><span class="sp b">Seguridad y MFA</span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<button class="mr" onClick="{{ H.toChgPw }}"><span class="ico tv" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="lock" s="20"></dc-import></span><span class="sp b">Cambiar contraseña</span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<button class="mr" onClick="{{ H.toSub }}"><span class="ico to" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="card" s="20"></dc-import></span><span class="sp b">Suscripción y pagos</span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<button class="mr" onClick="{{ H.exportData }}"><span class="ico tb" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="download" s="20"></dc-import></span><span class="sp b">Exportar mis datos</span><dc-import name="I" n="chev" s="18"></dc-import></button></div>
+<span class="lb">Soporte</span>
+<div class="card" style="padding:4px 14px">
+<button class="mr" onClick="{{ H.toHelp }}"><span class="ico tp" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="help" s="20"></dc-import></span><span class="sp b">Ayuda y soporte</span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<button class="mr" onClick="{{ H.toInvite }}"><span class="ico tm" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="gift" s="20"></dc-import></span><span class="sp b">Invitar amigos</span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<button class="mr" onClick="{{ H.rateApp }}"><span class="ico to" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="star" s="20"></dc-import></span><span class="sp b">Calificar la app</span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<button class="mr" onClick="{{ H.toLegal }}"><span class="ico tv" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="file" s="20"></dc-import></span><span class="sp b">Términos y privacidad</span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<button class="mr" onClick="{{ H.toAbout }}"><span class="ico tb" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="info" s="20"></dc-import></span><span class="sp b">Acerca de SALUX</span><dc-import name="I" n="chev" s="18"></dc-import></button></div>
+<button class="btn btn2" style="margin-top:18px" onClick="{{ H.openLogout }}"><dc-import name="I" n="logout" s="18"></dc-import> Cerrar sesión</button>
+<button class="btn" style="margin-top:10px;background:var(--erb);color:var(--er);box-shadow:none" onClick="{{ H.openDelete }}"><dc-import name="I" n="trash" s="18"></dc-import> Eliminar mi cuenta</button>
+<p class="c mu sm" style="margin-top:14px">SALUX v0.2 · Prototipo</p>
+</div>
+</sc-if>
+<sc-if value="{{ S.notifSettings }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Notificaciones</span><span style="width:44px"></span></div>
+<div class="card" style="padding:4px 14px">
+<div class="mr"><span class="sp"><b>Recordatorio diario</b><div class="mu sm">Te avisamos si no cumples tu meta</div></span><button class="tg {{ F.notifCls }}" role="switch" aria-label="Recordatorio diario" aria-checked="{{ F.notif }}" onClick="{{ H.togNotif }}"><i></i></button></div>
+<div class="mr"><span class="sp"><b>Hora del recordatorio</b></span><input class="inp" type="time" value="20:00" aria-label="Hora" style="width:120px;height:44px"></div>
+<div class="mr"><span class="sp"><b>Racha en riesgo</b><div class="mu sm">Aviso antes de perder tu racha</div></span><button class="tg on" role="switch" aria-label="Racha en riesgo" aria-checked="true" onClick="{{ H.nothing }}"><i></i></button></div>
+<div class="mr"><span class="sp"><b>Nuevos simulacros</b></span><button class="tg on" role="switch" aria-label="Nuevos simulacros" aria-checked="true" onClick="{{ H.nothing }}"><i></i></button></div>
+<div class="mr"><span class="sp"><b>Ofertas y planes</b></span><button class="tg" role="switch" aria-label="Ofertas" aria-checked="false" onClick="{{ H.nothing }}"><i></i></button></div></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.security }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Seguridad</span><span style="width:44px"></span></div>
+<div class="card" style="padding:4px 14px">
+<div class="mr"><dc-import name="I" n="shield" s="22"></dc-import><span class="sp"><b>Verificación en dos pasos (MFA)</b><div class="mu sm">{{ T.mfaState }}</div></span><button class="tg {{ F.mfaCls }}" role="switch" aria-label="MFA" aria-checked="{{ F.mfa }}" onClick="{{ H.togMfa }}"><i></i></button></div>
+<div class="mr"><dc-import name="I" n="user" s="22"></dc-import><span class="sp"><b>Desbloqueo biométrico</b><div class="mu sm">Huella o Face ID al abrir la app</div></span><button class="tg {{ F.bioCls }}" role="switch" aria-label="Biometría" aria-checked="{{ F.bio }}" onClick="{{ H.togBio }}"><i></i></button></div>
+<button class="mr" onClick="{{ H.toBackupAgain }}"><dc-import name="I" n="copy" s="22"></dc-import><span class="sp b">Códigos de respaldo</span><dc-import name="I" n="chev" s="18"></dc-import></button>
+<button class="mr" onClick="{{ H.chgPw }}"><dc-import name="I" n="lock" s="22"></dc-import><span class="sp b">Cambiar contraseña</span><dc-import name="I" n="chev" s="18"></dc-import></button></div>
+<div class="sec">Dispositivos activos</div>
+<div class="card" style="padding:4px 14px"><div class="mr"><span class="ico tv"><dc-import name="I" n="phone" s="22"></dc-import></span><span class="sp"><b>Este dispositivo</b><div class="mu sm">Chiclayo, Perú · ahora</div></span><span class="pill tm">Activo</span></div>
+<div class="mr"><span class="ico tb"><dc-import name="I" n="phone" s="22"></dc-import></span><span class="sp"><b>Tablet Android</b><div class="mu sm">Lima, Perú · hace 2 días</div></span><button class="lnk" onClick="{{ H.closeDev }}">Cerrar</button></div></div>
+<button class="btn btn2" style="margin-top:16px" onClick="{{ H.closeAll }}">Cerrar sesión en todos los dispositivos</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.notifs }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Notificaciones</span><button class="lnk" onClick="{{ H.markRead }}">Marcar leídas</button></div>
+<sc-for list="{{ notifL }}" as="n" hint-placeholder-count="4"><button class="mr" onClick="{{ n.go }}"><span class="ico {{ n.tone }}"><dc-import name="I" n="{{ n.ic }}" s="22"></dc-import></span><span class="sp"><b>{{ n.t }}</b><div class="mu sm">{{ n.d }}</div></span><sc-if value="{{ n.unread }}" hint-placeholder-val="{{ true }}"><span style="width:10px;height:10px;border-radius:5px;background:var(--pr)"></span></sc-if></button></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ S.plans }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">SALUX Premium</span><span style="width:44px"></span></div>
+<div class="hero rw" style="padding:18px 6px 0 20px;gap:0;align-items:flex-end;min-height:150px"><div class="sp" style="padding-bottom:18px"><span class="pill glass" style="color:#fff"><dc-import name="I" n="crown" s="14"></dc-import>Premium</span><div style="font-weight:800;font-size:24px;margin:8px 0 2px;letter-spacing:-.4px">Desbloquea todo</div><div class="sm" style="opacity:.92">Pagas y se activa al instante.</div></div><dc-import name="Mascot" mood="love" w="112"></dc-import></div>
+<div class="card" style="margin:14px 0;display:flex;flex-direction:column;gap:10px"><div class="rw"><span class="ico tm" style="width:30px;height:30px;border-radius:10px"><dc-import name="I" n="check" s="16"></dc-import></span><span class="sp">Simulacros ilimitados de todos los exámenes</span></div><div class="rw"><span class="ico tm" style="width:30px;height:30px;border-radius:10px"><dc-import name="I" n="check" s="16"></dc-import></span><span class="sp">Respuestas con explicación y repaso de errores</span></div><div class="rw"><span class="ico tm" style="width:30px;height:30px;border-radius:10px"><dc-import name="I" n="check" s="16"></dc-import></span><span class="sp">Biblioteca de documentos y descargas sin conexión</span></div><div class="rw"><span class="ico tm" style="width:30px;height:30px;border-radius:10px"><dc-import name="I" n="check" s="16"></dc-import></span><span class="sp">Estadísticas, ranking y congeladores de racha</span></div></div>
+<div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{ planL }}" as="p" hint-placeholder-count="3"><button class="opt {{ p.cls }}" onClick="{{ p.pick }}" style="position:relative"><span class="sp"><b>{{ p.t }}</b><div class="mu sm" style="font-weight:500">{{ p.d }}</div></span><sc-if value="{{ p.save }}" hint-placeholder-val="{{ false }}"><span class="pill tm">{{ p.save }}</span></sc-if><b style="font-size:18px">{{ p.price }}</b></button></sc-for></div>
+<p class="mu sm" style="margin:10px 0 14px">Precios de ejemplo para el prototipo. Pago con Yape, Plin, Visa o Mastercard.</p>
+<button class="btn" onClick="{{ H.toCheckout }}">Continuar</button>
+</div>
+</sc-if>
+<sc-if value="{{ S.checkout }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Pagar</span><span style="width:44px"></span></div>
+<div class="card rw tv" style="border-color:transparent"><span class="sp"><b>Plan {{ T.planName }}</b><div class="sm">Acceso completo a SALUX Premium</div></span><b style="font-size:20px">{{ T.planPrice }}</b></div>
+<span class="lb">Elige cómo pagar</span>
+<div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{ methods }}" as="m" hint-placeholder-count="3"><button class="opt {{ m.cls }}" onClick="{{ m.pick }}"><span class="ico {{ m.tone }}"><b>{{ m.ab }}</b></span><span class="sp"><b>{{ m.t }}</b><div class="mu sm" style="font-weight:500">{{ m.d }}</div></span><sc-if value="{{ m.on }}" hint-placeholder-val="{{ false }}"><dc-import name="I" n="check" s="20"></dc-import></sc-if></button></sc-for></div>
+<div class="card rw" style="margin:16px 0"><dc-import name="I" n="lock" s="20"></dc-import><span class="sp sm">Pago seguro. Tu acceso se activa automáticamente al confirmarse el pago.</span></div>
+<button class="btn" onClick="{{ H.payNow }}">Pagar {{ T.planPrice }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.payQR }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Cancelar" onClick="{{ H.back }}"><dc-import name="I" n="close" s="20"></dc-import></button><span class="ti">Pagar con {{ T.methodName }}</span><span style="width:44px"></span></div>
+<div class="card c" style="gap:10px"><b style="font-size:22px">{{ T.planPrice }}</b><span class="mu sm">Escanea el QR desde tu app de {{ T.methodName }}</span><div style="background:#fff;border-radius:16px;padding:14px;color:#1E1B4B"><dc-import name="I" n="qr" s="170"></dc-import></div><span class="b" style="letter-spacing:2px">SLX-482915</span><span class="pill to"><dc-import name="I" n="clock" s="14"></dc-import>El QR vence en 09:58</span></div>
+<div class="card" style="margin:14px 0;display:flex;flex-direction:column;gap:8px"><div class="rw"><span class="lt">1</span><span>Abre {{ T.methodName }} y elige Escanear QR</span></div><div class="rw"><span class="lt">2</span><span>Confirma el monto y paga</span></div><div class="rw"><span class="lt">3</span><span>Detectamos tu pago y activamos Premium</span></div></div>
+<button class="btn" onClick="{{ H.paySim }}">Simular pago recibido (demo)</button>
+<p class="c" style="margin-top:14px"><button class="lnk" onClick="{{ H.back }}">Cambiar medio de pago</button></p>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.payCard }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Pagar con tarjeta</span><span style="width:44px"></span></div>
+<div class="card tv c" style="border-color:transparent;gap:4px;padding:18px"><dc-import name="I" n="card" s="34"></dc-import><b style="font-size:20px">{{ T.planPrice }}</b><span class="sm">Visa · Mastercard</span></div>
+<label class="lb" for="cn">Número de tarjeta</label><input id="cn" class="inp" inputmode="numeric" placeholder="0000 0000 0000 0000">
+<div class="rw" style="gap:12px;align-items:flex-start"><div class="sp"><label class="lb" for="cv">Vence</label><input id="cv" class="inp" placeholder="MM/AA"></div><div class="sp"><label class="lb" for="cc">CVV</label><input id="cc" class="inp" inputmode="numeric" placeholder="123"></div></div>
+<label class="lb" for="cm">Nombre en la tarjeta</label><input id="cm" class="inp" placeholder="Como aparece en la tarjeta">
+<div class="rw" style="margin:14px 0"><button class="tg" role="switch" aria-label="Guardar tarjeta" aria-checked="false" onClick="{{ H.nothing }}"><i></i></button><span class="sp sm">Guardar tarjeta para renovar (opcional)</span></div>
+<button class="btn" onClick="{{ H.paySim }}">Pagar {{ T.planPrice }}</button>
+<p class="c" style="margin-top:12px"><button class="lnk" onClick="{{ H.payFailSim }}">Simular pago rechazado (demo)</button></p>
+<p class="mu sm c" style="margin:6px 0 0">Procesado por una pasarela segura. SALUX no guarda tu número de tarjeta.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.payProc }}" hint-placeholder-val="{{ false }}">
+<div class="pg c" style="min-height:100%;justify-content:center;gap:14px"><div class="spin" style="color:var(--pr)"><dc-import name="I" n="refresh" s="56"></dc-import></div><h1 class="h1" style="margin:0">Confirmando tu pago…</h1><p class="sub" style="margin:0">No cierres la app. Esto toma unos segundos.</p></div>
+</sc-if>
+
+<sc-if value="{{ S.paySuccess }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg c" style="min-height:100%;justify-content:center;gap:12px">
+<dc-import name="Mascot" mood="cheer" w="170"></dc-import>
+<h1 class="h1">¡Pago confirmado!</h1>
+<p class="sub" style="margin:0">Premium activo hasta el {{ T.until }}. Todo está desbloqueado.</p>
+<div class="card" style="width:100%;text-align:left;margin:8px 0"><div class="rw"><span class="ico tm"><dc-import name="I" n="check" s="22"></dc-import></span><span class="sp"><b>Comprobante enviado a tu correo</b><div class="sm mu">Plan {{ T.planName }} · {{ T.planPrice }} · {{ T.methodName }}</div></span></div></div>
+<button class="btn" onClick="{{ H.toHomeReset }}">Ir al inicio</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.payFail }}" hint-placeholder-val="{{ false }}">
+<div class="pg c" style="min-height:100%;justify-content:center;gap:12px">
+<dc-import name="Mascot" mood="sad" w="150"></dc-import>
+<h1 class="h1">No pudimos cobrar</h1>
+<p class="sub" style="margin:0">El banco rechazó el pago. No se hizo ningún cargo.</p>
+<button class="btn" style="margin-top:10px" onClick="{{ H.retryPay }}">Intentar de nuevo</button>
+<button class="btn btn2" onClick="{{ H.toCheckout }}">Elegir otro medio de pago</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.subscription }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Mi suscripción</span><span style="width:44px"></span></div>
+<div class="card tv" style="border-color:transparent"><span class="pill tm">{{ T.planLbl }}</span><h2 style="margin:10px 0 2px;font-size:22px">{{ T.subTitle }}</h2><div class="sm">{{ T.subDesc }}</div></div>
+<sc-if value="{{ F.isPrem }}" hint-placeholder-val="{{ false }}"><div class="card" style="padding:4px 14px;margin-top:14px"><div class="mr"><span class="sp mu">Plan</span><b>{{ T.planName }}</b></div><div class="mr"><span class="sp mu">Medio de pago</span><b>{{ T.methodName }}</b></div><div class="mr"><span class="sp mu">Activo hasta</span><b>{{ T.until }}</b></div></div>
+<button class="btn btn2" style="margin-top:16px" onClick="{{ H.toPlans }}">Cambiar de plan</button>
+<button class="btn" style="margin-top:10px;background:var(--erb);color:var(--er)" onClick="{{ H.openCancel }}">Cancelar suscripción</button></sc-if>
+<sc-if value="{{ F.notPrem }}" hint-placeholder-val="{{ true }}"><button class="btn" style="margin-top:16px" onClick="{{ H.toPlans }}">Elegir un plan</button></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.paywall }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg c" style="min-height:100%;justify-content:center;gap:12px">
+<dc-import name="Mascot" mood="sleep" w="150"></dc-import>
+<h1 class="h1">Tu prueba gratis terminó</h1>
+<p class="sub" style="margin:0">Elige un plan para seguir con tus simulacros, tu racha y tu progreso. Pagas y se desbloquea al instante.</p>
+<div class="card" style="width:100%;text-align:left;margin:6px 0"><div class="rw"><dc-import name="I" n="flame" s="20"></dc-import><span>Tu racha de {{ T.streak }} días te espera</span></div></div>
+<button class="btn" onClick="{{ H.toPlans }}">Ver planes</button>
+<button class="btn btn2" onClick="{{ H.freeContinue }}">Continuar con el plan gratis</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.help }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Ayuda y soporte</span><span style="width:44px"></span></div>
+<sc-for list="{{ faqL }}" as="f" hint-placeholder-count="4"><div class="card" style="margin-bottom:10px;padding:0"><button class="rw" style="width:100%;padding:14px" aria-expanded="{{ f.open }}" onClick="{{ f.tog }}"><b class="sp">{{ f.q }}</b><dc-import name="I" n="{{ f.ic }}" s="18"></dc-import></button><sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}"><div class="mu" style="padding:0 14px 14px">{{ f.a }}</div></sc-if></div></sc-for>
+<button class="btn" style="margin-top:8px" onClick="{{ H.contact }}"><dc-import name="I" n="mail" s="18"></dc-import> Contactar a soporte</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.offline }}" hint-placeholder-val="{{ false }}">
+<div class="pg c" style="min-height:100%;justify-content:center;gap:12px">
+<dc-import name="Mascot" mood="sad" w="140"></dc-import><div style="color:var(--mu)"><dc-import name="I" n="wifioff" s="34"></dc-import></div>
+<h1 class="h1">Sin conexión</h1><p class="sub" style="margin:0">Puedes seguir con lo que descargaste. Tu progreso se sincronizará cuando vuelva internet.</p>
+<button class="btn" style="margin-top:10px" onClick="{{ H.toDownloads }}">Ir a mis descargas</button>
+<button class="btn btn2" onClick="{{ H.toHomeReset }}">Reintentar</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.error }}" hint-placeholder-val="{{ false }}">
+<div class="pg c" style="min-height:100%;justify-content:center;gap:12px">
+<dc-import name="Mascot" mood="sad" w="140"></dc-import>
+<h1 class="h1">Algo salió mal</h1><p class="sub" style="margin:0">No pudimos cargar esta pantalla. Intenta de nuevo en unos segundos.</p>
+<button class="btn" style="margin-top:10px" onClick="{{ H.toHomeReset }}">Reintentar</button>
+<button class="btn btn2" onClick="{{ H.toHelp }}">Hablar con soporte</button>
+</div>
+</sc-if>
+<sc-if value="{{ S.editProfile }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Editar perfil</span><span style="width:44px"></span></div>
+<div class="c" style="margin-bottom:6px"><div style="position:relative"><img src="/_blob/fefe525c65b35bb3cc7cedce7a2fcf26" alt="Foto de perfil" style="width:104px;height:104px;border-radius:52px;display:block;box-shadow:0 0 0 4px var(--sf),var(--sh)"><button class="ib" aria-label="Cambiar foto" style="position:absolute;right:-4px;bottom:0;width:36px;height:36px;background:var(--grad);color:#fff;border:0" onClick="{{ H.changePhoto }}"><dc-import name="I" n="camera" s="16"></dc-import></button></div></div>
+<label class="lb" for="ep1">Nombre</label><input id="ep1" class="inp" value="Vane">
+<label class="lb" for="ep2">Correo electrónico</label><input id="ep2" class="inp" type="email" value="vane@correo.com">
+<label class="lb" for="ep3">Universidad o instituto</label><input id="ep3" class="inp" placeholder="Ej. Universidad Nacional">
+<span class="lb">Año de estudios</span>
+<div class="chips"><sc-for list="{{ yearOpts }}" as="y" hint-placeholder-count="7"><button class="chip {{ y.cls }}" onClick="{{ y.pick }}">{{ y.l }}</button></sc-for></div>
+<button class="btn" style="margin-top:22px" onClick="{{ H.saveProfile }}">Guardar cambios</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.changePw }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Cambiar contraseña</span><span style="width:44px"></span></div>
+<label class="lb" for="cp1" style="margin-top:0">Contraseña actual</label><input id="cp1" class="inp" type="password" placeholder="••••••••">
+<label class="lb" for="cp2">Nueva contraseña</label><input id="cp2" class="inp" type="password" placeholder="Mínimo 8 caracteres" value="{{ T.pw }}" onInput="{{ H.setPw }}">
+<div class="rw" style="margin-top:8px"><div class="bar sp"><b style="width:{{ T.pwW }}"></b></div><span class="sm b">{{ T.pwL }}</span></div>
+<label class="lb" for="cp3">Confirmar nueva contraseña</label><input id="cp3" class="inp" type="password" placeholder="Repite la contraseña">
+<div class="card" style="margin-top:16px;display:flex;flex-direction:column;gap:8px"><div class="rw sm"><dc-import name="I" n="check" s="16"></dc-import>Mínimo 8 caracteres</div><div class="rw sm"><dc-import name="I" n="check" s="16"></dc-import>Una mayúscula y un número</div><div class="rw sm"><dc-import name="I" n="check" s="16"></dc-import>Distinta a tus últimas contraseñas</div></div>
+<button class="btn" style="margin-top:20px" onClick="{{ H.savePw }}">Actualizar contraseña</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.language }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Idioma</span><span style="width:44px"></span></div>
+<div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{ langL }}" as="l" hint-placeholder-count="3"><button class="opt {{ l.cls }}" onClick="{{ l.pick }}"><span class="ico tb" style="width:38px;height:38px;border-radius:12px"><dc-import name="I" n="globe" s="20"></dc-import></span><span class="sp"><b>{{ l.t }}</b><div class="mu sm" style="font-weight:500">{{ l.d }}</div></span><sc-if value="{{ l.on }}" hint-placeholder-val="{{ false }}"><dc-import name="I" n="check" s="20"></dc-import></sc-if></button></sc-for></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.legal }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Términos y privacidad</span><span style="width:44px"></span></div>
+<div class="seg" style="margin-bottom:14px"><sc-for list="{{ legalTabs }}" as="t" hint-placeholder-count="2"><button class="{{ t.cls }}" onClick="{{ t.pick }}">{{ t.l }}</button></sc-for></div>
+<sc-if value="{{ F.legalT }}" hint-placeholder-val="{{ true }}"><div class="card"><h2 style="margin:0 0 8px;font-size:17px">Términos de uso</h2><p class="mu" style="margin:0 0 10px">1. Uso de la app. SALUX es una plataforma de estudio; el contenido es de apoyo y no reemplaza la bibliografía oficial.</p><p class="mu" style="margin:0 0 10px">2. Suscripciones. La prueba gratis dura 3 días; después el acceso completo requiere un plan activo.</p><p class="mu" style="margin:0 0 10px">3. Cuenta. Eres responsable de la seguridad de tu cuenta y de no compartirla.</p><p class="sm mu" style="margin:0">[Texto legal de ejemplo: reemplazar con el redactado por tu asesor legal.]</p></div></sc-if>
+<sc-if value="{{ F.legalP }}" hint-placeholder-val="{{ false }}"><div class="card"><h2 style="margin:0 0 8px;font-size:17px">Política de privacidad</h2><p class="mu" style="margin:0 0 10px">1. Datos que recopilamos: correo, nombre, progreso de estudio y datos de pago procesados por la pasarela.</p><p class="mu" style="margin:0 0 10px">2. Uso: personalizar tu estudio, calcular tu racha y gestionar tu suscripción.</p><p class="mu" style="margin:0 0 10px">3. Tus derechos: acceder, rectificar, exportar o eliminar tus datos desde Configuración.</p><p class="sm mu" style="margin:0">[Texto legal de ejemplo: validar con tu asesor la adecuación a la Ley 29733.]</p></div></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.docs }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Biblioteca</span><button class="ib" aria-label="Buscar" onClick="{{ H.toSearch }}"><dc-import name="I" n="search" s="20"></dc-import></button></div>
+<h1 class="h1">Documentos y guías</h1><p class="sub" style="margin-bottom:12px">Resúmenes, guías y formularios para estudiar donde sea.</p>
+<div class="chips" style="margin-bottom:8px"><sc-for list="{{ docFilters }}" as="f" hint-placeholder-count="4"><button class="chip {{ f.cls }}" onClick="{{ f.pick }}">{{ f.l }}</button></sc-for></div>
+<sc-for list="{{ docsL }}" as="d" hint-placeholder-count="5"><div class="card rw" style="margin-bottom:10px;padding:12px"><button class="rw sp" onClick="{{ d.go }}"><span class="ico {{ d.tone }}"><dc-import name="I" n="{{ d.ic }}" s="22" duo="1"></dc-import></span><span class="sp"><b>{{ d.t }}</b><div class="mu sm">{{ d.d }}</div></span></button><button class="ib" aria-label="{{ d.lbl }}" style="width:40px;height:40px" onClick="{{ d.dl }}"><dc-import name="I" n="{{ d.dlIc }}" s="18"></dc-import></button></div></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.docView }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti" style="font-size:15px">{{ T.docTitle }}</span><button class="ib" aria-label="Guardar en favoritos" onClick="{{ H.favDoc }}"><dc-import name="I" n="bookmark" s="20"></dc-import></button></div>
+<div class="card" style="padding:20px;min-height:430px"><div style="font-weight:800;font-size:18px;margin-bottom:12px">{{ T.docTitle }}</div><div class="sk" style="width:92%"></div><div class="sk"></div><div class="sk" style="width:80%"></div><div class="sk" style="width:96%"></div><div class="sk" style="width:60%"></div><div class="tv" style="border-radius:14px;padding:12px;margin:16px 0"><b class="sm">PUNTO CLAVE</b><div class="sk" style="background:var(--sf);opacity:.7"></div><div class="sk" style="width:70%;background:var(--sf);opacity:.7"></div></div><div class="sk"></div><div class="sk" style="width:88%"></div><div class="sk" style="width:94%"></div><div class="sk" style="width:50%"></div><p class="sm mu" style="margin:14px 0 0">Vista previa del lector de documentos (el contenido real se cargará desde tus archivos).</p></div>
+<div class="rw" style="justify-content:space-between;margin-top:14px"><button class="ib" aria-label="Página anterior" onClick="{{ H.docPrev }}"><dc-import name="I" n="back" s="20"></dc-import></button><span class="b">Página {{ T.docPage }} de 12</span><button class="ib" aria-label="Página siguiente" onClick="{{ H.docNext }}"><dc-import name="I" n="chev" s="20"></dc-import></button></div>
+<div class="rw" style="gap:10px;margin-top:14px"><button class="btn btn2 sp" onClick="{{ H.noteQ }}"><dc-import name="I" n="note" s="18"></dc-import> Nota</button><button class="btn sp" onClick="{{ H.dlTopic }}"><dc-import name="I" n="download" s="18"></dc-import> Descargar</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.ranking }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Ranking</span><span style="width:44px"></span></div>
+<div class="seg" style="margin-bottom:14px"><sc-for list="{{ rankTabs }}" as="t" hint-placeholder-count="3"><button class="{{ t.cls }}" onClick="{{ t.pick }}">{{ t.l }}</button></sc-for></div>
+<div class="rw" style="align-items:flex-end;gap:10px;margin-bottom:14px"><sc-for list="{{ podium }}" as="p" hint-placeholder-count="3"><div class="c sp" style="gap:4px"><span class="ico {{ p.tone }}" style="width:52px;height:52px;border-radius:26px"><b>{{ p.n }}</b></span><b class="sm">{{ p.name }}</b><span class="sm mu">{{ p.xp }} XP</span><div style="width:100%;height:{{ p.h }};border-radius:14px 14px 0 0;background:var(--grad);opacity:.85"></div></div></sc-for></div>
+<div class="card" style="padding:4px 14px"><sc-for list="{{ rankL }}" as="r" hint-placeholder-count="6"><div class="mr {{ r.cls }}" style="{{ r.sty }}"><b style="width:22px">{{ r.n }}</b><span class="ico tv" style="width:36px;height:36px;border-radius:18px"><dc-import name="I" n="user" s="18"></dc-import></span><span class="sp b">{{ r.name }}</span><span class="mu sm">{{ r.xp }} XP</span></div></sc-for></div>
+<p class="mu sm c" style="margin-top:12px">Datos de ejemplo. El ranking real se calculará en el servidor.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.invite }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Invitar amigos</span><span style="width:44px"></span></div>
+<div class="hero c" style="padding:22px 16px;gap:6px"><dc-import name="Mascot" mood="love" w="110"></dc-import><div style="font-weight:800;font-size:22px;letter-spacing:-.4px">Estudien juntos</div><div class="sm" style="opacity:.92">Invita a un compañero y ambos ganan días extra de Premium (beneficio de ejemplo).</div></div>
+<span class="lb">Tu código</span>
+<div class="card rw"><b class="sp" style="font-size:20px;letter-spacing:2px">SALUX-VANE25</b><button class="chip on" onClick="{{ H.copyCode }}"><dc-import name="I" n="copy" s="14"></dc-import> Copiar</button></div>
+<button class="btn" style="margin-top:16px" onClick="{{ H.shareInvite }}"><dc-import name="I" n="share" s="18"></dc-import> Compartir invitación</button>
+<div class="card rw" style="margin-top:14px"><span class="ico tm"><dc-import name="I" n="users" s="22"></dc-import></span><span class="sp"><b>3 amigos se unieron</b><div class="sm mu">Has ganado 6 días de Premium</div></span></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.studyPlan }}" hint-placeholder-val="{{ false }}">
+<div class="pg">
+<div class="hd"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Plan de estudio</span><span style="width:44px"></span></div>
+<div class="card tv" style="border-color:transparent;box-shadow:none"><b style="font-size:16px">ENAM · faltan 43 días</b><div class="sm" style="margin:2px 0 8px">Tu plan semanal se ajusta a tu fecha y a tu meta diaria.</div><div class="bar" style="background:var(--sf)"><b style="width:{{ T.planPct }}"></b></div></div>
+<span class="lb">Horas de estudio al día</span>
+<div class="chips"><sc-for list="{{ hourOpts }}" as="h" hint-placeholder-count="4"><button class="chip {{ h.cls }}" onClick="{{ h.pick }}">{{ h.l }}</button></sc-for></div>
+<div class="sec" style="margin-top:16px">Esta semana</div>
+<div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{ planDays }}" as="d" hint-placeholder-count="7"><button class="opt {{ d.cls }}" onClick="{{ d.tog }}"><span class="lt">{{ d.d }}</span><span class="sp"><b>{{ d.t }}</b><div class="mu sm" style="font-weight:500">{{ d.s }}</div></span><sc-if value="{{ d.done }}" hint-placeholder-val="{{ false }}"><dc-import name="I" n="check" s="20"></dc-import></sc-if></button></sc-for></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ S.about }}" hint-placeholder-val="{{ false }}">
+<div class="pg ph-bg c">
+<div class="hd" style="width:100%"><button class="ib" aria-label="Atrás" onClick="{{ H.back }}"><dc-import name="I" n="back" s="22"></dc-import></button><span class="ti">Acerca de</span><span style="width:44px"></span></div>
+<div class="logo" style="margin-top:20px;font-size:46px"><svg class="st" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="left:32px;top:-14px"><path d="M12 1l2.2 8.8L23 12l-8.8 2.2L12 23l-2.2-8.8L1 12l8.8-2.2z" fill="#6D5BE8"></path></svg>S<span class="la">A</span>LUX</div>
+<div class="tag" style="margin-top:10px">TU FUTURO EN SALUD<br>COMIENZA AQUÍ</div>
+<img class="float" src="/_blob/02ced16a175a65a00a4cf1822e536e60" alt="Mascota de SALUX" style="height:220px;width:auto;margin:16px 0">
+<p class="mu" style="margin:0 0 4px">Versión 0.2 · Prototipo</p>
+<div class="card" style="width:100%;padding:4px 14px;margin-top:14px"><button class="mr" onClick="{{ H.toLegal }}"><span class="sp b">Términos y privacidad</span><dc-import name="I" n="chev" s="18"></dc-import></button><button class="mr" onClick="{{ H.rateApp }}"><span class="sp b">Calificar la app</span><dc-import name="I" n="chev" s="18"></dc-import></button><button class="mr" onClick="{{ H.toHelp }}"><span class="sp b">Contactar soporte</span><dc-import name="I" n="chev" s="18"></dc-import></button></div>
+</div>
+</sc-if>
+</div>
+<sc-if value="{{ showTabs }}" hint-placeholder-val="{{ true }}">
+<nav class="tabs" aria-label="Navegación principal"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5"><button class="tab {{ t.cls }}" onClick="{{ t.go }}"><span class="t"><dc-import name="I" n="{{ t.ic }}" s="22"></dc-import></span>{{ t.l }}</button></sc-for></nav>
+</sc-if>
+
+<sc-if value="{{ SH.qnav }}" hint-placeholder-val="{{ false }}"><div class="ovl"><div class="sheet"><div class="rw" style="margin-bottom:12px"><b class="sp" style="font-size:17px">Navegador de preguntas</b><button class="ib" aria-label="Cerrar" onClick="{{ H.closeSheet }}"><dc-import name="I" n="close" s="18"></dc-import></button></div>
+<div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px"><sc-for list="{{ qgrid }}" as="g" hint-placeholder-count="10"><button class="num {{ g.cls }}" onClick="{{ g.go }}">{{ g.n }}</button></sc-for></div>
+<div class="rw sm" style="margin-top:14px;gap:14px"><span class="rw" style="gap:6px"><span class="num done" style="width:16px;height:16px;border-radius:5px"></span>Respondida</span><span class="rw" style="gap:6px"><span class="num flag" style="width:16px;height:16px;border-radius:5px"></span>Marcada</span></div>
+<button class="btn" style="margin-top:16px" onClick="{{ H.finishNow }}">Finalizar simulacro</button></div></div></sc-if>
+
+<sc-if value="{{ SH.pause }}" hint-placeholder-val="{{ false }}"><div class="ovl"><div class="sheet c" style="gap:10px"><dc-import name="Mascot" mood="sleep" w="100"></dc-import><b style="font-size:20px">Simulacro en pausa</b><span class="mu">Tu progreso está guardado. El tiempo no corre mientras estás aquí.</span><button class="btn" onClick="{{ H.closeSheet }}">Continuar</button><button class="btn btn2" onClick="{{ H.openExit }}">Salir y guardar</button></div></div></sc-if>
+
+<sc-if value="{{ SH.exit }}" hint-placeholder-val="{{ false }}"><div class="ovl"><div class="sheet c" style="gap:10px"><b style="font-size:20px">¿Salir del simulacro?</b><span class="mu">Guardaremos tus respuestas para que continúes después.</span><button class="btn" onClick="{{ H.exitSave }}">Salir y guardar</button><button class="btn btn2" onClick="{{ H.closeSheet }}">Seguir practicando</button></div></div></sc-if>
+
+<sc-if value="{{ SH.report }}" hint-placeholder-val="{{ false }}"><div class="ovl"><div class="sheet"><div class="rw" style="margin-bottom:8px"><b class="sp" style="font-size:17px">Reportar pregunta</b><button class="ib" aria-label="Cerrar" onClick="{{ H.closeSheet }}"><dc-import name="I" n="close" s="18"></dc-import></button></div>
+<div style="display:flex;flex-direction:column;gap:8px"><sc-for list="{{ reasons }}" as="r" hint-placeholder-count="4"><button class="opt {{ r.cls }}" onClick="{{ r.pick }}">{{ r.l }}</button></sc-for></div>
+<label class="lb" for="rp">Comentario (opcional)</label><input id="rp" class="inp" placeholder="Cuéntanos qué viste"><button class="btn" style="margin-top:14px" onClick="{{ H.sendReport }}">Enviar reporte</button></div></div></sc-if>
+
+<sc-if value="{{ SH.filter }}" hint-placeholder-val="{{ false }}"><div class="ovl"><div class="sheet"><div class="rw" style="margin-bottom:8px"><b class="sp" style="font-size:17px">Filtros</b><button class="ib" aria-label="Cerrar" onClick="{{ H.closeSheet }}"><dc-import name="I" n="close" s="18"></dc-import></button></div>
+<span class="lb">Ordenar por</span><div class="chips"><button class="chip on">Relevancia</button><button class="chip">A-Z</button><button class="chip">Más reciente</button></div>
+<div class="rw" style="margin-top:14px"><span class="sp">Solo contenido gratis</span><button class="tg" role="switch" aria-label="Solo gratis" aria-checked="false" onClick="{{ H.nothing }}"><i></i></button></div>
+<div class="rw" style="margin-top:14px"><span class="sp">Solo descargados</span><button class="tg" role="switch" aria-label="Solo descargados" aria-checked="false" onClick="{{ H.nothing }}"><i></i></button></div>
+<button class="btn" style="margin-top:18px" onClick="{{ H.closeSheet }}">Aplicar filtros</button></div></div></sc-if>
+
+<sc-if value="{{ SH.del }}" hint-placeholder-val="{{ false }}"><div class="ovl"><div class="sheet c" style="gap:10px"><div class="ico tp" style="width:60px;height:60px;border-radius:20px"><dc-import name="I" n="trash" s="28"></dc-import></div><b style="font-size:20px">¿Eliminar tu cuenta?</b><span class="mu">Se borrarán tu progreso, notas y racha. Esta acción no se puede deshacer.</span><button class="btn" style="background:var(--er);color:var(--pk)" onClick="{{ H.deleteAcc }}">Sí, eliminar</button><button class="btn btn2" onClick="{{ H.closeSheet }}">Cancelar</button></div></div></sc-if>
+
+<sc-if value="{{ SH.cancel }}" hint-placeholder-val="{{ false }}"><div class="ovl"><div class="sheet c" style="gap:10px"><b style="font-size:20px">¿Cancelar suscripción?</b><span class="mu">Conservarás Premium hasta {{ T.until }}. Después volverás al plan gratis.</span><button class="btn" style="background:var(--er);color:var(--pk)" onClick="{{ H.cancelSub }}">Cancelar suscripción</button><button class="btn btn2" onClick="{{ H.closeSheet }}">Mantener Premium</button></div></div></sc-if>
+
+<sc-if value="{{ SH.lout }}" hint-placeholder-val="{{ false }}"><div class="ovl"><div class="sheet c" style="gap:10px"><b style="font-size:20px">¿Cerrar sesión?</b><span class="mu">Tu progreso queda guardado en tu cuenta.</span><button class="btn" onClick="{{ H.logout }}">Cerrar sesión</button><button class="btn btn2" onClick="{{ H.closeSheet }}">Cancelar</button></div></div></sc-if>
+
+<sc-if value="{{ F.hasToast }}" hint-placeholder-val="{{ false }}"><div class="toast" role="status">{{ T.toast }}</div></sc-if>
+</div>
+
+<aside class="idx" style="width:380px;height:844px;border-radius:28px;background:var(--sf);border:1px solid var(--ln);padding:16px;overflow-y:auto;flex:none">
+<div style="font-weight:800;font-size:18px">Todas las pantallas (57)</div>
+<div class="mu sm" style="margin:4px 0 10px">Toca una para saltar. También puedes navegar dentro del teléfono: botones, atrás, hojas y avisos funcionan.</div>
+<div class="rw" style="gap:8px;flex-wrap:wrap"><button class="chip {{ T.darkOn }}" onClick="{{ H.toggleDark }}"><dc-import name="I" n="moon" s="14"></dc-import>Modo oscuro</button><button class="chip {{ T.expOn }}" onClick="{{ H.toggleExpired }}"><dc-import name="I" n="clock" s="14"></dc-import>Prueba terminada</button><button class="chip" onClick="{{ H.restart }}"><dc-import name="I" n="refresh" s="14"></dc-import>Reiniciar</button></div>
+<sc-for list="{{ idx }}" as="i" hint-placeholder-count="50"><sc-if value="{{ i.head }}" hint-placeholder-val="{{ false }}"><div class="gh">{{ i.l }}</div></sc-if><sc-if value="{{ i.item }}" hint-placeholder-val="{{ true }}"><button class="{{ i.cls }}" onClick="{{ i.go }}">{{ i.l }}</button></sc-if></sc-for>
+</aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark","system"],"default":"light"},"$preview":{"width":800,"height":844}}'>
+class Component extends DCLogic {
+  state = this.init();
+
+  init() {
+    return {
+      screen: 'splash', hist: [], ob: 0, theme: null, showPw: false, pw: '', agree: true, sent: false, trust: true,
+      area: 'Medicina', examGoal: 'ENAM', goal: 20, cur: 'ENAM', topic: 'Medicina Interna', exTab: 'Contenido',
+      filter: 'Todos', q: '', trialLeft: 3, premium: false, mfa: true, bio: false, today: 6, streak: 7,
+      plan: 'anual', method: 'yape', sheet: '', toast: '', qs: [], qi: 0, ans: {}, flags: {}, qmode: 'practice',
+      poolKey: 'ENAM', setupMode: 'practice', qn: 10, qtime: 'sin', sec: 0, reason: 0, faq: -1,
+      fav: { 'ENAM-1': true, 'ENCAPS-1': true }, dl: { a: true }, wifi: true, sound: true, haptic: true, notif: true,
+      notes: [
+        { t: 'Tríada de Beck', d: 'Hipotensión, ingurgitación yugular y ruidos cardíacos apagados.', tag: 'ENAM · Cardiología' },
+        { t: 'Plan C en deshidratación grave', d: 'Rehidratación endovenosa con solución isotónica.', tag: 'Essalud · Pediatría' }
+      ],
+      unread: true, lang: 'Español', legalTab: 'T', docFilter: 'Todos', rankTab: 'Semana', year: 3, hours: '2 h', planDone: {}, docSel: 0, docPage: 1
+    };
+  }
+
+  componentDidMount() {
+    this._tm = setTimeout(() => { if (this.state.screen === 'splash') this.go('onboarding'); }, 1800);
+  }
+  componentWillUnmount() {
+    clearInterval(this._iv); clearTimeout(this._tm); clearTimeout(this._tt); clearTimeout(this._pt);
+  }
+
+  bank() {
+    if (this._b) return this._b;
+    this._b = {
+      ENAM: [
+        { t: 'Cirugía', q: 'Varón de 24 años con fiebre, náuseas y dolor que inició en el epigastrio y luego migró a la fosa ilíaca derecha. ¿Cuál es el diagnóstico más probable?', o: ['Colecistitis aguda', 'Apendicitis aguda', 'Pancreatitis aguda', 'Gastroenteritis aguda'], a: 1, e: 'El dolor que migra del epigastrio o la región periumbilical a la fosa ilíaca derecha, con náuseas y fiebre, es la presentación clásica de la apendicitis aguda.' },
+        { t: 'Emergencias', q: '¿Cuál es el fármaco de primera línea en el tratamiento de la anafilaxia?', o: ['Hidrocortisona endovenosa', 'Difenhidramina oral', 'Adrenalina intramuscular', 'Salbutamol nebulizado'], a: 2, e: 'La adrenalina intramuscular, aplicada lo antes posible, es el tratamiento de primera línea. Los antihistamínicos y corticoides son complementarios.' },
+        { t: 'Cardiología', q: '¿Qué hallazgos componen la tríada de Beck del taponamiento cardiaco?', o: ['Fiebre, disnea y dolor pleurítico', 'Hipotensión, ingurgitación yugular y ruidos cardíacos apagados', 'Dolor torácico, sudoración y náuseas', 'Edema, ascitis y hepatomegalia'], a: 1, e: 'La tríada de Beck: hipotensión arterial, ingurgitación yugular y ruidos cardíacos apagados.' },
+        { t: 'Infectología', q: '¿Cuál es el microorganismo más frecuente en la infección urinaria no complicada?', o: ['Staphylococcus aureus', 'Pseudomonas aeruginosa', 'Escherichia coli', 'Klebsiella pneumoniae'], a: 2, e: 'Escherichia coli causa la mayoría de las infecciones urinarias no complicadas adquiridas en la comunidad.' },
+        { t: 'Nutrición', q: 'La deficiencia de qué vitamina produce beriberi?', o: ['Vitamina B1 (tiamina)', 'Vitamina C', 'Vitamina B12', 'Vitamina D'], a: 0, e: 'El beriberi se debe a la deficiencia de tiamina (vitamina B1).' },
+        { t: 'Endocrinología', q: '¿Cuál es el valor de glucosa plasmática en ayunas que apoya el diagnóstico de diabetes mellitus?', o: ['≥ 100 mg/dL', '≥ 110 mg/dL', '≥ 126 mg/dL', '≥ 140 mg/dL'], a: 2, e: 'Una glucosa en ayunas ≥ 126 mg/dL (confirmada en una segunda ocasión si no hay síntomas) cumple criterio diagnóstico.' },
+        { t: 'Infectología', q: '¿Cuál es el tratamiento de elección de la sífilis primaria?', o: ['Penicilina G benzatínica 2,4 millones UI IM en dosis única', 'Ceftriaxona 1 g VO por 3 días', 'Azitromicina 500 mg VO por 5 días', 'Ciprofloxacino 500 mg VO por 7 días'], a: 0, e: 'La penicilina G benzatínica en dosis única intramuscular es el tratamiento de elección en sífilis primaria.' },
+        { t: 'Cardiología', q: 'Paciente con dolor torácico y elevación del segmento ST de V1 a V4. ¿Qué pared está afectada?', o: ['Pared inferior', 'Pared anterior (arteria descendente anterior)', 'Pared lateral baja', 'Ventrículo derecho'], a: 1, e: 'ST elevado en V1–V4 indica infarto de pared anterior, habitualmente por oclusión de la arteria descendente anterior.' },
+        { t: 'Cirugía', q: 'El signo de Murphy positivo se asocia a:', o: ['Colecistitis aguda', 'Apendicitis aguda', 'Pancreatitis aguda', 'Úlcera duodenal perforada'], a: 0, e: 'La inspiración que se interrumpe por dolor al palpar el hipocondrio derecho es el signo de Murphy, típico de colecistitis aguda.' },
+        { t: 'Emergencias', q: '¿Cuál es el puntaje mínimo posible en la escala de coma de Glasgow?', o: ['0', '1', '3', '5'], a: 2, e: 'La escala suma ocular (1–4), verbal (1–5) y motora (1–6); el mínimo es 3 y el máximo 15.' }
+      ],
+      ESSALUD: [
+        { t: 'Pediatría', q: 'Niño de 2 años con diarrea, letárgico, ojos hundidos y pliegue cutáneo que tarda en recuperarse. ¿Qué plan de rehidratación corresponde?', o: ['Plan A: líquidos orales en casa', 'Plan B: SRO en el establecimiento', 'Plan C: rehidratación endovenosa', 'Solo antibiótico oral'], a: 2, e: 'Letargia y pliegue muy lento indican deshidratación grave: Plan C con rehidratación endovenosa.' },
+        { t: 'Obstetricia', q: '¿Cuál es un signo de alarma obstétrico?', o: ['Náuseas matutinas leves', 'Cefalea intensa con visión borrosa o zumbido de oídos', 'Aumento leve de peso', 'Lumbalgia leve'], a: 1, e: 'La cefalea intensa con alteraciones visuales sugiere preeclampsia severa y requiere atención inmediata.' },
+        { t: 'Obstetricia', q: 'Según la OMS, ¿cuál es el punto de corte de hemoglobina que define anemia en la gestante?', o: ['< 9 g/dL', '< 10 g/dL', '< 11 g/dL', '< 13 g/dL'], a: 2, e: 'En el embarazo se define anemia con hemoglobina menor de 11 g/dL.' },
+        { t: 'Medicina interna', q: '¿A partir de qué cifras se define hipertensión arterial en consultorio?', o: ['≥ 120/80 mmHg', '≥ 130/85 mmHg', '≥ 140/90 mmHg', '≥ 160/100 mmHg'], a: 2, e: 'La hipertensión se define con presión arterial ≥ 140/90 mmHg en mediciones repetidas.' },
+        { t: 'Neumología', q: '¿Qué fármaco se usa como primera línea en una crisis asmática leve a moderada?', o: ['Salbutamol inhalado', 'Prednisona oral como único tratamiento', 'Montelukast', 'Amoxicilina'], a: 0, e: 'Los beta-2 agonistas de acción corta inhalados, como el salbutamol, son el tratamiento inicial de la crisis.' },
+        { t: 'Salud pública', q: '¿Cuál es la medida más efectiva para reducir infecciones intrahospitalarias?', o: ['Antibióticos profilácticos a todos', 'Lavado de manos en los momentos clave', 'Aislar a todos los pacientes', 'Mascarilla solo para el paciente'], a: 1, e: 'La higiene de manos en los cinco momentos de atención es la medida individual más efectiva.' },
+        { t: 'Infectología', q: '¿Qué esquema se usa en la fase inicial de la tuberculosis pulmonar sensible?', o: ['Isoniacida, rifampicina, pirazinamida y etambutol', 'Solo isoniacida', 'Amoxicilina con clavulánico', 'Rifampicina y ciprofloxacino'], a: 0, e: 'La fase intensiva combina cuatro fármacos: isoniacida, rifampicina, pirazinamida y etambutol.' },
+        { t: 'Infectología', q: 'En dengue, ¿cuál es un signo de alarma?', o: ['Dolor de cabeza leve', 'Dolor abdominal intenso y continuo', 'Fiebre de un día', 'Dolor muscular leve'], a: 1, e: 'El dolor abdominal intenso y sostenido es un signo de alarma que exige vigilancia estrecha.' },
+        { t: 'Ginecología', q: '¿Qué prueba se usa para el tamizaje del cáncer de cuello uterino?', o: ['Mamografía', 'Papanicolaou o prueba de VPH', 'Colonoscopía', 'Ecografía pélvica'], a: 1, e: 'El tamizaje se realiza con citología (Papanicolaou) o con prueba de detección de VPH.' },
+        { t: 'Pediatría', q: 'La vacuna BCG, aplicada al nacer, protege contra:', o: ['Hepatitis A', 'Formas graves de tuberculosis', 'Sarampión', 'Poliomielitis'], a: 1, e: 'La BCG previene las formas graves de tuberculosis en la infancia, como la meníngea y la miliar.' }
+      ],
+      RESIDENCIA: [
+        { t: 'Medicina interna', q: '¿Cuál es el manejo inicial del shock séptico?', o: ['Esperar los cultivos antes de tratar', 'Cristaloides y antibióticos de amplio espectro en la primera hora', 'Solo vasopresores', 'Corticoides en dosis altas como única medida'], a: 1, e: 'El inicio temprano de fluidos y antibióticos de amplio espectro, idealmente en la primera hora, mejora la supervivencia.' },
+        { t: 'Neurología', q: '¿Cuál es el tratamiento de primera línea del estatus epiléptico?', o: ['Fenitoína oral', 'Benzodiacepina endovenosa (lorazepam o diazepam)', 'Carbamazepina', 'Ácido valproico oral'], a: 1, e: 'Una benzodiacepina por vía endovenosa es la primera línea; luego se añade un antiepiléptico de segunda línea.' },
+        { t: 'Gastroenterología', q: '¿Cuál es la causa más frecuente de hemorragia digestiva alta?', o: ['Várices esofágicas', 'Úlcera péptica', 'Síndrome de Mallory-Weiss', 'Cáncer gástrico'], a: 1, e: 'La enfermedad ulcerosa péptica es la causa más común de hemorragia digestiva alta.' },
+        { t: 'Cardiología', q: '¿Cuál de estos fármacos reduce la mortalidad en insuficiencia cardiaca con fracción de eyección reducida?', o: ['Furosemida', 'Digoxina', 'Bisoprolol', 'Nifedipino'], a: 2, e: 'Ciertos betabloqueadores (bisoprolol, carvedilol, metoprolol succinato) reducen mortalidad; la furosemida y la digoxina alivian síntomas.' },
+        { t: 'Endocrinología', q: '¿Cuál es el manejo inicial de la cetoacidosis diabética?', o: ['Solo insulina subcutánea', 'Hidratación IV con solución salina e insulina regular en infusión', 'Bicarbonato en todos los casos', 'Metformina'], a: 1, e: 'Se inicia con reposición de volumen y luego insulina regular endovenosa, vigilando potasio.' },
+        { t: 'Urología', q: '¿Qué marcador se usa en el seguimiento del cáncer de próstata?', o: ['CA 125', 'Antígeno prostático específico (PSA)', 'CEA', 'Alfafetoproteína'], a: 1, e: 'El PSA se usa para seguimiento y respuesta al tratamiento del cáncer de próstata.' },
+        { t: 'Neumología', q: 'En un paciente estable con sospecha de tromboembolia pulmonar, ¿qué estudio de imagen es de elección?', o: ['Radiografía de tórax', 'Angiotomografía pulmonar', 'Espirometría', 'Ecografía abdominal'], a: 1, e: 'La angiotomografía pulmonar es el estudio de elección en pacientes estables.' },
+        { t: 'Cirugía', q: 'Fiebre, ictericia y dolor en hipocondrio derecho forman la tríada de Charcot. ¿Qué cuadro sugiere?', o: ['Colangitis aguda', 'Colecistitis aguda', 'Pancreatitis aguda', 'Hepatitis A'], a: 0, e: 'La tríada de Charcot es característica de la colangitis aguda.' },
+        { t: 'Toxicología', q: '¿Cuál es el antídoto de la intoxicación por paracetamol?', o: ['Naloxona', 'N-acetilcisteína', 'Flumazenilo', 'Atropina'], a: 1, e: 'La N-acetilcisteína repone glutatión y previene el daño hepático.' },
+        { t: 'Infectología', q: '¿Cuál es el germen más frecuente de la neumonía adquirida en la comunidad?', o: ['Streptococcus pneumoniae', 'Pseudomonas aeruginosa', 'Staphylococcus aureus', 'Klebsiella pneumoniae'], a: 0, e: 'Streptococcus pneumoniae es el patógeno más común en la neumonía comunitaria.' }
+      ],
+      ENCAPS: [
+        { t: 'Salud pública', q: 'La atención primaria de salud se brinda principalmente en el nivel:', o: ['I (puestos y centros de salud)', 'II (hospitales regionales)', 'III (institutos especializados)', 'Solo en hospitales nacionales'], a: 0, e: 'El primer nivel concentra promoción, prevención y atención básica de la población.' },
+        { t: 'Pediatría', q: 'La lactancia materna exclusiva se recomienda hasta los:', o: ['3 meses', '4 meses', '6 meses', '12 meses'], a: 2, e: 'Se recomienda lactancia materna exclusiva durante los primeros 6 meses de vida.' },
+        { t: 'Salud pública', q: '¿Qué medida comunitaria previene mejor las enfermedades diarreicas?', o: ['Agua segura, saneamiento y lavado de manos', 'Antibióticos a toda la comunidad', 'Suspender la lactancia', 'Retirar los alimentos sólidos'], a: 0, e: 'Agua segura, saneamiento y lavado de manos son la base de la prevención.' },
+        { t: 'Promoción', q: 'La educación sanitaria a la comunidad corresponde a la prevención:', o: ['Primaria', 'Secundaria', 'Terciaria', 'Rehabilitación'], a: 0, e: 'Educar para evitar la aparición de la enfermedad es prevención primaria.' },
+        { t: 'Pediatría', q: 'En un niño con infección respiratoria aguda, ¿cuál es un signo de alarma?', o: ['Tos leve', 'Tiraje subcostal', 'Rinorrea', 'Estornudos'], a: 1, e: 'El tiraje subcostal indica dificultad respiratoria y neumonía grave.' },
+        { t: 'Epidemiología', q: 'La mortalidad infantil se define como las muertes de:', o: ['Menores de 5 años por 1 000 nacidos vivos', 'Menores de 1 año por 1 000 nacidos vivos', 'Fetos por 1 000 embarazos', 'Madres por 100 000 habitantes'], a: 1, e: 'Se calcula con las defunciones de menores de un año por cada 1 000 nacidos vivos.' },
+        { t: 'Obstetricia', q: '¿Cuántos controles prenatales como mínimo se recomiendan en el Perú?', o: ['2', '4', '6', '9'], a: 2, e: 'La norma técnica vigente establece un mínimo de 6 controles prenatales. Verifica siempre la norma actualizada.' },
+        { t: 'Obstetricia', q: '¿Qué suplementación se indica de rutina a la gestante?', o: ['Sulfato ferroso y ácido fólico', 'Vitamina C sola', 'Ninguna suplementación', 'Solo calcio en cualquier dosis'], a: 0, e: 'Hierro y ácido fólico previenen anemia y defectos del tubo neural.' },
+        { t: 'Emergencias', q: 'En el triaje, la prioridad I corresponde a:', o: ['Atención en 24 horas', 'Emergencia con riesgo vital: atención inmediata', 'Consulta de control', 'Cita programada'], a: 1, e: 'La prioridad I es la emergencia crítica que requiere atención inmediata.' },
+        { t: 'Epidemiología', q: '¿Cuál de estas enfermedades requiere notificación inmediata?', o: ['Caspa', 'Sarampión', 'Caries dental', 'Miopía'], a: 1, e: 'El sarampión es de notificación inmediata ante un caso sospechoso.' }
+      ]
+    };
+    return this._b;
+  }
+
+  mods() {
+    return [
+      { id: 'ENAM', t: 'ENAM', d: 'Teoría, preguntas y simulacros', hd: 'Examen Nacional de Medicina', ic: 'file', tone: 'tv', area: 'Medicina', pool: 'ENAM', full: 'Examen Nacional de Medicina' },
+      { id: 'Essalud', t: 'Essalud', d: 'Casos clínicos y normativa', hd: 'Conocimientos y casos clínicos', ic: 'users', tone: 'tb', area: 'Medicina', pool: 'ESSALUD', full: 'Proceso de ingreso a Essalud' },
+      { id: 'Residencia Médica', t: 'Residencia Médica', d: 'Especialidades y simulacros', hd: 'Teoría, simulacros y casos', ic: 'pulse', tone: 'tm', area: 'Medicina', pool: 'RESIDENCIA', full: 'Examen de Residentado Médico' },
+      { id: 'ENCAPS', t: 'ENCAPS', d: 'Temas y preguntas oficiales', hd: 'Evaluación para el Servicio Rural y Urbano', ic: 'note', tone: 'tp', area: 'Medicina', pool: 'ENCAPS', full: 'Evaluación para el Servicio Rural y Urbano' },
+      { id: 'Medicina General', t: 'Medicina General', d: 'Guías, casos y simulacros', hd: '', ic: 'pulse', tone: 'tv', area: 'Medicina', pool: 'ENAM', full: 'Medicina General' },
+      { id: 'Enfermería', t: 'Enfermería', d: 'Guías y procedimientos', hd: '', ic: 'cross', tone: 'tm', area: 'Enfermería', pool: 'ENCAPS', full: 'Enfermería' },
+      { id: 'Obstetricia', t: 'Obstetricia', d: 'Salud materna y neonatal', hd: '', ic: 'heart', tone: 'tp', area: 'Obstetricia', pool: 'ESSALUD', full: 'Obstetricia' },
+      { id: 'Odontología', t: 'Odontología', d: 'Casos, protocolos y simulacros', hd: '', ic: 'tooth', tone: 'tb', area: 'Odontología', pool: 'ENCAPS', full: 'Odontología' },
+      { id: 'Psicología', t: 'Psicología', d: 'Salud mental y evaluación', hd: '', ic: 'brain', tone: 'tv', area: 'Psicología', pool: 'ENCAPS', full: 'Psicología' },
+      { id: 'Nutrición', t: 'Nutrición', d: 'Guías y casos clínicos', hd: '', ic: 'leaf', tone: 'tm', area: 'Nutrición', pool: 'ENCAPS', full: 'Nutrición' }
+    ];
+  }
+
+  isDark() {
+    const m = this.state.theme || this.props.theme || 'light';
+    if (m === 'system') { try { return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); } catch (e) { return false; } }
+    return m === 'dark';
+  }
+  access() { return this.state.premium || this.state.trialLeft > 0; }
+  fmt(s) { s = Math.max(0, s); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+
+  go(s) {
+    const st = this.state;
+    this.setState({ screen: s, hist: st.hist.concat(st.screen), sheet: '' });
+    try { const el = document.querySelector('.scr'); if (el) el.scrollTop = 0; } catch (e) {}
+    if (s === 'payProc') {
+      clearTimeout(this._pt);
+      this._pt = setTimeout(() => { this.setState({ screen: 'paySuccess', premium: true, hist: [] }); }, 1900);
+    }
+  }
+  back() {
+    const h = this.state.hist.slice();
+    const p = h.pop() || 'home';
+    this.setState({ screen: p, hist: h, sheet: '' });
+  }
+  reset(s) { this.setState({ screen: s, hist: [], sheet: '' }); try { const el = document.querySelector('.scr'); if (el) el.scrollTop = 0; } catch (e) {} }
+  say(t) {
+    this.setState({ toast: t });
+    clearTimeout(this._tt);
+    this._tt = setTimeout(() => this.setState({ toast: '' }), 2200);
+  }
+  sheet(k) { this.setState({ sheet: k }); }
+
+  poolOf(id) { const m = this.mods().find((x) => x.id === id); return m ? m.pool : 'ENAM'; }
+  openExam(id) {
+    if (!this.access()) { this.go('paywall'); return; }
+    this.setState({ cur: id });
+    this.go('examDetail');
+  }
+  openSetup(mode) {
+    if (!this.access()) { this.go('paywall'); return; }
+    this.setState({ setupMode: mode });
+    this.go('quizSetup');
+  }
+  startQuiz(pool, n, mode, errs, single) {
+    if (!this.access()) { this.go('paywall'); return; }
+    const b = this.bank();
+    let qs = (b[pool] || b.ENAM).slice(0, n);
+    if (errs) qs = [b.ENAM[0], b.ENAM[3], b.ENCAPS[2], b.RESIDENCIA[1]];
+    if (single) qs = [b.ENAM[1]];
+    clearInterval(this._iv);
+    this.setState({ qs: qs, qi: 0, ans: {}, flags: {}, qmode: mode, poolKey: pool, sec: 0, sheet: '' });
+    this.go('quiz');
+    if (mode === 'sim') {
+      this._iv = setInterval(() => {
+        const st = this.state;
+        if (st.screen !== 'quiz') { clearInterval(this._iv); return; }
+        if (st.sheet === 'pause') return;
+        const sec = st.sec + 1;
+        this.setState({ sec: sec });
+        if (st.qtime === '15' && sec >= 900) this.finish();
+      }, 1000);
+    }
+  }
+  finish() { clearInterval(this._iv); this.setState({ sheet: '' }); this.go('result'); }
+  demo(fill) {
+    const qs = this.bank().ENAM.slice(0, 10);
+    const ans = {};
+    if (fill) qs.forEach((q, i) => { ans[i] = (i === 3 || i === 7) ? (q.a + 1) % 4 : q.a; });
+    return { qs: qs, qi: 0, ans: ans, flags: { 3: true }, qmode: 'practice', poolKey: 'ENAM', sec: 190, today: 16 };
+  }
+  jump(s) {
+    clearInterval(this._iv);
+    const base = { sheet: '', hist: [], toast: '', screen: s };
+    if (s === 'quiz' || s === 'result' || s === 'review') Object.assign(base, this.demo(s !== 'quiz'));
+    if (s === 'quiz') base.ans = { 0: 1 };
+    this.setState(base);
+    try { const el = document.querySelector('.scr'); if (el) el.scrollTop = 0; } catch (e) {}
+  }
+
+  renderVals() {
+    const st = this.state, me = this, bank = this.bank(), dark = this.isDark(), access = this.access();
+    const ALL = ['splash', 'onboarding', 'welcome', 'login', 'register', 'verify', 'forgot', 'mfa', 'mfaSetup', 'backup', 'area', 'goal', 'trialStart', 'home', 'search', 'modules', 'examDetail', 'topic', 'sims', 'quizSetup', 'quiz', 'result', 'review', 'progress', 'streak', 'achievements', 'profile', 'notes', 'favorites', 'history', 'downloads', 'settings', 'notifSettings', 'security', 'notifs', 'plans', 'checkout', 'payQR', 'payCard', 'payProc', 'paySuccess', 'payFail', 'subscription', 'paywall', 'help', 'offline', 'error', 'editProfile', 'changePw', 'language', 'legal', 'docs', 'docView', 'ranking', 'invite', 'studyPlan', 'about'];
+    const S = {}; ALL.forEach((k) => { S[k] = st.screen === k; });
+    const SH = {}; ['qnav', 'pause', 'exit', 'report', 'filter', 'del', 'cancel', 'lout'].forEach((k) => { SH[k] = st.sheet === k; });
+    const mods = this.mods();
+    const curMod = mods.find((m) => m.id === st.cur) || mods[0];
+    const G = (id) => () => me.go(id);
+    const PLANS = { mensual: { t: 'Mensual', d: 'Renovación cada mes', price: 'S/ 29', save: '', until: '30 nov 2026' }, trimestral: { t: 'Trimestral', d: '3 meses de acceso', price: 'S/ 69', save: 'Ahorra 21%', until: '30 ene 2027' }, anual: { t: 'Anual', d: '12 meses de acceso', price: 'S/ 199', save: 'Ahorra 43%', until: '30 oct 2027' } };
+    const plan = PLANS[st.plan];
+    const METH = { yape: 'Yape', plin: 'Plin', card: 'Tarjeta' };
+
+    // onboarding
+    const OB = [
+      { t: 'Elige tu examen', d: 'ENAM, Essalud, Residencia Médica, ENCAPS y más, según tu carrera.', ic: 'target', tone: 'tv', mood: 'happy' },
+      { t: 'Practica con simulacros', d: 'Preguntas por área con la respuesta correcta y su explicación.', ic: 'file', tone: 'tb', mood: 'cheer' },
+      { t: 'No pierdas tu racha', d: 'Estudia cada día, sigue tu progreso y llega preparado al examen.', ic: 'flame', tone: 'to', mood: 'cheer' }
+    ][st.ob];
+    const obDots = [0, 1, 2].map((i) => ({ cls: i === st.ob ? 'on' : '' }));
+
+    // quiz
+    const hasQ = st.qs.length > 0;
+    const q = hasQ ? st.qs[Math.min(st.qi, st.qs.length - 1)] : bank.ENAM[0];
+    const n = hasQ ? st.qs.length : 10;
+    const chosen = st.ans[st.qi];
+    const answered = chosen !== undefined;
+    const practice = st.qmode !== 'sim';
+    const L = ['A', 'B', 'C', 'D'];
+    const opts = q.o.map((t, i) => {
+      let cls = '';
+      if (answered) { if (practice) { if (i === q.a) cls = 'ok'; else if (i === chosen) cls = 'er'; } else if (i === chosen) cls = 'sel'; }
+      return { l: L[i], t: t, cls: cls, okI: practice && answered && i === q.a, erI: practice && answered && i === chosen && i !== q.a,
+        pick: () => { if (practice && answered) return; const first = st.ans[st.qi] === undefined; me.setState({ ans: Object.assign({}, st.ans, { [st.qi]: i }), today: first ? st.today + 1 : st.today }); } };
+    });
+    const favKey = st.poolKey + '-' + st.qi;
+    const elapsed = st.sec;
+    const timer = st.qmode === 'sim' ? (st.qtime === '15' ? this.fmt(900 - elapsed) : this.fmt(elapsed)) : 'Libre';
+    const right = st.qs.filter((x, i) => st.ans[i] === x.a).length;
+    const pct = hasQ ? Math.round(right / n * 100) : 0;
+    const qgrid = st.qs.map((x, i) => ({ n: i + 1, cls: i === st.qi ? 'cur' : (st.flags[i] ? 'flag' : (st.ans[i] !== undefined ? 'done' : '')), go: () => me.setState({ qi: i, sheet: '' }) }));
+    const rev = st.qs.map((x, i) => {
+      const c = st.ans[i]; const ok = c === x.a; const key = st.poolKey + '-' + i;
+      return { n: 'Pregunta ' + (i + 1), tag: ok ? 'Correcta' : (c === undefined ? 'Sin responder' : 'Incorrecta'), tone: ok ? 'tm' : 'tp', q: x.q, mine: c === undefined ? 'Sin responder' : x.o[c], right: x.o[x.a], e: x.e,
+        fav: () => me.setState({ fav: Object.assign({}, st.fav, { [key]: !st.fav[key] }) }) };
+    });
+
+    // lists
+    const filters = ['Todos', 'Medicina', 'Enfermería', 'Obstetricia', 'Odontología', 'Psicología', 'Nutrición'].map((f) => ({ l: f, cls: st.filter === f ? 'on' : '', pick: () => me.setState({ filter: f }) }));
+    const lockOn = !access;
+    const mapMod = (m) => ({ t: m.t, d: m.d, hd: m.hd, ic: m.ic, tone: m.tone, lock: lockOn, meta: '10 preguntas de ejemplo', go: () => me.openExam(m.id) });
+    const modsL = mods.filter((m) => st.filter === 'Todos' || m.area === st.filter).map(mapMod);
+    const qtext = st.q.trim().toLowerCase();
+    const qres = mods.filter((m) => !qtext || (m.t + ' ' + m.d).toLowerCase().includes(qtext)).map(mapMod);
+    const home4 = mods.slice(0, 4).map((m) => ({ t: m.t, d: m.hd, ic: m.ic, tone: m.tone, go: () => me.openExam(m.id) }));
+    const topicsRaw = [['Ciencias Básicas', 120, 'brain', 'tb'], ['Medicina Interna', 150, 'heart', 'tp'], ['Cirugía General', 90, 'cross', 'tv'], ['Ginecología y Obstetricia', 80, 'heart', 'tp'], ['Pediatría', 90, 'users', 'tv'], ['Salud Pública', 70, 'shield', 'tp'], ['Emergencias', 60, 'pulse', 'tp'], ['Imágenes y laboratorio', 50, 'search', 'tv']];
+    const topics = topicsRaw.map((t) => ({ t: t[0], n: t[1], ic: t[2], tone: t[3], go: () => { if (!me.access()) { me.go('paywall'); return; } me.setState({ topic: t[0] }); me.go('topic'); } }));
+
+    const free = (label) => () => me.say(label);
+    const doneDays = [2, 3, 6, 7, 8, 9, 12, 13, 14, 15, 16, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29];
+    const cal = [{ n: '', cls: '' }, { n: '', cls: '' }, { n: '', cls: '' }];
+    for (let d = 1; d <= 31; d++) cal.push({ n: d, cls: d === 30 ? 'd t' : (doneDays.indexOf(d) >= 0 ? 'd' : '') });
+
+    const dlItems = [['a', 'ENAM · Simulacro 1', '10 preguntas · 1,2 MB', 'file', 'tv'], ['b', 'Guía de estudio ENAM (PDF)', '4,2 MB', 'note', 'tb'], ['c', 'Essalud · Casos clínicos', '2,8 MB', 'pulse', 'tp'], ['d', 'ENCAPS · Banco de preguntas', '1,9 MB', 'file', 'tm']];
+    const hist = [{ head: true, item: false, l: 'Hoy' }, { head: false, item: true, t: 'ENAM · Práctica', d: '6 preguntas · 8 min', p: '83%', ic: 'file', tone: 'tv' }, { head: true, item: false, l: 'Ayer' }, { head: false, item: true, t: 'Essalud · Simulacro 2', d: '10 preguntas · 14 min', p: '70%', ic: 'users', tone: 'tb' }, { head: false, item: true, t: 'ENCAPS · Repaso de errores', d: '4 preguntas · 5 min', p: '75%', ic: 'refresh', tone: 'tp' }, { head: true, item: false, l: 'Esta semana' }, { head: false, item: true, t: 'Residencia · Simulacro 1', d: '10 preguntas · 15 min', p: '60%', ic: 'pulse', tone: 'tm' }];
+    const favL = Object.keys(st.fav).filter((k) => st.fav[k]).map((k) => { const p = k.split('-'); const qq = (bank[p[0]] || [])[Number(p[1])]; return qq ? { tag: qq.t, q: qq.q, a: qq.o[qq.a], del: () => me.setState({ fav: Object.assign({}, st.fav, { [k]: false }) }) } : null; }).filter(Boolean);
+
+    const notifSrc = [['Tu racha de ' + st.streak + ' días está en riesgo', 'Responde 14 preguntas hoy para mantenerla.', 'flame', 'to', () => me.quickPractice()], ['Nuevo simulacro ENAM disponible', 'Casos clínicos de Cirugía y Pediatría.', 'file', 'tv', () => me.openExam('ENAM')], ['Tu prueba gratis termina pronto', 'Elige un plan y paga con Yape, Plin o tarjeta.', 'clock', 'tm', () => me.go('plans')], ['Respondimos tu reporte', 'Gracias por ayudarnos a mejorar las preguntas.', 'check', 'tb', () => {}]];
+
+    const tabMap = { home: 'home', modules: 'modules', search: 'modules', examDetail: 'modules', topic: 'modules', sims: 'sims', progress: 'progress', streak: 'progress', achievements: 'progress', profile: 'profile' };
+    const activeTab = tabMap[st.screen];
+    const tabs = [['home', 'Inicio', 'home'], ['modules', 'Módulos', 'grid'], ['sims', 'Simulacros', 'file'], ['progress', 'Progreso', 'chart'], ['profile', 'Perfil', 'user']].map((t) => ({ l: t[1], ic: t[2], cls: t[0] === activeTab ? 'on' : '', go: () => me.reset(t[0]) }));
+
+    const GRP = [
+      ['Arranque', [['splash', 'Splash'], ['onboarding', 'Onboarding (3 pasos)'], ['welcome', 'Bienvenida']]],
+      ['Cuenta y seguridad', [['login', 'Iniciar sesión'], ['register', 'Registro'], ['verify', 'Verificar correo'], ['forgot', 'Recuperar contraseña'], ['mfa', 'Código MFA'], ['mfaSetup', 'Activar MFA (QR)'], ['backup', 'Códigos de respaldo']]],
+      ['Configuración inicial', [['area', 'Elegir carrera'], ['goal', 'Examen, fecha y meta'], ['trialStart', 'Prueba gratis de 3 días']]],
+      ['Inicio y módulos', [['home', 'Inicio'], ['search', 'Búsqueda'], ['modules', 'Módulos'], ['examDetail', 'Detalle de examen (ENAM)'], ['topic', 'Detalle de tema']]],
+      ['Simulacros', [['sims', 'Simulacros'], ['quizSetup', 'Configurar simulacro'], ['quiz', 'Pregunta'], ['result', 'Resultado'], ['review', 'Revisión con respuestas']]],
+      ['Progreso', [['progress', 'Mi progreso'], ['streak', 'Racha'], ['achievements', 'Logros']]],
+      ['Perfil', [['profile', 'Mi perfil'], ['notes', 'Mis notas'], ['favorites', 'Favoritos'], ['history', 'Historial'], ['downloads', 'Descargas'], ['settings', 'Configuración'], ['notifSettings', 'Recordatorios'], ['security', 'Seguridad y dispositivos'], ['notifs', 'Notificaciones'], ['editProfile', 'Editar perfil'], ['changePw', 'Cambiar contraseña'], ['language', 'Idioma'], ['docs', 'Biblioteca de documentos'], ['docView', 'Lector de documento'], ['ranking', 'Ranking'], ['invite', 'Invitar amigos'], ['studyPlan', 'Plan de estudio'], ['legal', 'Términos y privacidad'], ['about', 'Acerca de']]],
+      ['Suscripción y pagos', [['plans', 'Planes Premium'], ['checkout', 'Elegir medio de pago'], ['payQR', 'Pago con Yape o Plin'], ['payCard', 'Pago con tarjeta'], ['payProc', 'Confirmando pago'], ['paySuccess', 'Pago exitoso'], ['payFail', 'Pago rechazado'], ['subscription', 'Mi suscripción'], ['paywall', 'Prueba terminada']]],
+      ['Sistema', [['help', 'Ayuda y soporte'], ['offline', 'Sin conexión'], ['error', 'Error']]]
+    ];
+    const idx = [];
+    GRP.forEach((g) => { idx.push({ head: true, item: false, l: g[0] }); g[1].forEach((i) => idx.push({ head: false, item: true, l: i[1], cls: st.screen === i[0] ? 'on' : '', go: () => me.jump(i[0]) })); });
+
+    const mode = st.theme || this.props.theme || 'light';
+    const hr = new Date().getHours();
+    const DOCS = [{ t: 'Guía de estudio ENAM', cat: 'Guías', d: 'PDF · 12 páginas · 4,2 MB', ic: 'book', tone: 'tv' }, { t: 'Resumen de Medicina Interna', cat: 'Resúmenes', d: 'PDF · 12 páginas · 2,1 MB', ic: 'file', tone: 'tp' }, { t: 'Casos clínicos de Essalud', cat: 'Guías', d: 'PDF · 20 páginas · 3,0 MB', ic: 'pulse', tone: 'tb' }, { t: 'Formulario de dosis y fármacos', cat: 'PDF', d: 'PDF · 6 páginas · 0,8 MB', ic: 'pill', tone: 'to' }, { t: 'Mapa de temas ENCAPS', cat: 'Resúmenes', d: 'PDF · 8 páginas · 1,1 MB', ic: 'note', tone: 'tm' }];
+    const doneN = Object.keys(st.planDone).filter((k) => st.planDone[k]).length;
+    const T = {
+      cls: dark ? 'dark' : '', obTone: OB.tone, obIc: OB.ic, obMood: OB.mood, obT: OB.t, obD: OB.d, obBtn: st.ob < 2 ? 'Siguiente' : 'Empezar',
+      pwType: st.showPw ? 'text' : 'password', eyeIc: st.showPw ? 'eyeoff' : 'eye', pw: st.pw,
+      pwW: Math.min(100, Math.round(st.pw.length / 12 * 100)) + '%', pwL: st.pw.length >= 10 ? 'Fuerte' : (st.pw.length >= 6 ? 'Media' : 'Débil'),
+      name: 'Vane', streak: st.streak, today: st.today, goal: st.goal, ring: (Math.min(1, st.today / st.goal) * 163.36).toFixed(1) + ' 163.36', trialLeft: st.trialLeft,
+      q: st.q, qTitle: qtext ? 'Resultados' : 'Módulos populares', exam: curMod.t, examDesc: curMod.full + '. Prepárate con teoría, preguntas y simulacros actualizados.', topic: st.topic,
+      qi: st.qi + 1, qn: n, qPct: Math.round((st.qi + 1) / n * 100) + '%', timer: timer, qTema: q.t, qText: q.q, qExp: q.e,
+      verdictQ: chosen === q.a ? '¡Correcto!' : 'Respuesta correcta: ' + L[q.a], favColor: st.fav[favKey] ? '#E5486B' : 'inherit', flagColor: st.flags[st.qi] ? 'var(--wn)' : 'inherit',
+      nextLbl: st.qi < n - 1 ? 'Siguiente' : 'Finalizar',
+      rMood: pct >= 70 ? 'cheer' : (pct >= 40 ? 'happy' : 'sad'), rTitle: pct >= 70 ? '¡Excelente trabajo!' : (pct >= 40 ? '¡Buen avance!' : 'Sigue practicando'),
+      rRing: (pct * 3.1416).toFixed(1) + ' 314.16', rPct: pct + '%', rScore: right + ' de ' + n, rOk: right, rBad: n - right,
+      rStreakMsg: st.today >= st.goal ? '¡Meta cumplida! Tu racha está a salvo.' : 'Te faltan ' + (st.goal - st.today) + ' preguntas para sumar el día a tu racha.',
+      planTone: st.premium ? 'tm' : (st.trialLeft > 0 ? 'tb' : 'to'), planLbl: st.premium ? 'Premium' : (st.trialLeft > 0 ? 'Prueba gratis · ' + st.trialLeft + ' días' : 'Plan gratis'),
+      mfaState: st.mfa ? 'Activada con app autenticadora' : 'Desactivada', planName: plan.t, planPrice: plan.price, methodName: METH[st.method], until: plan.until,
+      subTitle: st.premium ? 'SALUX Premium' : (st.trialLeft > 0 ? 'Prueba gratis' : 'Plan gratis'),
+      subDesc: st.premium ? 'Acceso completo activo.' : (st.trialLeft > 0 ? 'Te quedan ' + st.trialLeft + ' días. Elige un plan para no perder tu acceso.' : 'Tu prueba terminó. Activa Premium para seguir.'),
+      toast: st.toast, greet: hr < 12 ? 'Buenos días' : (hr < 19 ? 'Buenas tardes' : 'Buenas noches'), planShort: st.premium ? 'Premium' : (st.trialLeft > 0 ? 'Prueba' : 'Gratis'), lang: st.lang, qMood: chosen === q.a ? 'cheer' : 'sad', rTime: this.fmt(elapsed), docTitle: DOCS[st.docSel].t, docPage: st.docPage, planPct: Math.round(doneN / 7 * 100) + '%', darkOn: dark ? 'on' : '', expOn: st.trialLeft === 0 && !st.premium ? 'on' : ''
+    };
+    const on = (b) => (b ? 'on' : '');
+    const F = {
+      agree: st.agree, agreeCls: on(st.agree), noAgree: !st.agree, notSent: !st.sent, sent: st.sent, trust: st.trust, trustCls: on(st.trust),
+      trialBanner: !st.premium && st.trialLeft > 0, noAccess: !access, noQ: !qtext, noRes: qres.length === 0,
+      t0: st.exTab === 'Contenido', t1: st.exTab === 'Simulacros', t2: st.exTab === 'Casos', t3: st.exTab === 'Recursos',
+      isSim: st.setupMode === 'sim', showExp: practice && answered, noAns: !answered, noNotes: st.notes.length === 0, noFav: favL.length === 0,
+      wifi: st.wifi, wifiCls: on(st.wifi), sound: st.sound, soundCls: on(st.sound), haptic: st.haptic, hapticCls: on(st.haptic), notif: st.notif, notifCls: on(st.notif),
+      mfa: st.mfa, mfaCls: on(st.mfa), bio: st.bio, bioCls: on(st.bio), celebrate: pct >= 70, legalT: st.legalTab === 'T', legalP: st.legalTab === 'P', isPrem: st.premium, notPrem: !st.premium, hasToast: !!st.toast
+    };
+    const H = {
+      toOb: G('onboarding'), obSkip: G('welcome'), obNext: () => { if (st.ob < 2) me.setState({ ob: st.ob + 1 }); else me.go('welcome'); },
+      toLogin: G('login'), toRegister: G('register'), google: () => { me.say('Sesión con Google (demo)'); me.go('area'); }, apple: () => { me.say('Sesión con Apple (demo)'); me.go('area'); },
+      togglePw: () => me.setState({ showPw: !st.showPw }), toForgot: () => { me.setState({ sent: false }); me.go('forgot'); },
+      doLogin: () => { if (st.mfa) me.go('mfa'); else me.reset('home'); }, setPw: (e) => me.setState({ pw: e.target.value }), toggleAgree: () => me.setState({ agree: !st.agree }),
+      doRegister: G('verify'), toArea: G('area'), resend: () => me.say('Código reenviado a tu correo'), sendReset: () => me.setState({ sent: true }),
+      toggleTrust: () => me.setState({ trust: !st.trust }), mfaOk: () => { me.say('Identidad verificada'); me.reset('home'); }, useBackup: () => me.say('Escribe uno de tus 8 códigos de respaldo'),
+      mfaActivate: () => { me.setState({ mfa: true }); me.go('backup'); }, backupDone: () => { me.say('Verificación en dos pasos activada'); me.reset('security'); }, copyCodes: () => me.say('Códigos copiados (demo)'),
+      toGoal: G('goal'), toTrial: G('trialStart'), startTrial: () => me.reset('home'), back: () => me.back(),
+      toStreak: G('streak'), toNotifs: G('notifs'), toSearch: G('search'), toPlans: G('plans'), toPaywall: G('paywall'), toModules: () => me.reset('modules'),
+      quickPractice: () => me.quickPractice(), resumeExam: () => me.openExam('ENAM'), dailyQ: () => me.startQuiz('ENAM', 1, 'practice', false, true),
+      setQ: (e) => me.setState({ q: e.target.value }), openFilter: () => me.sheet('filter'), toDownloads: G('downloads'), toSetup: () => me.openSetup(st.setupMode === 'errors' ? 'practice' : st.setupMode),
+      favTopic: free('Tema guardado en favoritos'), dlTopic: free('Descargando para usar sin conexión (demo)'), practiceTopic: () => me.openSetup('practice'), toHistory: G('history'),
+      modePractice: () => me.openSetup('practice'), modeSim: () => me.openSetup('sim'), modeErrors: () => me.startQuiz('ENAM', 4, 'practice', true), toResultDemo: () => me.jump('result'),
+      startFromSetup: () => me.startQuiz(me.poolOf(st.cur), st.qn, st.setupMode === 'sim' ? 'sim' : 'practice', st.setupMode === 'errors'),
+      openExit: () => me.sheet('exit'), openPause: () => me.sheet('pause'), openQnav: () => me.sheet('qnav'), openReport: () => me.sheet('report'),
+      favQ: () => me.setState({ fav: Object.assign({}, st.fav, { [favKey]: !st.fav[favKey] }) }), flagQ: () => me.setState({ flags: Object.assign({}, st.flags, { [st.qi]: !st.flags[st.qi] }) }),
+      nextQ: () => { if (st.qi < n - 1) me.setState({ qi: st.qi + 1 }); else me.finish(); },
+      toHomeReset: () => me.reset('home'), share: free('Resultado copiado para compartir'), toReview: G('review'), toAch: G('achievements'), toSettings: G('settings'), toSub: G('subscription'),
+      addNote: () => { me.setState({ notes: st.notes.concat([{ t: 'Nueva nota', d: 'Toca para escribir tu apunte.', tag: curMod.t }]) }); me.say('Nota creada'); },
+      togWifi: () => me.setState({ wifi: !st.wifi }), toNotifSet: G('notifSettings'), togSound: () => me.setState({ sound: !st.sound }), togHaptic: () => me.setState({ haptic: !st.haptic }),
+      toSecurity: G('security'), exportData: free('Te enviaremos tus datos por correo'), toHelp: G('help'), openLogout: () => me.sheet('lout'), openDelete: () => me.sheet('del'),
+      togNotif: () => me.setState({ notif: !st.notif }), nothing: () => me.say('Preferencia guardada'),
+      togMfa: () => { if (st.mfa) { me.setState({ mfa: false }); me.say('Verificación en dos pasos desactivada'); } else me.go('mfaSetup'); },
+      togBio: () => me.setState({ bio: !st.bio }), toBackupAgain: G('backup'), chgPw: free('Te enviamos un enlace a tu correo'),
+      closeDev: free('Sesión cerrada en Tablet Android'), closeAll: free('Sesión cerrada en todos los dispositivos'), markRead: () => me.setState({ unread: false }),
+      toCheckout: G('checkout'), payNow: () => { if (st.method === 'card') me.go('payCard'); else me.go('payQR'); }, paySim: G('payProc'), payFailSim: () => me.go('payFail'),
+      retryPay: G('checkout'), openCancel: () => me.sheet('cancel'), freeContinue: () => { me.say('Plan gratis: 5 preguntas por día'); me.reset('home'); }, contact: free('Escríbenos a soporte@salux.app (demo)'),
+      toProfile: () => me.reset('profile'), toPlan: G('studyPlan'), toDocs: G('docs'), toRank: G('ranking'), toEdit: G('editProfile'), toLang: G('language'), toLegal: () => { me.setState({ legalTab: 'T' }); me.go('legal'); }, toAbout: G('about'), toInvite: G('invite'), toChgPw: G('changePw'),
+      noteQ: () => { me.setState({ notes: st.notes.concat([{ t: 'Nota rápida', d: q.q.slice(0, 70) + '…', tag: curMod.t + ' · ' + q.t }]) }); me.say('Nota guardada en Mis notas'); },
+      useFreeze: free('Congelador aplicado a hoy'), rateApp: free('¡Gracias por calificar SALUX!'), changePhoto: free('Elige una foto de tu galería (demo)'), saveProfile: () => { me.say('Perfil actualizado'); me.back(); }, savePw: () => { me.say('Contraseña actualizada'); me.back(); },
+      copyCode: free('Código copiado'), shareInvite: free('Invitación lista para compartir'),
+      docPrev: () => me.setState({ docPage: Math.max(1, st.docPage - 1) }), docNext: () => me.setState({ docPage: Math.min(12, st.docPage + 1) }), favDoc: free('Documento guardado en favoritos'),
+      closeSheet: () => me.setState({ sheet: '' }), finishNow: () => me.finish(), exitSave: () => { clearInterval(me._iv); me.say('Progreso guardado'); me.reset('sims'); },
+      sendReport: () => { me.setState({ sheet: '' }); me.say('Gracias, revisaremos la pregunta'); }, deleteAcc: () => { me.setState({ sheet: '' }); me.reset('welcome'); me.say('Cuenta eliminada (demo)'); },
+      cancelSub: () => { me.setState({ sheet: '' }); me.say('Suscripción cancelada: no se renovará'); }, logout: () => { me.setState({ sheet: '' }); me.reset('welcome'); me.say('Sesión cerrada'); },
+      toggleDark: () => me.setState({ theme: dark ? 'light' : 'dark' }),
+      toggleExpired: () => me.setState({ trialLeft: st.trialLeft === 0 && !st.premium ? 3 : 0, premium: false }),
+      restart: () => { clearInterval(me._iv); clearTimeout(me._pt); me.setState(me.init()); }
+    };
+
+    return {
+      T: T, S: S, F: F, SH: SH, H: H, obDots: obDots, showTabs: !!activeTab, tabs: tabs, idx: idx,
+      codes: ['A1B2-C3D4', 'E5F6-G7H8', 'J9K1-L2M3', 'N4P5-Q6R7', 'S8T9-U1V2', 'W3X4-Y5Z6', 'B7C8-D9E1', 'F2G3-H4J5'],
+      areas: [['Medicina', 'pulse', 'tv'], ['Enfermería', 'cross', 'tm'], ['Obstetricia', 'heart', 'tp'], ['Odontología', 'tooth', 'tb'], ['Psicología', 'brain', 'tv'], ['Nutrición', 'leaf', 'tm'], ['Farmacia', 'pill', 'to'], ['Tecnología Médica', 'search', 'tb']].map((a) => ({ l: a[0], ic: a[1], tone: a[2], bd: st.area === a[0] ? 'var(--pr)' : 'var(--ln)', cls: '', pick: () => me.setState({ area: a[0] }) })),
+      goals: [['ENAM', 'ENAM · Examen Nacional de Medicina', 'file', 'tv'], ['Essalud', 'Essalud', 'users', 'tb'], ['Residencia Médica', 'Residencia Médica', 'pulse', 'tm'], ['ENCAPS', 'ENCAPS · Servicio Rural y Urbano', 'note', 'tp']].map((g) => ({ l: g[1], ic: g[2], tone: g[3], on: st.examGoal === g[0], cls: st.examGoal === g[0] ? 'sel' : '', pick: () => me.setState({ examGoal: g[0], cur: g[0] }) })),
+      goalOpts: [10, 20, 30].map((v) => ({ l: String(v), cls: st.goal === v ? 'on' : '', pick: () => me.setState({ goal: v }) })),
+      home4: home4, recents: ['ENAM', 'Anafilaxia', 'Pediatría', 'ENCAPS'].map((r) => ({ l: r, pick: () => me.setState({ q: r }) })), qres: qres, filters: filters, mods: modsL,
+      exTabs: ['Contenido', 'Simulacros', 'Casos', 'Recursos'].map((t) => ({ l: t, cls: st.exTab === t ? 'on' : '', pick: () => me.setState({ exTab: t }) })), topics: topics,
+      sims3: [['Simulacro 1 · General', '10 preguntas · 15 min'], ['Simulacro 2 · Casos clínicos', '10 preguntas · 15 min'], ['Simulacro 3 · Tema libre', '10 preguntas · 20 min']].map((s) => ({ t: s[0], d: s[1], go: () => me.openSetup('sim') })),
+      cases3: [['Dolor abdominal agudo', 'Caso clínico · Cirugía'], ['Fiebre en lactante', 'Caso clínico · Pediatría'], ['Gestante con cefalea', 'Caso clínico · Obstetricia']].map((s) => ({ t: s[0], d: s[1], go: () => me.openSetup('practice') })),
+      res3: [['Guía de estudio (PDF)', '4,2 MB'], ['Mapa de temas frecuentes (PDF)', '1,1 MB'], ['Formulario de dosis (PDF)', '0,8 MB']].map((s) => ({ t: s[0], d: s[1], dl: free('Descargando ' + s[0] + ' (demo)') })),
+      recentSims: [['ENAM · Simulacro 1', 'Ayer · 10 preguntas', '80%', 'tm'], ['Essalud · Casos', 'Hace 3 días · 10 preguntas', '70%', 'tb'], ['ENCAPS · Práctica', 'Hace 5 días · 10 preguntas', '60%', 'tp']].map((s) => ({ t: s[0], d: s[1], p: s[2], tone: s[3] })),
+      modeOpts: [['practice', 'Práctica', 'Respuesta correcta al instante', 'bulb', 'tm'], ['sim', 'Simulacro con tiempo', 'Sin ayudas, como el examen real', 'clock', 'tv'], ['errors', 'Repaso de errores', 'Solo lo que fallaste', 'refresh', 'tp']].map((o) => ({ l: o[1], d: o[2], ic: o[3], tone: o[4], cls: st.setupMode === o[0] ? 'sel' : '', pick: () => me.setState({ setupMode: o[0] }) })),
+      nOpts: [5, 10].map((v) => ({ l: v + ' preguntas', cls: st.qn === v ? 'on' : '', pick: () => me.setState({ qn: v }) })),
+      tOpts: [['sin', 'Sin límite'], ['15', '15 minutos']].map((o) => ({ l: o[1], cls: st.qtime === o[0] ? 'on' : '', pick: () => me.setState({ qtime: o[0] }) })),
+      opts: opts, rev: rev, qgrid: qgrid,
+      week: [['L', 40], ['M', 65], ['X', 50], ['J', 80], ['V', 70], ['S', 90], ['D', 45]].map((w) => ({ d: w[0], h: w[1] + 'px' })),
+      acc: [['Ciencias Básicas', 82], ['Medicina Interna', 71], ['Pediatría', 76], ['Ginecología y Obstetricia', 64], ['Cirugía General', 48]].map((a) => ({ t: a[0], p: a[1], w: a[1] + '%', cls: '' })),
+      cal: cal, miles: [['3 días', 'tm'], ['7 días', 'tm'], ['30 días', 'tv'], ['100 días', 'tv']].map((m) => ({ l: m[0], tone: m[1] })),
+      badges: [['Primera pregunta', 'Desbloqueado', 'star', 'to', 1], ['Racha de 7 días', 'Desbloqueado', 'flame', 'to', 1], ['100 correctas', 'Desbloqueado', 'check', 'tm', 1], ['Simulacro perfecto', 'Bloqueado', 'trophy', 'tv', 0.55], ['Racha de 30 días', 'Bloqueado', 'flame', 'tp', 0.55], ['Madrugador', 'Bloqueado', 'sun', 'tb', 0.55]].map((b) => ({ t: b[0], d: b[1], ic: b[2], tone: b[3], op: b[4] })),
+      menu: [['note', 'Mis notas', 'notes', 'tv'], ['heart', 'Temas favoritos', 'favorites', 'tp'], ['book', 'Biblioteca de documentos', 'docs', 'tb'], ['file', 'Mis simulacros', 'sims', 'tm'], ['download', 'Descargas', 'downloads', 'tb'], ['history', 'Historial de estudio', 'history', 'to'], ['trophy', 'Ranking', 'ranking', 'to'], ['calendar', 'Plan de estudio', 'studyPlan', 'tv'], ['gift', 'Invitar amigos', 'invite', 'tm'], ['card', 'Mi suscripción', 'subscription', 'tp'], ['gear', 'Configuración', 'settings', 'tv'], ['help', 'Ayuda y soporte', 'help', 'tb']].map((m) => ({ ic: m[0], l: m[1], tone: m[3], go: () => (m[2] === 'sims' ? me.reset('sims') : me.go(m[2])) })),
+      notesL: st.notes.map((nt, i) => ({ t: nt.t, d: nt.d, tag: nt.tag, del: () => me.setState({ notes: st.notes.filter((x, j) => j !== i) }) })),
+      favL: favL, hist: hist,
+      dlL: dlItems.map((d) => ({ t: d[1], d: d[2], ic: d[3], tone: d[4], cls: st.dl[d[0]] ? 'on' : '', lbl: st.dl[d[0]] ? 'Descargado' : 'Descargar', go: () => { me.setState({ dl: Object.assign({}, st.dl, { [d[0]]: !st.dl[d[0]] }) }); me.say(st.dl[d[0]] ? 'Descarga eliminada' : 'Descargado para usar sin conexión'); } })),
+      themeOpts: [['system', 'Sistema', 'globe'], ['light', 'Claro', 'sun'], ['dark', 'Oscuro', 'moon']].map((o) => ({ l: o[1], ic: o[2], cls: mode === o[0] ? 'on' : '', pick: () => me.setState({ theme: o[0] }) })),
+      notifL: notifSrc.map((nn, i) => ({ t: nn[0], d: nn[1], ic: nn[2], tone: nn[3], unread: st.unread && i < 2, go: nn[4] })),
+      planL: Object.keys(PLANS).map((k) => ({ t: PLANS[k].t, d: PLANS[k].d, price: PLANS[k].price, save: PLANS[k].save, cls: st.plan === k ? 'sel' : '', pick: () => me.setState({ plan: k }) })),
+      methods: [['yape', 'Y', 'tv', 'Yape', 'Pago con QR o con tu número'], ['plin', 'P', 'tb', 'Plin', 'Pago con QR desde tu app'], ['card', 'Visa', 'tp', 'Tarjeta Visa o Mastercard', 'Crédito o débito']].map((m) => ({ ab: m[1], tone: m[2], t: m[3], d: m[4], on: st.method === m[0], cls: st.method === m[0] ? 'sel' : '', pick: () => me.setState({ method: m[0] }) })),
+      faqL: [['¿Cómo funciona la prueba gratis?', 'Tienes 3 días con todo desbloqueado desde que inicias sesión. No se cobra nada; al terminar eliges un plan.'], ['¿Cómo pago con Yape o Plin?', 'Escaneas el QR desde tu app. Detectamos el pago y activamos Premium automáticamente.'], ['¿Cómo cuenta mi racha?', 'Suma un día cuando completas tu meta diaria de preguntas. Tienes un congelador por semana.'], ['¿Puedo estudiar sin internet?', 'Sí, con los simulacros y guías que descargaste. Tu progreso se sincroniza al volver la conexión.']].map((f, i) => ({ q: f[0], a: f[1], open: st.faq === i, ic: st.faq === i ? 'down' : 'chev', tog: () => me.setState({ faq: st.faq === i ? -1 : i }) })),
+      weekDots: [['L', 1], ['M', 1], ['X', 1], ['J', 1], ['V', 1], ['S', 0], ['D', 0]].map((w, i) => ({ d: w[0], on: !!w[1], off: !w[1], cls: (w[1] ? 'on' : '') + (i === 4 ? ' today' : '') })),
+      quick: [['Simulacro', 'target', 'tv', () => me.openSetup('sim')], ['Repaso', 'refresh', 'tp', () => me.startQuiz('ENAM', 4, 'practice', true)], ['Favoritos', 'heart', 'to', G('favorites')], ['Documentos', 'book', 'tb', G('docs')]].map((x) => ({ l: x[0], ic: x[1], tone: x[2], go: x[3] })),
+      byTema: (() => { const g = {}; st.qs.forEach((x, i) => { g[x.t] = g[x.t] || { n: 0, ok: 0 }; g[x.t].n++; if (st.ans[i] === x.a) g[x.t].ok++; }); const k = Object.keys(g).slice(0, 4); return k.map((t) => ({ t: t, s: g[t].ok + '/' + g[t].n, w: Math.round(g[t].ok / g[t].n * 100) + '%' })); })(),
+      yearOpts: [1, 2, 3, 4, 5, 6, 7].map((y) => ({ l: y + '°', cls: st.year === y ? 'on' : '', pick: () => me.setState({ year: y }) })),
+      langL: [['Español', 'Español (Perú)'], ['English', 'Inglés'], ['Português', 'Portugués']].map((l) => ({ t: l[0], d: l[1], on: st.lang === l[0], cls: st.lang === l[0] ? 'sel' : '', pick: () => { me.setState({ lang: l[0] }); me.say('Idioma: ' + l[0]); } })),
+      legalTabs: [['T', 'Términos'], ['P', 'Privacidad']].map((t) => ({ l: t[1], cls: st.legalTab === t[0] ? 'on' : '', pick: () => me.setState({ legalTab: t[0] }) })),
+      docFilters: ['Todos', 'PDF', 'Guías', 'Resúmenes'].map((f) => ({ l: f, cls: st.docFilter === f ? 'on' : '', pick: () => me.setState({ docFilter: f }) })),
+      docsL: DOCS.map((d, i) => Object.assign({ i: i }, d)).filter((d) => st.docFilter === 'Todos' || d.cat === st.docFilter).map((d) => ({ t: d.t, d: d.d, ic: d.ic, tone: d.tone, dlIc: st.dl['doc' + d.i] ? 'check' : 'download', lbl: st.dl['doc' + d.i] ? 'Descargado' : 'Descargar ' + d.t, go: () => { me.setState({ docSel: d.i, docPage: 1 }); me.go('docView'); }, dl: () => { me.setState({ dl: Object.assign({}, st.dl, { ['doc' + d.i]: !st.dl['doc' + d.i] }) }); me.say(st.dl['doc' + d.i] ? 'Descarga eliminada' : 'Descargado para usar sin conexión'); } })),
+      rankTabs: ['Semana', 'Mes', 'General'].map((t) => ({ l: t, cls: st.rankTab === t ? 'on' : '', pick: () => me.setState({ rankTab: t }) })),
+      podium: (() => { const f = st.rankTab === 'Semana' ? 1 : (st.rankTab === 'Mes' ? 4 : 12); const x = (v) => String(v * f).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); return [{ n: '2', name: 'Camila R.', xp: x(1480), h: '70px', tone: 'tb' }, { n: '1', name: 'Diego M.', xp: x(1820), h: '104px', tone: 'to' }, { n: '3', name: 'Lucía P.', xp: x(1310), h: '52px', tone: 'tp' }]; })(),
+      rankL: (() => { const f = st.rankTab === 'Semana' ? 1 : (st.rankTab === 'Mes' ? 4 : 12); const x = (v) => String(v * f).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); return [[4, 'Andrea S.', 1260], [5, 'Vane (tú)', 1240], [6, 'Marco T.', 1150], [7, 'Paola V.', 1090], [8, 'Jorge L.', 980], [9, 'Sofía H.', 940]].map((r) => ({ n: r[0], name: r[1], xp: x(r[2]), cls: '', sty: r[0] === 5 ? 'background:var(--sd);border-radius:14px;padding-left:8px;padding-right:8px;margin:2px -4px' : '' })); })(),
+      hourOpts: ['1 h', '2 h', '3 h', '4 h'].map((h) => ({ l: h, cls: st.hours === h ? 'on' : '', pick: () => me.setState({ hours: h }) })),
+      planDays: [['L', 'Medicina Interna', '20 preguntas + repaso'], ['M', 'Cirugía General', 'Simulacro de 10'], ['X', 'Pediatría', 'Teoría y casos'], ['J', 'Emergencias', 'Repaso de errores'], ['V', 'Ginecología y Obstetricia', '20 preguntas'], ['S', 'Simulacro completo', 'Como el examen real'], ['D', 'Descanso activo', 'Revisión de notas']].map((d, i) => ({ d: d[0], t: d[1], s: d[2], done: !!st.planDone[i], cls: st.planDone[i] ? 'ok' : '', tog: () => me.setState({ planDone: Object.assign({}, st.planDone, { [i]: !st.planDone[i] }) }) })),
+      reasons: ['La respuesta correcta es otra', 'Error de redacción', 'Pregunta repetida', 'Contenido desactualizado'].map((r, i) => ({ l: r, cls: st.reason === i ? 'sel' : '', pick: () => me.setState({ reason: i }) }))
+    };
+  }
+
+  quickPractice() { this.startQuiz(this.poolOf(this.state.cur), 10, 'practice'); }
+}
+</script>
+</body>
+</html>

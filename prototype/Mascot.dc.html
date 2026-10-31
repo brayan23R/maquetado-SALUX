@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Mascota SALUX</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<svg width="{{w}}" height="{{h}}" viewBox="0 0 200 240" role="img" aria-label="{{label}}" style="display:block;flex:none;overflow:visible">
+<defs>
+<radialGradient id="mgH" cx="38%" cy="30%" r="78%"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="0.55" stop-color="#FFF4E6"></stop><stop offset="1" stop-color="#F1D9BF"></stop></radialGradient>
+<linearGradient id="mgP" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B2A7FF"></stop><stop offset="1" stop-color="#6A58E8"></stop></linearGradient>
+<linearGradient id="mgN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B418F"></stop><stop offset="1" stop-color="#222763"></stop></linearGradient>
+<linearGradient id="mgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFCB5C"></stop><stop offset="1" stop-color="#FF8F3A"></stop></linearGradient>
+</defs>
+<ellipse cx="100" cy="230" rx="52" ry="7" fill="#1E1B4B" opacity="0.14"></ellipse>
+<rect x="46" y="140" width="34" height="56" rx="14" fill="url(#mgP)" stroke="#2A2F6E" stroke-width="3"></rect>
+<path d="M100 38V18" stroke="#2A2F6E" stroke-width="3" stroke-linecap="round" fill="none"></path>
+<circle cx="100" cy="11" r="13" fill="#FFB347" opacity="0.28"></circle>
+<circle cx="100" cy="11" r="7" fill="url(#mgG)" stroke="#2A2F6E" stroke-width="3"></circle>
+<path d="M42 78Q100 10 158 78" stroke="url(#mgP)" stroke-width="8" fill="none" stroke-linecap="round"></path>
+<path d="M42 78Q100 10 158 78" stroke="#2A2F6E" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.35"></path>
+<ellipse cx="100" cy="90" rx="60" ry="52" fill="url(#mgH)" stroke="#2A2F6E" stroke-width="3"></ellipse>
+<ellipse cx="72" cy="62" rx="14" ry="7" fill="#FFFFFF" opacity="0.65" transform="rotate(-24 72 62)"></ellipse>
+<rect x="30" y="78" width="22" height="32" rx="11" fill="url(#mgP)" stroke="#2A2F6E" stroke-width="3"></rect>
+<rect x="148" y="78" width="22" height="32" rx="11" fill="url(#mgP)" stroke="#2A2F6E" stroke-width="3"></rect>
+<path d="{{brows}}" stroke="#2A2F6E" stroke-width="3" fill="none" stroke-linecap="round"></path>
+<path d="{{eyeL}}" fill="{{ef}}" stroke="{{es}}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="{{eyeR}}" fill="{{ef}}" stroke="{{es}}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<circle cx="84" cy="83" r="2.4" fill="#FFFFFF" opacity="{{hl}}"></circle>
+<circle cx="120" cy="83" r="2.4" fill="#FFFFFF" opacity="{{hl}}"></circle>
+<circle cx="68" cy="106" r="7" fill="#FF9FA8" opacity="0.55"></circle>
+<circle cx="132" cy="106" r="7" fill="#FF9FA8" opacity="0.55"></circle>
+<path d="M146 100q4 8 0 12q-4-4 0-12z" fill="#7CC8FF" stroke="#2A2F6E" stroke-width="1.5" opacity="{{tear}}"></path>
+<path d="{{mouth}}" stroke="#1E1B4B" stroke-width="3" fill="{{mf}}" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M64 148Q64 140 74 140H126Q136 140 136 148V194Q136 210 122 210H78Q64 210 64 194Z" fill="url(#mgH)" stroke="#2A2F6E" stroke-width="3"></path>
+<path d="M66 182H134V194Q134 208 122 208H78Q66 208 66 194Z" fill="url(#mgN)"></path>
+<path d="M82 141L77 168M118 141L123 168" stroke="#2A2F6E" stroke-width="5" stroke-linecap="round"></path>
+<path d="M100 180C86 171 86 157 95 157C98 157 100 160 100 160C100 160 102 157 105 157C114 157 114 171 100 180Z" fill="url(#mgG)" stroke="#E07A1F" stroke-width="1.2"></path>
+<ellipse cx="57" cy="168" rx="9" ry="16" fill="url(#mgH)" stroke="#2A2F6E" stroke-width="3" transform="{{armL}}"></ellipse>
+<ellipse cx="143" cy="168" rx="9" ry="16" fill="url(#mgH)" stroke="#2A2F6E" stroke-width="3" transform="{{armR}}"></ellipse>
+<ellipse cx="84" cy="216" rx="15" ry="8" fill="url(#mgN)"></ellipse>
+<ellipse cx="116" cy="216" rx="15" ry="8" fill="url(#mgN)"></ellipse>
+<path d="M170 48l3 8 8 3-8 3-3 8-3-8-8-3 8-3zM26 56l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#FFB347" opacity="{{spk}}"></path>
+<path d="M150 40h12l-12 14h12" stroke="#7C6CF0" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="{{zz}}"></path>
+<path d="M164 24h8l-8 9h8" stroke="#7C6CF0" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="{{zz}}"></path>
+<circle cx="160" cy="50" r="4" fill="#B2A7FF" opacity="{{th}}"></circle>
+<circle cx="172" cy="36" r="6" fill="#B2A7FF" opacity="{{th}}"></circle>
+<circle cx="186" cy="18" r="9" fill="#B2A7FF" opacity="{{th}}"></circle>
+</svg>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mood":{"editor":"enum","options":["happy","cheer","sad","sleep","love","think"],"default":"happy"},"w":{"editor":"int","default":200},"$preview":{"width":200,"height":240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const mood = this.props.mood || 'happy';
+    const w = this.props.w || 200;
+    const ell = (x) => 'M' + x + ' 80a6 9 0 100 18 6 9 0 100-18z';
+    const heart = (x) => 'M' + x + ' 99c-9-6-9-14-3-14 2 0 3 2 3 2s1-2 3-2c6 0 6 8-3 14z';
+    const o = { eyeL: ell(82), eyeR: ell(118), ef: '#1E1B4B', es: '#1E1B4B', hl: '0.95', brows: 'M0 0', tear: '0', mouth: 'M91 103q9 8 18 0', mf: 'none', armL: 'rotate(12 57 168)', armR: 'rotate(-12 143 168)', spk: '0', zz: '0', th: '0', label: 'Mascota de SALUX contenta' };
+    if (mood === 'cheer') {
+      Object.assign(o, { eyeL: 'M72 92q10-14 20 0', eyeR: 'M108 92q10-14 20 0', ef: 'none', hl: '0', mouth: 'M86 100q14 18 28 0z', mf: '#FF8FA3', armL: 'rotate(150 57 152)', armR: 'rotate(-150 143 152)', spk: '1', label: 'Mascota de SALUX celebrando' });
+    } else if (mood === 'sad') {
+      Object.assign(o, { brows: 'M72 72l16 5M128 72l-16 5', mouth: 'M91 111q9-9 18 0', tear: '1', armL: 'rotate(4 57 168)', armR: 'rotate(-4 143 168)', label: 'Mascota de SALUX triste' });
+    } else if (mood === 'sleep') {
+      Object.assign(o, { eyeL: 'M72 92q10 8 20 0', eyeR: 'M108 92q10 8 20 0', ef: 'none', hl: '0', mouth: 'M94 106h12', zz: '1', label: 'Mascota de SALUX durmiendo' });
+    } else if (mood === 'love') {
+      Object.assign(o, { eyeL: heart(82), eyeR: heart(118), ef: '#FF5E87', es: '#FF5E87', hl: '0', mouth: 'M88 100q12 14 24 0z', mf: '#FF8FA3', spk: '1', label: 'Mascota de SALUX enamorada' });
+    } else if (mood === 'think') {
+      Object.assign(o, { eyeL: 'M86 80a6 9 0 100 18 6 9 0 100-18z', eyeR: 'M122 80a6 9 0 100 18 6 9 0 100-18z', brows: 'M110 70q10-6 20-1', mouth: 'M95 107h10', th: '1', armR: 'rotate(-70 143 160)', label: 'Mascota de SALUX pensando' });
+    }
+    o.w = w; o.h = Math.round(w * 1.2);
+    return o;
+  }
+}
+</script>
+</body>
+</html>

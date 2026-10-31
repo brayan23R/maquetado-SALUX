@@ -1,0 +1,1191 @@
+{
+  "schemaNote": "Banco de ejemplo para el MVP. Contenido a validar por profesionales antes de uso real.",
+  "exams": [
+    {
+      "key": "ENAM",
+      "name": "ENAM",
+      "description": "Examen Nacional de Medicina",
+      "is_premium": false
+    },
+    {
+      "key": "ESSALUD",
+      "name": "Essalud",
+      "description": "Proceso de ingreso a Essalud",
+      "is_premium": false
+    },
+    {
+      "key": "RESIDENCIA",
+      "name": "Residencia Médica",
+      "description": "Examen de Residentado Médico",
+      "is_premium": false
+    },
+    {
+      "key": "ENCAPS",
+      "name": "ENCAPS",
+      "description": "Evaluación para el Servicio Rural y Urbano",
+      "is_premium": false
+    }
+  ],
+  "questions": [
+    {
+      "exam": "ENAM",
+      "order": 1,
+      "topic": "Cirugía",
+      "text": "Varón de 24 años con fiebre, náuseas y dolor que inició en el epigastrio y luego migró a la fosa ilíaca derecha. ¿Cuál es el diagnóstico más probable?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Colecistitis aguda",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Apendicitis aguda",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Pancreatitis aguda",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Gastroenteritis aguda",
+          "is_correct": false
+        }
+      ],
+      "explanation": "El dolor que migra del epigastrio o la región periumbilical a la fosa ilíaca derecha, con náuseas y fiebre, es la presentación clásica de la apendicitis aguda."
+    },
+    {
+      "exam": "ENAM",
+      "order": 2,
+      "topic": "Emergencias",
+      "text": "¿Cuál es el fármaco de primera línea en el tratamiento de la anafilaxia?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Hidrocortisona endovenosa",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Difenhidramina oral",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Adrenalina intramuscular",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "Salbutamol nebulizado",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La adrenalina intramuscular, aplicada lo antes posible, es el tratamiento de primera línea. Los antihistamínicos y corticoides son complementarios."
+    },
+    {
+      "exam": "ENAM",
+      "order": 3,
+      "topic": "Cardiología",
+      "text": "¿Qué hallazgos componen la tríada de Beck del taponamiento cardiaco?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Fiebre, disnea y dolor pleurítico",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Hipotensión, ingurgitación yugular y ruidos cardíacos apagados",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Dolor torácico, sudoración y náuseas",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Edema, ascitis y hepatomegalia",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La tríada de Beck: hipotensión arterial, ingurgitación yugular y ruidos cardíacos apagados."
+    },
+    {
+      "exam": "ENAM",
+      "order": 4,
+      "topic": "Infectología",
+      "text": "¿Cuál es el microorganismo más frecuente en la infección urinaria no complicada?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Staphylococcus aureus",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Pseudomonas aeruginosa",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Escherichia coli",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "Klebsiella pneumoniae",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Escherichia coli causa la mayoría de las infecciones urinarias no complicadas adquiridas en la comunidad."
+    },
+    {
+      "exam": "ENAM",
+      "order": 5,
+      "topic": "Nutrición",
+      "text": "La deficiencia de qué vitamina produce beriberi?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Vitamina B1 (tiamina)",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Vitamina C",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Vitamina B12",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Vitamina D",
+          "is_correct": false
+        }
+      ],
+      "explanation": "El beriberi se debe a la deficiencia de tiamina (vitamina B1)."
+    },
+    {
+      "exam": "ENAM",
+      "order": 6,
+      "topic": "Endocrinología",
+      "text": "¿Cuál es el valor de glucosa plasmática en ayunas que apoya el diagnóstico de diabetes mellitus?",
+      "options": [
+        {
+          "label": "A",
+          "text": "≥ 100 mg/dL",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "≥ 110 mg/dL",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "≥ 126 mg/dL",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "≥ 140 mg/dL",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Una glucosa en ayunas ≥ 126 mg/dL (confirmada en una segunda ocasión si no hay síntomas) cumple criterio diagnóstico."
+    },
+    {
+      "exam": "ENAM",
+      "order": 7,
+      "topic": "Infectología",
+      "text": "¿Cuál es el tratamiento de elección de la sífilis primaria?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Penicilina G benzatínica 2,4 millones UI IM en dosis única",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Ceftriaxona 1 g VO por 3 días",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Azitromicina 500 mg VO por 5 días",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Ciprofloxacino 500 mg VO por 7 días",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La penicilina G benzatínica en dosis única intramuscular es el tratamiento de elección en sífilis primaria."
+    },
+    {
+      "exam": "ENAM",
+      "order": 8,
+      "topic": "Cardiología",
+      "text": "Paciente con dolor torácico y elevación del segmento ST de V1 a V4. ¿Qué pared está afectada?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pared inferior",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Pared anterior (arteria descendente anterior)",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Pared lateral baja",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Ventrículo derecho",
+          "is_correct": false
+        }
+      ],
+      "explanation": "ST elevado en V1–V4 indica infarto de pared anterior, habitualmente por oclusión de la arteria descendente anterior."
+    },
+    {
+      "exam": "ENAM",
+      "order": 9,
+      "topic": "Cirugía",
+      "text": "El signo de Murphy positivo se asocia a:",
+      "options": [
+        {
+          "label": "A",
+          "text": "Colecistitis aguda",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Apendicitis aguda",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Pancreatitis aguda",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Úlcera duodenal perforada",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La inspiración que se interrumpe por dolor al palpar el hipocondrio derecho es el signo de Murphy, típico de colecistitis aguda."
+    },
+    {
+      "exam": "ENAM",
+      "order": 10,
+      "topic": "Emergencias",
+      "text": "¿Cuál es el puntaje mínimo posible en la escala de coma de Glasgow?",
+      "options": [
+        {
+          "label": "A",
+          "text": "0",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "1",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "3",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "5",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La escala suma ocular (1–4), verbal (1–5) y motora (1–6); el mínimo es 3 y el máximo 15."
+    },
+    {
+      "exam": "ESSALUD",
+      "order": 1,
+      "topic": "Pediatría",
+      "text": "Niño de 2 años con diarrea, letárgico, ojos hundidos y pliegue cutáneo que tarda en recuperarse. ¿Qué plan de rehidratación corresponde?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Plan A: líquidos orales en casa",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Plan B: SRO en el establecimiento",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Plan C: rehidratación endovenosa",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "Solo antibiótico oral",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Letargia y pliegue muy lento indican deshidratación grave: Plan C con rehidratación endovenosa."
+    },
+    {
+      "exam": "ESSALUD",
+      "order": 2,
+      "topic": "Obstetricia",
+      "text": "¿Cuál es un signo de alarma obstétrico?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Náuseas matutinas leves",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Cefalea intensa con visión borrosa o zumbido de oídos",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Aumento leve de peso",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Lumbalgia leve",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La cefalea intensa con alteraciones visuales sugiere preeclampsia severa y requiere atención inmediata."
+    },
+    {
+      "exam": "ESSALUD",
+      "order": 3,
+      "topic": "Obstetricia",
+      "text": "Según la OMS, ¿cuál es el punto de corte de hemoglobina que define anemia en la gestante?",
+      "options": [
+        {
+          "label": "A",
+          "text": "< 9 g/dL",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "< 10 g/dL",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "< 11 g/dL",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "< 13 g/dL",
+          "is_correct": false
+        }
+      ],
+      "explanation": "En el embarazo se define anemia con hemoglobina menor de 11 g/dL."
+    },
+    {
+      "exam": "ESSALUD",
+      "order": 4,
+      "topic": "Medicina interna",
+      "text": "¿A partir de qué cifras se define hipertensión arterial en consultorio?",
+      "options": [
+        {
+          "label": "A",
+          "text": "≥ 120/80 mmHg",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "≥ 130/85 mmHg",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "≥ 140/90 mmHg",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "≥ 160/100 mmHg",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La hipertensión se define con presión arterial ≥ 140/90 mmHg en mediciones repetidas."
+    },
+    {
+      "exam": "ESSALUD",
+      "order": 5,
+      "topic": "Neumología",
+      "text": "¿Qué fármaco se usa como primera línea en una crisis asmática leve a moderada?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Salbutamol inhalado",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Prednisona oral como único tratamiento",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Montelukast",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Amoxicilina",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Los beta-2 agonistas de acción corta inhalados, como el salbutamol, son el tratamiento inicial de la crisis."
+    },
+    {
+      "exam": "ESSALUD",
+      "order": 6,
+      "topic": "Salud pública",
+      "text": "¿Cuál es la medida más efectiva para reducir infecciones intrahospitalarias?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Antibióticos profilácticos a todos",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Lavado de manos en los momentos clave",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Aislar a todos los pacientes",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Mascarilla solo para el paciente",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La higiene de manos en los cinco momentos de atención es la medida individual más efectiva."
+    },
+    {
+      "exam": "ESSALUD",
+      "order": 7,
+      "topic": "Infectología",
+      "text": "¿Qué esquema se usa en la fase inicial de la tuberculosis pulmonar sensible?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isoniacida, rifampicina, pirazinamida y etambutol",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Solo isoniacida",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Amoxicilina con clavulánico",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Rifampicina y ciprofloxacino",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La fase intensiva combina cuatro fármacos: isoniacida, rifampicina, pirazinamida y etambutol."
+    },
+    {
+      "exam": "ESSALUD",
+      "order": 8,
+      "topic": "Infectología",
+      "text": "En dengue, ¿cuál es un signo de alarma?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Dolor de cabeza leve",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Dolor abdominal intenso y continuo",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Fiebre de un día",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Dolor muscular leve",
+          "is_correct": false
+        }
+      ],
+      "explanation": "El dolor abdominal intenso y sostenido es un signo de alarma que exige vigilancia estrecha."
+    },
+    {
+      "exam": "ESSALUD",
+      "order": 9,
+      "topic": "Ginecología",
+      "text": "¿Qué prueba se usa para el tamizaje del cáncer de cuello uterino?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Mamografía",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Papanicolaou o prueba de VPH",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Colonoscopía",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Ecografía pélvica",
+          "is_correct": false
+        }
+      ],
+      "explanation": "El tamizaje se realiza con citología (Papanicolaou) o con prueba de detección de VPH."
+    },
+    {
+      "exam": "ESSALUD",
+      "order": 10,
+      "topic": "Pediatría",
+      "text": "La vacuna BCG, aplicada al nacer, protege contra:",
+      "options": [
+        {
+          "label": "A",
+          "text": "Hepatitis A",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Formas graves de tuberculosis",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Sarampión",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Poliomielitis",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La BCG previene las formas graves de tuberculosis en la infancia, como la meníngea y la miliar."
+    },
+    {
+      "exam": "RESIDENCIA",
+      "order": 1,
+      "topic": "Medicina interna",
+      "text": "¿Cuál es el manejo inicial del shock séptico?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Esperar los cultivos antes de tratar",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Cristaloides y antibióticos de amplio espectro en la primera hora",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Solo vasopresores",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Corticoides en dosis altas como única medida",
+          "is_correct": false
+        }
+      ],
+      "explanation": "El inicio temprano de fluidos y antibióticos de amplio espectro, idealmente en la primera hora, mejora la supervivencia."
+    },
+    {
+      "exam": "RESIDENCIA",
+      "order": 2,
+      "topic": "Neurología",
+      "text": "¿Cuál es el tratamiento de primera línea del estatus epiléptico?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Fenitoína oral",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Benzodiacepina endovenosa (lorazepam o diazepam)",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Carbamazepina",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Ácido valproico oral",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Una benzodiacepina por vía endovenosa es la primera línea; luego se añade un antiepiléptico de segunda línea."
+    },
+    {
+      "exam": "RESIDENCIA",
+      "order": 3,
+      "topic": "Gastroenterología",
+      "text": "¿Cuál es la causa más frecuente de hemorragia digestiva alta?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Várices esofágicas",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Úlcera péptica",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Síndrome de Mallory-Weiss",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Cáncer gástrico",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La enfermedad ulcerosa péptica es la causa más común de hemorragia digestiva alta."
+    },
+    {
+      "exam": "RESIDENCIA",
+      "order": 4,
+      "topic": "Cardiología",
+      "text": "¿Cuál de estos fármacos reduce la mortalidad en insuficiencia cardiaca con fracción de eyección reducida?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Furosemida",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Digoxina",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Bisoprolol",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "Nifedipino",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Ciertos betabloqueadores (bisoprolol, carvedilol, metoprolol succinato) reducen mortalidad; la furosemida y la digoxina alivian síntomas."
+    },
+    {
+      "exam": "RESIDENCIA",
+      "order": 5,
+      "topic": "Endocrinología",
+      "text": "¿Cuál es el manejo inicial de la cetoacidosis diabética?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Solo insulina subcutánea",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Hidratación IV con solución salina e insulina regular en infusión",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Bicarbonato en todos los casos",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Metformina",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Se inicia con reposición de volumen y luego insulina regular endovenosa, vigilando potasio."
+    },
+    {
+      "exam": "RESIDENCIA",
+      "order": 6,
+      "topic": "Urología",
+      "text": "¿Qué marcador se usa en el seguimiento del cáncer de próstata?",
+      "options": [
+        {
+          "label": "A",
+          "text": "CA 125",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Antígeno prostático específico (PSA)",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "CEA",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Alfafetoproteína",
+          "is_correct": false
+        }
+      ],
+      "explanation": "El PSA se usa para seguimiento y respuesta al tratamiento del cáncer de próstata."
+    },
+    {
+      "exam": "RESIDENCIA",
+      "order": 7,
+      "topic": "Neumología",
+      "text": "En un paciente estable con sospecha de tromboembolia pulmonar, ¿qué estudio de imagen es de elección?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Radiografía de tórax",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Angiotomografía pulmonar",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Espirometría",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Ecografía abdominal",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La angiotomografía pulmonar es el estudio de elección en pacientes estables."
+    },
+    {
+      "exam": "RESIDENCIA",
+      "order": 8,
+      "topic": "Cirugía",
+      "text": "Fiebre, ictericia y dolor en hipocondrio derecho forman la tríada de Charcot. ¿Qué cuadro sugiere?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Colangitis aguda",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Colecistitis aguda",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Pancreatitis aguda",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Hepatitis A",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La tríada de Charcot es característica de la colangitis aguda."
+    },
+    {
+      "exam": "RESIDENCIA",
+      "order": 9,
+      "topic": "Toxicología",
+      "text": "¿Cuál es el antídoto de la intoxicación por paracetamol?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Naloxona",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "N-acetilcisteína",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Flumazenilo",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Atropina",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La N-acetilcisteína repone glutatión y previene el daño hepático."
+    },
+    {
+      "exam": "RESIDENCIA",
+      "order": 10,
+      "topic": "Infectología",
+      "text": "¿Cuál es el germen más frecuente de la neumonía adquirida en la comunidad?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Streptococcus pneumoniae",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Pseudomonas aeruginosa",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Staphylococcus aureus",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Klebsiella pneumoniae",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Streptococcus pneumoniae es el patógeno más común en la neumonía comunitaria."
+    },
+    {
+      "exam": "ENCAPS",
+      "order": 1,
+      "topic": "Salud pública",
+      "text": "La atención primaria de salud se brinda principalmente en el nivel:",
+      "options": [
+        {
+          "label": "A",
+          "text": "I (puestos y centros de salud)",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "II (hospitales regionales)",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "III (institutos especializados)",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Solo en hospitales nacionales",
+          "is_correct": false
+        }
+      ],
+      "explanation": "El primer nivel concentra promoción, prevención y atención básica de la población."
+    },
+    {
+      "exam": "ENCAPS",
+      "order": 2,
+      "topic": "Pediatría",
+      "text": "La lactancia materna exclusiva se recomienda hasta los:",
+      "options": [
+        {
+          "label": "A",
+          "text": "3 meses",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "4 meses",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "6 meses",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "12 meses",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Se recomienda lactancia materna exclusiva durante los primeros 6 meses de vida."
+    },
+    {
+      "exam": "ENCAPS",
+      "order": 3,
+      "topic": "Salud pública",
+      "text": "¿Qué medida comunitaria previene mejor las enfermedades diarreicas?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Agua segura, saneamiento y lavado de manos",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Antibióticos a toda la comunidad",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Suspender la lactancia",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Retirar los alimentos sólidos",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Agua segura, saneamiento y lavado de manos son la base de la prevención."
+    },
+    {
+      "exam": "ENCAPS",
+      "order": 4,
+      "topic": "Promoción",
+      "text": "La educación sanitaria a la comunidad corresponde a la prevención:",
+      "options": [
+        {
+          "label": "A",
+          "text": "Primaria",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Secundaria",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Terciaria",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Rehabilitación",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Educar para evitar la aparición de la enfermedad es prevención primaria."
+    },
+    {
+      "exam": "ENCAPS",
+      "order": 5,
+      "topic": "Pediatría",
+      "text": "En un niño con infección respiratoria aguda, ¿cuál es un signo de alarma?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Tos leve",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Tiraje subcostal",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Rinorrea",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Estornudos",
+          "is_correct": false
+        }
+      ],
+      "explanation": "El tiraje subcostal indica dificultad respiratoria y neumonía grave."
+    },
+    {
+      "exam": "ENCAPS",
+      "order": 6,
+      "topic": "Epidemiología",
+      "text": "La mortalidad infantil se define como las muertes de:",
+      "options": [
+        {
+          "label": "A",
+          "text": "Menores de 5 años por 1 000 nacidos vivos",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Menores de 1 año por 1 000 nacidos vivos",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Fetos por 1 000 embarazos",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Madres por 100 000 habitantes",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Se calcula con las defunciones de menores de un año por cada 1 000 nacidos vivos."
+    },
+    {
+      "exam": "ENCAPS",
+      "order": 7,
+      "topic": "Obstetricia",
+      "text": "¿Cuántos controles prenatales como mínimo se recomiendan en el Perú?",
+      "options": [
+        {
+          "label": "A",
+          "text": "2",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "4",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "6",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "9",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La norma técnica vigente establece un mínimo de 6 controles prenatales. Verifica siempre la norma actualizada."
+    },
+    {
+      "exam": "ENCAPS",
+      "order": 8,
+      "topic": "Obstetricia",
+      "text": "¿Qué suplementación se indica de rutina a la gestante?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Sulfato ferroso y ácido fólico",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Vitamina C sola",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Ninguna suplementación",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Solo calcio en cualquier dosis",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Hierro y ácido fólico previenen anemia y defectos del tubo neural."
+    },
+    {
+      "exam": "ENCAPS",
+      "order": 9,
+      "topic": "Emergencias",
+      "text": "En el triaje, la prioridad I corresponde a:",
+      "options": [
+        {
+          "label": "A",
+          "text": "Atención en 24 horas",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Emergencia con riesgo vital: atención inmediata",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Consulta de control",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Cita programada",
+          "is_correct": false
+        }
+      ],
+      "explanation": "La prioridad I es la emergencia crítica que requiere atención inmediata."
+    },
+    {
+      "exam": "ENCAPS",
+      "order": 10,
+      "topic": "Epidemiología",
+      "text": "¿Cuál de estas enfermedades requiere notificación inmediata?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Caspa",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Sarampión",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "Caries dental",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Miopía",
+          "is_correct": false
+        }
+      ],
+      "explanation": "El sarampión es de notificación inmediata ante un caso sospechoso."
+    }
+  ]
+}

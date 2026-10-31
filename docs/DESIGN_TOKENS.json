@@ -1,0 +1,46 @@
+{
+  "name": "SALUX",
+  "font": { "family": "Plus Jakarta Sans", "weights": [400, 500, 600, 700, 800], "sizes": { "caption": 12, "body": 14, "bodyLarge": 16, "title": 17, "h2": 18, "h1": 27, "display": 54 }, "letterSpacing": { "h1": -0.5, "display": -2 } },
+  "radius": { "chip": 19, "input": 18, "card": 22, "tile": 24, "button": 28, "sheetTop": 30, "icon": 15, "phone": 46 },
+  "spacing": { "base": 4, "pagePadding": 20, "gap": 12 },
+  "touchTargetMin": 48,
+  "motion": { "enter": "320ms ease (fade + translateY 10px)", "sheet": "280ms ease", "respectReducedMotion": true },
+  "gradients": {
+    "primary": ["#7360F2", "#4B35C9"],
+    "orange": ["#FFB24F", "#F0732A"],
+    "iconViolet": ["#A394FF", "#5B45D6"],
+    "iconBlue": ["#7CC2FF", "#2F6FD0"],
+    "iconMint": ["#59DDAE", "#1A9670"],
+    "iconPink": ["#FF9BB8", "#D8386C"],
+    "iconOrange": ["#FFCB66", "#F0832A"]
+  },
+  "light": {
+    "bg": "#F4F2FF", "surface": "#FFFFFF", "ink": "#16134A", "muted": "#5E5B86", "primary": "#5B45D6",
+    "line": "#E6E2F8", "soft": "#EEEAFE", "ok": "#1B7D58", "okBg": "#DDF4EA", "error": "#C7364A", "errorBg": "#FDE3E6",
+    "warn": "#B5611A", "warnBg": "#FFEBD3",
+    "tone": { "violet": ["#E8E3FD", "#4A37C4"], "blue": ["#DCEBFC", "#2A66AE"], "mint": ["#D6F3E7", "#17704F"], "pink": ["#FCE0E8", "#B52D58"], "orange": ["#FFEBD3", "#A85A14"] }
+  },
+  "dark": {
+    "bg": "#0C0B18", "surface": "#171530", "ink": "#F3F1FF", "muted": "#ABA8D3", "primary": "#9486FF",
+    "line": "#2A2851", "soft": "#242148", "ok": "#5ED6A5", "okBg": "#133A2D", "error": "#FF8A9A", "errorBg": "#47202A",
+    "warn": "#FFC283", "warnBg": "#46301A",
+    "tone": { "violet": ["#2A2457", "#C4BAFF"], "blue": ["#172B47", "#8CC3FF"], "mint": ["#123A2E", "#7FE0B8"], "pink": ["#43182B", "#FF9CB8"], "orange": ["#46301A", "#FFC283"] }
+  },
+  "shadow": {
+    "card": "0 10px 28px rgba(70,50,160,0.10)",
+    "button": "0 10px 22px rgba(91,69,214,0.34)",
+    "hero": "0 16px 34px rgba(91,69,214,0.38)",
+    "tabBar": "0 14px 34px rgba(50,35,140,0.18)"
+  },
+  "components": {
+    "button": { "height": 56, "shape": "pill", "fill": "gradients.primary", "text": "#FFFFFF", "weight": 700, "size": 16 },
+    "buttonSecondary": { "height": 56, "fill": "surface", "border": "primary 1.5", "text": "primary" },
+    "input": { "height": 54, "radius": 18, "border": "line 1.5", "focus": "primary + 4px halo 14%" },
+    "chip": { "height": 38, "selected": "gradients.primary + white text" },
+    "iconTile": { "size": [38, 44, 46, 56, 58], "radius": 15, "fill": "gradients.icon*", "iconColor": "#FFFFFF" },
+    "tabBar": { "style": "floating pill", "margin": 12, "radius": 28, "activeIndicator": "soft pill 46x30 behind icon" },
+    "toggle": { "size": [52, 32], "on": "gradients.primary" },
+    "toneByModule": { "ENAM": "violet", "Essalud": "blue", "Residencia Médica": "mint", "ENCAPS": "pink", "Medicina General": "violet", "Enfermería": "mint", "Obstetricia": "pink", "Odontología": "blue", "Psicología": "violet", "Nutrición": "mint" },
+    "moduleIcons": { "ENAM": "file", "Essalud": "users", "Residencia Médica": "pulse", "ENCAPS": "note", "Medicina General": "pulse", "Enfermería": "cross", "Obstetricia": "heart", "Odontología": "tooth", "Psicología": "brain", "Nutrición": "leaf" }
+  }
+}

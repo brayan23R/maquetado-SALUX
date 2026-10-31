@@ -1,0 +1,66 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+build/
+*.iml
+.flutter-plugins
+.flutter-plugins-dependencies
+*.g.dart.bak
+# Android
+**/android/key.properties
+**/android/app/*.jks
+**/android/local.properties
+**/android/.gradle/
+# Node / Next
+node_modules/
+.next/
+out/
+# Secretos
+.env
+.env.*
+!.env.example
+# Supabase local
+supabase/.temp/
+supabase/.branches/
+# IDE / SO
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+# APK generados
+*.apk
+*.aab
+
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.jks
+*.keystore
+key.properties
+node_modules/
+.next/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+coverage/
+android/local.properties
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.*
+!.env.example
+node_modules/
+.next/
+.dart_tool/
+build/
+coverage/
+android/local.properties
+*.pem
+*.key
+*.jks
+*.keystore
+key.properties
